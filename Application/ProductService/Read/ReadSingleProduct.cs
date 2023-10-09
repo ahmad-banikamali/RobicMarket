@@ -3,6 +3,7 @@ using AutoMapper;
 using Common.BaseDto;
 using Common.CQRS;
 using Domain;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,26 +12,22 @@ using System.Threading.Tasks;
 
 namespace Application.ProductService.Read
 {
-    public class ReadSingleProduct : Query<ReadSingleProductResponse, ReadSingleProductRequest>
+    public class ReadSingleProduct : IQuery<ReadSingleProductRequest,ReadSingleProductResponse>
     {
-        private readonly IDatabaseContext database;
-        private readonly IMapper mapper;
+        private readonly IDatabaseContext _database;
+        private readonly IMapper _mapper;
 
         public ReadSingleProduct(IDatabaseContext database,IMapper mapper)
         {
-            this.database = database;
-            this.mapper = mapper;
+            _database = database;
+            _mapper = mapper;
         }
-        public async Task<Response<ReadSingleProductResponse>> Execute(Request<ReadSingleProductRequest> request)
+        public Response<ReadSingleProductResponse> Execute(Request<ReadSingleProductRequest> request)
         {
-
-            var y = request();
-            var x = mapper.Map<Product>(y);
-
-            var product = await database.Products.FindAsync(x);
-
+            var product =   _database.Products.FirstOrDefault(p=>p.Id==request.Data.Id);
+            var data = _mapper.Map<ReadSingleProductResponse>(product);
             return new Response<ReadSingleProductResponse> {
-                Data = mapper.Map<ReadSingleProductResponse>(product),
+                Data = data,
             };
         }
     }

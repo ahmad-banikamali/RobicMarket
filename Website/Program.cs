@@ -1,6 +1,8 @@
 using Application;
 using Application.ProductService.Create;
+using Application.ProductService.Delete;
 using Application.ProductService.Read;
+using Application.ProductService.Update;
 using Application.Utils;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
@@ -10,17 +12,24 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+
+
 builder.Services.AddDbContext<SqlServerContext>(option => {
     var sqlServerConnectionString = builder.Configuration.GetConnectionString("SqlServer");
     option.UseSqlServer(sqlServerConnectionString);
 });
 
-builder.Services.AddAutoMapper(typeof(Mapper));
-
-builder.Services.AddTransient<IDatabaseContext,SqlServerContext>() ;
-
+builder.Services.AddAutoMapper(typeof(Mapper)); 
+builder.Services.AddTransient<IDatabaseContext,SqlServerContext>() ; 
 builder.Services.AddTransient<CreateProduct>();
 builder.Services.AddTransient<ReadSingleProduct>();
+builder.Services.AddTransient<ReadPaginatedProducts>();
+builder.Services.AddTransient<UpdateProduct>();
+builder.Services.AddTransient<DeleteProduct>();
+
+
+
 
 var app = builder.Build();
 

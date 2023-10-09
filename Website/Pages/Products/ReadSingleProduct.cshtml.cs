@@ -8,16 +8,17 @@ namespace Website.Pages.Products
 {
     public class ReadSingleProductModel : PageModel
     {
-        private readonly ReadSingleProduct readSingleProduct;
+        private readonly ReadSingleProduct _readSingleProduct;
         public ReadSingleProductResponse? ReadSingleProductResponse { get; set; }
 
         public ReadSingleProductModel(ReadSingleProduct readSingleProduct)
         {
-            this.readSingleProduct = readSingleProduct;
+            this._readSingleProduct = readSingleProduct;
         }
-        public async void OnGet()
+
+        public void OnGet([FromRoute] int id)
         {
-            Response<ReadSingleProductResponse> response =await readSingleProduct.Execute(request: ()=>new ReadSingleProductRequest {Id = 1});
+            var response = _readSingleProduct.Execute(new Request<ReadSingleProductRequest>(new ReadSingleProductRequest { Id = id }) );
             ReadSingleProductResponse = response.Data;
         }
     }

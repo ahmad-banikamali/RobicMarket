@@ -6,24 +6,22 @@ using Domain;
 
 namespace Application.ProductService.Create
 {
-    public class CreateProduct : Command<CreateProductRequest>
+    public class CreateProduct : ICommand<CreateProductRequest>
     {
-        private readonly IDatabaseContext database;
-        private readonly IMapper mapper;
+        private readonly IDatabaseContext _database;
+        private readonly IMapper _mapper;
 
-        public CreateProduct(IDatabaseContext database,IMapper mapper)
+        public CreateProduct(IDatabaseContext database, IMapper mapper)
         {
-            this.database = database;
-            this.mapper = mapper;
+            _database = database;
+            _mapper = mapper;
         }
 
-        public async Task<Response> Execute(Request<CreateProductRequest> request)
+        public Response Execute(Request<CreateProductRequest> request)
         {
-           await database.Products.AddAsync(mapper.Map<Product>(request()));
-           database.SaveChanges();
-           return new Response();
+            _database.Products.Add(_mapper.Map<Product>(request.Data));
+            _database.SaveChanges();
+            return new Response();
         }
     }
-
-    
 }

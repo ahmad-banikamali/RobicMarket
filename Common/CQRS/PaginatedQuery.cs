@@ -2,8 +2,9 @@
 
 namespace Common.CQRS
 {
-    public interface PaginatedQuery<Res, Req>
+    public interface IPaginatedQuery<TReq,TRes>
     {
-        Task<PaginatedResponse<Res>> Execute(Request<Req> request);
+        PaginatedResponse<TRes> Execute(Request<TReq> request);
     }
 }
+    

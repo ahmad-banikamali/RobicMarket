@@ -25,6 +25,8 @@ namespace Domain
 
         public int Inventory { get; set; }
         public string Review { get; set; }
+        
+        public ICollection<Comment> Comments { get; set; } = new List<Comment>();
 
     }
 

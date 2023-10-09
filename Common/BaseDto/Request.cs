@@ -6,6 +6,14 @@ using System.Threading.Tasks;
 
 namespace Common.BaseDto
 {
-    public delegate T Request<T>();
+    public class  Request <T> 
+    {
+        public Request( T data )
+        {
+            Data = data;
+        }
+        public T Data { get; }
+    }
+ 
 
 }

@@ -2,8 +2,12 @@
 
 namespace Common.CQRS
 {
-    public interface Command<Req>
+    public interface ICommand<TReq>
     {
-        Task<Response> Execute(Request<Req> request);
+       Response Execute(Request<TReq> request);
+    } 
+    public interface ICommand
+    {
+       Response Execute();
     } 
 }

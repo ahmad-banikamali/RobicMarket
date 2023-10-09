@@ -8,14 +8,14 @@ namespace Website.Pages.Products
 {
     public class CreateProductModel : PageModel
     {
-        private readonly CreateProduct createProduct;
+        private readonly CreateProduct _createProduct;
 
         [BindProperty]
         public CreateProductRequest CreateProductRequest { get; set; }
 
         public CreateProductModel(CreateProduct createProduct)
         {
-            this.createProduct = createProduct;
+            this._createProduct = createProduct;
         }
 
         public void OnGet()
@@ -24,9 +24,8 @@ namespace Website.Pages.Products
         }
 
 
-        public async void OnPost() {
-            Response response = await createProduct.Execute(() => CreateProductRequest);
-            
+        public  Response OnPost() {
+            return  _createProduct.Execute(new Request<CreateProductRequest>(CreateProductRequest));
         }
     }
 }

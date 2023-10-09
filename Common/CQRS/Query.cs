@@ -2,9 +2,9 @@
 
 namespace Common.CQRS
 {
-    public interface Query<ResponseType, RequestType>
+    public interface IQuery<TRequest,TResponse>
     {
 
-       Task<Response<ResponseType>> Execute(Request<RequestType> request);
+      Response<TResponse> Execute(Request<TRequest> request);
     }
 }
