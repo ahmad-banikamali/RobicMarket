@@ -1,6 +1,5 @@
-using Application.ProductService.Read;
-using Application.ProductService.Read.Dto;
-using Common.BaseDto;
+using Application.ProductService.Query.ReadSingleProduct;
+using Application.ProductService.Query.ReadSingleProduct.Dto;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -18,7 +17,7 @@ namespace Website.Pages.Products
 
         public void OnGet([FromRoute] int id)
         {
-            var response = _readSingleProduct.Execute(new Request<ReadSingleProductRequest>(new ReadSingleProductRequest { Id = id }) );
+            var response = _readSingleProduct.Execute(new ReadSingleProductRequest { Id = id } );
             ReadSingleProductResponse = response.Data;
         }
     }

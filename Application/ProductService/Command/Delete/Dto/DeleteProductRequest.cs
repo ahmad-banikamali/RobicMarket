@@ -1,4 +1,4 @@
-﻿namespace Application.ProductService.Delete.Dto;
+﻿namespace Application.ProductService.Command.Delete.Dto;
 
 public class DeleteProductRequest
 {

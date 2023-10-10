@@ -1,13 +1,22 @@
-﻿using Common.BaseDto; 
+﻿using AutoMapper;
+using Common.BaseDto; 
 
 namespace Common.CQRS
 {
-    public interface ICommand<TReq>
-    {
-       Response Execute(Request<TReq> request);
-    } 
-    public interface ICommand
-    {
-       Response Execute();
-    } 
+    public abstract class Command<TReq>
+    { 
+        protected readonly IMapper Mapper;
+        protected readonly IDatabaseContext DatabaseContext;
+
+        protected Command(IDatabaseContext databaseContext, IMapper mapper)
+        {
+            DatabaseContext = databaseContext;
+            Mapper = mapper;
+        }
+
+        public abstract Response Execute(TReq request);
+        
+    }
+
+ 
 }

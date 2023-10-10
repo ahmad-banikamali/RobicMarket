@@ -1,6 +1,6 @@
 ﻿using Application.ProductService.Common;
 
-namespace Application.ProductService.Update.Dto;
+namespace Application.ProductService.Command.Update.Dto;
 
 public class UpdateProductRequest
 {

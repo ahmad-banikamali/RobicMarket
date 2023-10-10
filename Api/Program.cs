@@ -1,9 +1,12 @@
-using Application;
-using Application.ProductService.Create;
-using Application.ProductService.Delete;
-using Application.ProductService.Read;
-using Application.ProductService.Update;
+using Application.CommentService.Command.Create;
+using Application.CommentService.Query.ReadMultipleComments;
+using Application.ProductService.Command.Create;
+using Application.ProductService.Command.Delete;
+using Application.ProductService.Command.Update;
+using Application.ProductService.Query.ReadMultiProducts;
+using Application.ProductService.Query.ReadSingleProduct;
 using Application.Utils;
+using Common;
 using Microsoft.EntityFrameworkCore;
 using Repository.DatabaseContext;
 
@@ -17,20 +20,25 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
-
-builder.Services.AddDbContext<SqlServerContext>(option => {
+builder.Services.AddDbContext<SqlServerContext>(option =>
+{
     var sqlServerConnectionString = builder.Configuration.GetConnectionString("SqlServer");
     option.UseSqlServer(sqlServerConnectionString);
 });
+builder.Services.AddAutoMapper(
+    typeof(ProductMapper),
+    typeof(CommentMapper)
+);
 
-builder.Services.AddAutoMapper(typeof(Mapper)); 
-builder.Services.AddTransient<IDatabaseContext,SqlServerContext>() ; 
+builder.Services.AddTransient<IDatabaseContext, SqlServerContext>();
 builder.Services.AddTransient<CreateProduct>();
 builder.Services.AddTransient<ReadSingleProduct>();
-builder.Services.AddTransient<ReadPaginatedProducts>(); 
+builder.Services.AddTransient<ReadPaginatedProducts>();
 builder.Services.AddTransient<UpdateProduct>();
-builder.Services.AddTransient<DeleteProduct>();
-builder.Services.AddTransient<DeleteAllProducts>();
+builder.Services.AddTransient<DeleteProduct>(); 
+
+builder.Services.AddTransient<CreateComment>();
+builder.Services.AddTransient<ReadMultipleComments>();
 
 
 var app = builder.Build();

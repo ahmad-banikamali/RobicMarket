@@ -1,16 +1,17 @@
-﻿using Application.ProductService.Common;
-using Application.ProductService.Create.Dto;
-using Application.ProductService.Delete.Dto;
-using Application.ProductService.Read.Dto;
-using Application.ProductService.Update.Dto;
+﻿using Application.ProductService.Command.Create.Dto;
+using Application.ProductService.Command.Delete.Dto;
+using Application.ProductService.Command.Update.Dto;
+using Application.ProductService.Common;
+using Application.ProductService.Query.ReadMultiProducts.Dto;
+using Application.ProductService.Query.ReadSingleProduct.Dto;
 using AutoMapper;
 using Domain;
 
 namespace Application.Utils
 {
-    public class Mapper : Profile
+    public class ProductMapper : Profile
     {
-        public Mapper()
+        public ProductMapper()
         {
             CreateMap<Color, ColorDto>().ReverseMap();
             CreateMap<GuaranteeType, GuaranteeTypeDto>().ReverseMap();

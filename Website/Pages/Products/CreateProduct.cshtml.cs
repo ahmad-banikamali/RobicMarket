@@ -1,5 +1,5 @@
-using Application.ProductService.Create;
-using Application.ProductService.Create.Dto;
+using Application.ProductService.Command.Create;
+using Application.ProductService.Command.Create.Dto;
 using Common.BaseDto;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages; 
@@ -25,7 +25,7 @@ namespace Website.Pages.Products
 
 
         public  Response OnPost() {
-            return  _createProduct.Execute(new Request<CreateProductRequest>(CreateProductRequest));
+            return  _createProduct.Execute(CreateProductRequest);
         }
     }
 }

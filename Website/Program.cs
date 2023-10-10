@@ -1,10 +1,12 @@
 using Application;
-using Application.ProductService.Create;
-using Application.ProductService.Delete;
-using Application.ProductService.Read;
-using Application.ProductService.Update;
+using Application.CommentService.Command.Create;
+using Application.ProductService.Command.Create;
+using Application.ProductService.Command.Delete;
+using Application.ProductService.Command.Update;
+using Application.ProductService.Query.ReadMultiProducts;
+using Application.ProductService.Query.ReadSingleProduct;
 using Application.Utils;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Common;
 using Microsoft.EntityFrameworkCore;
 using Repository.DatabaseContext;
 
@@ -14,21 +16,25 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 
 
-
-builder.Services.AddDbContext<SqlServerContext>(option => {
+builder.Services.AddDbContext<SqlServerContext>(option =>
+{
     var sqlServerConnectionString = builder.Configuration.GetConnectionString("SqlServer");
     option.UseSqlServer(sqlServerConnectionString);
 });
 
-builder.Services.AddAutoMapper(typeof(Mapper)); 
-builder.Services.AddTransient<IDatabaseContext,SqlServerContext>() ; 
+builder.Services.AddAutoMapper(
+    typeof(ProductMapper),
+    typeof(CommentMapper)
+);
+
+builder.Services.AddTransient<IDatabaseContext, SqlServerContext>();
 builder.Services.AddTransient<CreateProduct>();
 builder.Services.AddTransient<ReadSingleProduct>();
 builder.Services.AddTransient<ReadPaginatedProducts>();
 builder.Services.AddTransient<UpdateProduct>();
 builder.Services.AddTransient<DeleteProduct>();
 
-
+builder.Services.AddTransient<CreateComment>();
 
 
 var app = builder.Build();

@@ -33,7 +33,7 @@ namespace Repository.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 4, 0, 6, 35, 791, DateTimeKind.Local).AddTicks(8394));
+                        .HasDefaultValue(new DateTime(2023, 10, 10, 15, 19, 57, 450, DateTimeKind.Local).AddTicks(9794));
 
                     b.Property<bool>("IsRemoved")
                         .ValueGeneratedOnAdd()
@@ -60,6 +60,49 @@ namespace Repository.Migrations
                     b.ToTable("Color");
                 });
 
+            modelBuilder.Entity("Domain.Comment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("CommentId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("InsertTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2023, 10, 10, 15, 19, 57, 451, DateTimeKind.Local).AddTicks(1429));
+
+                    b.Property<bool>("IsRemoved")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("RemoveTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdateTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CommentId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Comments");
+                });
+
             modelBuilder.Entity("Domain.GuaranteeType", b =>
                 {
                     b.Property<int>("Id")
@@ -71,7 +114,7 @@ namespace Repository.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 4, 0, 6, 35, 792, DateTimeKind.Local).AddTicks(510));
+                        .HasDefaultValue(new DateTime(2023, 10, 10, 15, 19, 57, 451, DateTimeKind.Local).AddTicks(3630));
 
                     b.Property<bool>("IsRemoved")
                         .ValueGeneratedOnAdd()
@@ -109,7 +152,7 @@ namespace Repository.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 4, 0, 6, 35, 792, DateTimeKind.Local).AddTicks(2368));
+                        .HasDefaultValue(new DateTime(2023, 10, 10, 15, 19, 57, 451, DateTimeKind.Local).AddTicks(5434));
 
                     b.Property<bool>("IsRemoved")
                         .ValueGeneratedOnAdd()
@@ -151,7 +194,7 @@ namespace Repository.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 4, 0, 6, 35, 792, DateTimeKind.Local).AddTicks(4419));
+                        .HasDefaultValue(new DateTime(2023, 10, 10, 15, 19, 57, 451, DateTimeKind.Local).AddTicks(7542));
 
                     b.Property<int>("Inventory")
                         .HasColumnType("int");
@@ -197,6 +240,21 @@ namespace Repository.Migrations
                         .HasForeignKey("ProductId");
                 });
 
+            modelBuilder.Entity("Domain.Comment", b =>
+                {
+                    b.HasOne("Domain.Comment", null)
+                        .WithMany("AnswerComments")
+                        .HasForeignKey("CommentId");
+
+                    b.HasOne("Domain.Product", "Product")
+                        .WithMany("Comments")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("Domain.GuaranteeType", b =>
                 {
                     b.HasOne("Domain.Product", null)
@@ -211,9 +269,16 @@ namespace Repository.Migrations
                         .HasForeignKey("ProductId");
                 });
 
+            modelBuilder.Entity("Domain.Comment", b =>
+                {
+                    b.Navigation("AnswerComments");
+                });
+
             modelBuilder.Entity("Domain.Product", b =>
                 {
                     b.Navigation("Colors");
+
+                    b.Navigation("Comments");
 
                     b.Navigation("GuaranteeTypes");
 

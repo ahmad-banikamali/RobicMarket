@@ -1,10 +1,18 @@
-﻿using Common.BaseDto; 
+﻿using AutoMapper;
+using Common.BaseDto; 
 
 namespace Common.CQRS
 {
-    public interface IQuery<TRequest,TResponse>
+    public abstract class Query<TRequest, TResponse>
     {
+        protected readonly IDatabaseContext DatabaseContext; 
+        protected readonly IMapper Mapper;
+        protected Query(IDatabaseContext databaseContext, IMapper mapper)
+        {
+            DatabaseContext = databaseContext;
+            Mapper = mapper;
+        }
 
-      Response<TResponse> Execute(Request<TRequest> request);
+        public abstract Response<TResponse> Execute(TRequest request);
     }
 }

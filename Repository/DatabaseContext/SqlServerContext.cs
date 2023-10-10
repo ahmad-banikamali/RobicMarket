@@ -1,6 +1,8 @@
 ﻿using Application;
+using Common;
 using Domain;
-using Microsoft.EntityFrameworkCore; 
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Repository.DatabaseContext
 {
@@ -27,8 +29,9 @@ namespace Repository.DatabaseContext
             }
             base.OnConfiguring(optionsBuilder);
         }
-
-
+        
+        public EntityEntry<Product> ProductEntityEntry(Product product) => Entry(product);
+        public EntityEntry<Comment> CommentEntityEntry(Comment comment) => Entry(comment);
         public DbSet<Product> Products { get; set; }
         public DbSet<Comment> Comments { get; set; }
 

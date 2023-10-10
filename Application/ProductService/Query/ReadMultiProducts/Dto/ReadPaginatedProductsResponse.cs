@@ -1,4 +1,4 @@
-﻿namespace Application.ProductService.Read.Dto;
+﻿namespace Application.ProductService.Query.ReadMultiProducts.Dto;
 public class ReadPaginatedProductsResponse
     { 
         public string Name { get; set; } 

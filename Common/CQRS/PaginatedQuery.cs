@@ -1,10 +1,19 @@
-﻿using Common.BaseDto; 
+﻿using AutoMapper;
+using Common.BaseDto; 
 
 namespace Common.CQRS
 {
-    public interface IPaginatedQuery<TReq,TRes>
+    public abstract class PaginatedQuery<TReq,TRes>
     {
-        PaginatedResponse<TRes> Execute(Request<TReq> request);
+        protected readonly IDatabaseContext DatabaseContext;
+        protected readonly IMapper Mapper;
+
+        protected PaginatedQuery(IDatabaseContext databaseContext, IMapper mapper)
+        {
+            DatabaseContext = databaseContext;
+            Mapper = mapper;
+        }
+        public abstract PaginatedResponse<TRes> Execute(TReq request);
     }
 }
     
