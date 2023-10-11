@@ -33,7 +33,7 @@ namespace Repository.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 10, 15, 19, 57, 450, DateTimeKind.Local).AddTicks(9794));
+                        .HasDefaultValue(new DateTime(2023, 10, 11, 16, 3, 39, 316, DateTimeKind.Local).AddTicks(1574));
 
                     b.Property<bool>("IsRemoved")
                         .ValueGeneratedOnAdd()
@@ -68,18 +68,18 @@ namespace Repository.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("CommentId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 10, 15, 19, 57, 451, DateTimeKind.Local).AddTicks(1429));
+                        .HasDefaultValue(new DateTime(2023, 10, 11, 16, 3, 39, 316, DateTimeKind.Local).AddTicks(3155));
 
                     b.Property<bool>("IsRemoved")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
+
+                    b.Property<int?>("ParentCommentId")
+                        .HasColumnType("int");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
@@ -96,7 +96,7 @@ namespace Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CommentId");
+                    b.HasIndex("ParentCommentId");
 
                     b.HasIndex("ProductId");
 
@@ -114,7 +114,7 @@ namespace Repository.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 10, 15, 19, 57, 451, DateTimeKind.Local).AddTicks(3630));
+                        .HasDefaultValue(new DateTime(2023, 10, 11, 16, 3, 39, 316, DateTimeKind.Local).AddTicks(5346));
 
                     b.Property<bool>("IsRemoved")
                         .ValueGeneratedOnAdd()
@@ -152,7 +152,7 @@ namespace Repository.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 10, 15, 19, 57, 451, DateTimeKind.Local).AddTicks(5434));
+                        .HasDefaultValue(new DateTime(2023, 10, 11, 16, 3, 39, 316, DateTimeKind.Local).AddTicks(7282));
 
                     b.Property<bool>("IsRemoved")
                         .ValueGeneratedOnAdd()
@@ -179,6 +179,86 @@ namespace Repository.Migrations
                     b.ToTable("ImageUrl");
                 });
 
+            modelBuilder.Entity("Domain.MajorKeyProductDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("InsertTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2023, 10, 11, 16, 3, 39, 316, DateTimeKind.Local).AddTicks(9084));
+
+                    b.Property<bool>("IsRemoved")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("RemoveTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("UpdateTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MajorKeyProductDetails");
+                });
+
+            modelBuilder.Entity("Domain.MinorKeyProductDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("DetailMajorKeyId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("InsertTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2023, 10, 11, 16, 3, 39, 317, DateTimeKind.Local).AddTicks(774));
+
+                    b.Property<bool>("IsRemoved")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("Key")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("MajorKeyProductDetailId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductDetailId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("RemoveTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("UpdateTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MajorKeyProductDetailId");
+
+                    b.HasIndex("ProductDetailId")
+                        .IsUnique();
+
+                    b.ToTable("MinorKeyProductDetails");
+                });
+
             modelBuilder.Entity("Domain.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -194,7 +274,7 @@ namespace Repository.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 10, 15, 19, 57, 451, DateTimeKind.Local).AddTicks(7542));
+                        .HasDefaultValue(new DateTime(2023, 10, 11, 16, 3, 39, 317, DateTimeKind.Local).AddTicks(3159));
 
                     b.Property<int>("Inventory")
                         .HasColumnType("int");
@@ -233,6 +313,47 @@ namespace Repository.Migrations
                     b.ToTable("Products");
                 });
 
+            modelBuilder.Entity("Domain.ProductDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("DetailMinorKeyId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("InsertTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2023, 10, 11, 16, 3, 39, 317, DateTimeKind.Local).AddTicks(5752));
+
+                    b.Property<bool>("IsRemoved")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("RemoveTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("UpdateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductDetails");
+                });
+
             modelBuilder.Entity("Domain.Color", b =>
                 {
                     b.HasOne("Domain.Product", null)
@@ -242,15 +363,18 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Domain.Comment", b =>
                 {
-                    b.HasOne("Domain.Comment", null)
+                    b.HasOne("Domain.Comment", "ParentComment")
                         .WithMany("AnswerComments")
-                        .HasForeignKey("CommentId");
+                        .HasForeignKey("ParentCommentId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Domain.Product", "Product")
                         .WithMany("Comments")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("ParentComment");
 
                     b.Navigation("Product");
                 });
@@ -269,9 +393,44 @@ namespace Repository.Migrations
                         .HasForeignKey("ProductId");
                 });
 
+            modelBuilder.Entity("Domain.MinorKeyProductDetail", b =>
+                {
+                    b.HasOne("Domain.MajorKeyProductDetail", "MajorKeyProductDetail")
+                        .WithMany("DetailMinorKeys")
+                        .HasForeignKey("MajorKeyProductDetailId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.ProductDetail", "ProductDetail")
+                        .WithOne("MinorKeyProductDetail")
+                        .HasForeignKey("Domain.MinorKeyProductDetail", "ProductDetailId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("MajorKeyProductDetail");
+
+                    b.Navigation("ProductDetail");
+                });
+
+            modelBuilder.Entity("Domain.ProductDetail", b =>
+                {
+                    b.HasOne("Domain.Product", "Product")
+                        .WithMany("ProductDetails")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("Domain.Comment", b =>
                 {
                     b.Navigation("AnswerComments");
+                });
+
+            modelBuilder.Entity("Domain.MajorKeyProductDetail", b =>
+                {
+                    b.Navigation("DetailMinorKeys");
                 });
 
             modelBuilder.Entity("Domain.Product", b =>
@@ -283,6 +442,14 @@ namespace Repository.Migrations
                     b.Navigation("GuaranteeTypes");
 
                     b.Navigation("ImageUrls");
+
+                    b.Navigation("ProductDetails");
+                });
+
+            modelBuilder.Entity("Domain.ProductDetail", b =>
+                {
+                    b.Navigation("MinorKeyProductDetail")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

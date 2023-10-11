@@ -34,6 +34,10 @@ namespace Repository.DatabaseContext
         public EntityEntry<Comment> CommentEntityEntry(Comment comment) => Entry(comment);
         public DbSet<Product> Products { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        
+        public DbSet<ProductDetail> ProductDetails { get; set; }
+        public DbSet<MinorKeyProductDetail> MinorKeyProductDetails { get; set; }
+        public DbSet<MajorKeyProductDetail> MajorKeyProductDetails { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         { 
@@ -48,7 +52,16 @@ namespace Repository.DatabaseContext
             builder.Entity<Product>()
                 .HasQueryFilter(m => EF.Property<bool>(m, "IsRemoved") == false);  
              
-
+            builder.Entity<Comment>(entity =>
+            {
+                entity.HasKey(x => x.Id); 
+                entity.HasOne(x=> x.ParentComment)
+                    .WithMany(x=> x.AnswerComments)
+                    .HasForeignKey(x=> x.ParentCommentId)
+                    .IsRequired(false)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
+            
             base.OnModelCreating(builder);
         }
 

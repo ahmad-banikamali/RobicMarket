@@ -19,7 +19,7 @@ public class ReadSingleProductResponse
         public int Inventory { get; set; }
         public string Review { get; set; }
         
-        public ICollection<CommentWithProduct> Comments { get; set; } = new List<CommentWithProduct>();
+        public ICollection<CommentWithProduct>? Comments { get; set; } 
 
     }
 

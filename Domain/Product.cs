@@ -28,6 +28,7 @@ namespace Domain
         
         public ICollection<Comment> Comments { get; set; } = new List<Comment>();
 
+        public ICollection<ProductDetail> ProductDetails { get; set; } = new List<ProductDetail>();
     }
 
     public class Color

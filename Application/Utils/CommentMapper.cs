@@ -1,4 +1,5 @@
-﻿using Application.CommentService.Command.Create.Dto;
+﻿using Application.CommentService.Command.Create.AnswerComment.Dto;
+using Application.CommentService.Command.Create.ParentComment.Dto;
 using Application.CommentService.Query.ReadMultipleComments.Dto;
 using Application.ProductService.Query.ReadSingleProduct.Dto;
 using AutoMapper;
@@ -11,10 +12,10 @@ namespace Application.Utils
     {
         public CommentMapper()
         {
-            CreateMap<Comment, CreateCommentRequest>().ReverseMap();
+            CreateMap<Comment, CreateParentCommentRequest>().ReverseMap();
+            CreateMap<Comment, CreateAnswerCommentRequest>().ReverseMap();
             CreateMap<Comment, CommentWithProduct>().ReverseMap();
-            CreateMap<Comment, CommentWithProduct>().ReverseMap();
-            
+            CreateMap<Comment, CommentWithProduct>().ReverseMap(); 
             CreateMap<Comment, ReadMultipleCommentsResponse>().ReverseMap();
         }
     }

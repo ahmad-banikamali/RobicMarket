@@ -12,6 +12,10 @@ namespace Common
         DbSet<Product> Products { get; } 
         DbSet<Comment> Comments { get;  }
         
+        public DbSet<ProductDetail> ProductDetails { get; set; }
+        public DbSet<MinorKeyProductDetail> MinorKeyProductDetails { get; set; }
+        public DbSet<MajorKeyProductDetail> MajorKeyProductDetails { get; set; }
+        
         int SaveChanges();
     }
 }

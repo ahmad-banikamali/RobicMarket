@@ -1,4 +1,6 @@
 using Application.CommentService.Command.Create;
+using Application.CommentService.Command.Create.AnswerComment;
+using Application.CommentService.Command.Create.ParentComment;
 using Application.CommentService.Query.ReadMultipleComments;
 using Application.ProductService.Command.Create;
 using Application.ProductService.Command.Delete;
@@ -37,7 +39,8 @@ builder.Services.AddTransient<ReadPaginatedProducts>();
 builder.Services.AddTransient<UpdateProduct>();
 builder.Services.AddTransient<DeleteProduct>(); 
 
-builder.Services.AddTransient<CreateComment>();
+builder.Services.AddTransient<CreateParentComment>();
+builder.Services.AddTransient<CreateAnswerComment>();
 builder.Services.AddTransient<ReadMultipleComments>();
 
 

@@ -1,5 +1,7 @@
-﻿using Application.CommentService.Command.Create;
-using Application.CommentService.Command.Create.Dto;
+﻿using Application.CommentService.Command.Create.AnswerComment;
+using Application.CommentService.Command.Create.AnswerComment.Dto;
+using Application.CommentService.Command.Create.ParentComment;
+using Application.CommentService.Command.Create.ParentComment.Dto;
 using Application.CommentService.Query.ReadMultipleComments;
 using Application.CommentService.Query.ReadMultipleComments.Dto;
 using Common.BaseDto;
@@ -11,25 +13,35 @@ namespace Api.Controllers;
 [ApiController]
 public class CommentController : ControllerBase
 {
-    private readonly CreateComment _createComment;
+    private readonly CreateParentComment _createParentComment;
+    private readonly CreateAnswerComment _createAnswerComment;
     private readonly ReadMultipleComments _readMultipleComments;
 
-    public CommentController(CreateComment createComment,ReadMultipleComments readMultipleComments)
+    public CommentController(CreateParentComment createParentComment,
+        CreateAnswerComment createAnswerComment,
+        ReadMultipleComments readMultipleComments)
     {
-        _createComment = createComment;
+        _createParentComment = createParentComment;
+        _createAnswerComment = createAnswerComment;
         _readMultipleComments = readMultipleComments;
     }
-    
-    [HttpPost]
-    public Response OnPost(CreateCommentRequest request)
+
+    [HttpPost(template:"commentToProduct")]
+    public Response OnPost(CreateParentCommentRequest request)
     {
-        return _createComment.Execute(request);
+        return _createParentComment.Execute(request);
     }
-    
+
+
+    [HttpPost(template:"answerToComment")]
+    public Response OnPost(CreateAnswerCommentRequest request)
+    {
+        return _createAnswerComment.Execute(request);
+    }
+
     [HttpGet]
     public PaginatedResponse<ReadMultipleCommentsResponse> OnGet([FromQuery] ReadMultipleCommentsRequest request)
     {
         return _readMultipleComments.Execute(request);
     }
-    
 }
