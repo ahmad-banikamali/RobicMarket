@@ -21,7 +21,7 @@ namespace Website.Pages.Products
         public void OnGet()
         {
             
-        }
+        } 
 
 
         public  Response OnPost() {

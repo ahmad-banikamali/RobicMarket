@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Domain
+﻿namespace Domain
 {
     public class Product
     {
@@ -28,7 +21,7 @@ namespace Domain
         
         public ICollection<Comment> Comments { get; set; } = new List<Comment>();
 
-        public ICollection<ProductDetail> ProductDetails { get; set; } = new List<ProductDetail>();
+        public ICollection<ProductDetailItem> ProductDetails { get; set; } = new List<ProductDetailItem>();
     }
 
     public class Color

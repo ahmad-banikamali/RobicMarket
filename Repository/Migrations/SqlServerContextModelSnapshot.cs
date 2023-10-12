@@ -33,7 +33,7 @@ namespace Repository.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 11, 16, 3, 39, 316, DateTimeKind.Local).AddTicks(1574));
+                        .HasDefaultValue(new DateTime(2023, 10, 12, 16, 44, 3, 0, DateTimeKind.Local).AddTicks(2316));
 
                     b.Property<bool>("IsRemoved")
                         .ValueGeneratedOnAdd()
@@ -71,7 +71,7 @@ namespace Repository.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 11, 16, 3, 39, 316, DateTimeKind.Local).AddTicks(3155));
+                        .HasDefaultValue(new DateTime(2023, 10, 12, 16, 44, 3, 0, DateTimeKind.Local).AddTicks(3912));
 
                     b.Property<bool>("IsRemoved")
                         .ValueGeneratedOnAdd()
@@ -114,7 +114,7 @@ namespace Repository.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 11, 16, 3, 39, 316, DateTimeKind.Local).AddTicks(5346));
+                        .HasDefaultValue(new DateTime(2023, 10, 12, 16, 44, 3, 0, DateTimeKind.Local).AddTicks(5717));
 
                     b.Property<bool>("IsRemoved")
                         .ValueGeneratedOnAdd()
@@ -152,7 +152,7 @@ namespace Repository.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 11, 16, 3, 39, 316, DateTimeKind.Local).AddTicks(7282));
+                        .HasDefaultValue(new DateTime(2023, 10, 12, 16, 44, 3, 0, DateTimeKind.Local).AddTicks(7976));
 
                     b.Property<bool>("IsRemoved")
                         .ValueGeneratedOnAdd()
@@ -179,7 +179,7 @@ namespace Repository.Migrations
                     b.ToTable("ImageUrl");
                 });
 
-            modelBuilder.Entity("Domain.MajorKeyProductDetail", b =>
+            modelBuilder.Entity("Domain.MajorKey", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -190,7 +190,7 @@ namespace Repository.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 11, 16, 3, 39, 316, DateTimeKind.Local).AddTicks(9084));
+                        .HasDefaultValue(new DateTime(2023, 10, 12, 16, 44, 3, 0, DateTimeKind.Local).AddTicks(9657));
 
                     b.Property<bool>("IsRemoved")
                         .ValueGeneratedOnAdd()
@@ -209,10 +209,10 @@ namespace Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("MajorKeyProductDetails");
+                    b.ToTable("MajorKey");
                 });
 
-            modelBuilder.Entity("Domain.MinorKeyProductDetail", b =>
+            modelBuilder.Entity("Domain.MinorKey", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -220,28 +220,22 @@ namespace Repository.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("DetailMajorKeyId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 11, 16, 3, 39, 317, DateTimeKind.Local).AddTicks(774));
+                        .HasDefaultValue(new DateTime(2023, 10, 12, 16, 44, 3, 1, DateTimeKind.Local).AddTicks(1158));
 
                     b.Property<bool>("IsRemoved")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
 
-                    b.Property<string>("Key")
+                    b.Property<int>("MajorKeyId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("MajorKeyProductDetailId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductDetailId")
-                        .HasColumnType("int");
 
                     b.Property<DateTime?>("RemoveTime")
                         .HasColumnType("datetime2");
@@ -251,12 +245,9 @@ namespace Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MajorKeyProductDetailId");
+                    b.HasIndex("MajorKeyId");
 
-                    b.HasIndex("ProductDetailId")
-                        .IsUnique();
-
-                    b.ToTable("MinorKeyProductDetails");
+                    b.ToTable("MinorKey");
                 });
 
             modelBuilder.Entity("Domain.Product", b =>
@@ -274,7 +265,7 @@ namespace Repository.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 11, 16, 3, 39, 317, DateTimeKind.Local).AddTicks(3159));
+                        .HasDefaultValue(new DateTime(2023, 10, 12, 16, 44, 3, 1, DateTimeKind.Local).AddTicks(3161));
 
                     b.Property<int>("Inventory")
                         .HasColumnType("int");
@@ -313,7 +304,7 @@ namespace Repository.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("Domain.ProductDetail", b =>
+            modelBuilder.Entity("Domain.ProductDetailItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -321,18 +312,18 @@ namespace Repository.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("DetailMinorKeyId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 11, 16, 3, 39, 317, DateTimeKind.Local).AddTicks(5752));
+                        .HasDefaultValue(new DateTime(2023, 10, 12, 16, 44, 3, 1, DateTimeKind.Local).AddTicks(5591));
 
                     b.Property<bool>("IsRemoved")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
+
+                    b.Property<int>("MinorKeyId")
+                        .HasColumnType("int");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
@@ -348,6 +339,8 @@ namespace Repository.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("MinorKeyId");
 
                     b.HasIndex("ProductId");
 
@@ -393,32 +386,32 @@ namespace Repository.Migrations
                         .HasForeignKey("ProductId");
                 });
 
-            modelBuilder.Entity("Domain.MinorKeyProductDetail", b =>
+            modelBuilder.Entity("Domain.MinorKey", b =>
                 {
-                    b.HasOne("Domain.MajorKeyProductDetail", "MajorKeyProductDetail")
-                        .WithMany("DetailMinorKeys")
-                        .HasForeignKey("MajorKeyProductDetailId")
+                    b.HasOne("Domain.MajorKey", "MajorKey")
+                        .WithMany("MinorKeys")
+                        .HasForeignKey("MajorKeyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.ProductDetail", "ProductDetail")
-                        .WithOne("MinorKeyProductDetail")
-                        .HasForeignKey("Domain.MinorKeyProductDetail", "ProductDetailId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("MajorKeyProductDetail");
-
-                    b.Navigation("ProductDetail");
+                    b.Navigation("MajorKey");
                 });
 
-            modelBuilder.Entity("Domain.ProductDetail", b =>
+            modelBuilder.Entity("Domain.ProductDetailItem", b =>
                 {
+                    b.HasOne("Domain.MinorKey", "MinorKey")
+                        .WithMany()
+                        .HasForeignKey("MinorKeyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Domain.Product", "Product")
                         .WithMany("ProductDetails")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("MinorKey");
 
                     b.Navigation("Product");
                 });
@@ -428,9 +421,9 @@ namespace Repository.Migrations
                     b.Navigation("AnswerComments");
                 });
 
-            modelBuilder.Entity("Domain.MajorKeyProductDetail", b =>
+            modelBuilder.Entity("Domain.MajorKey", b =>
                 {
-                    b.Navigation("DetailMinorKeys");
+                    b.Navigation("MinorKeys");
                 });
 
             modelBuilder.Entity("Domain.Product", b =>
@@ -444,12 +437,6 @@ namespace Repository.Migrations
                     b.Navigation("ImageUrls");
 
                     b.Navigation("ProductDetails");
-                });
-
-            modelBuilder.Entity("Domain.ProductDetail", b =>
-                {
-                    b.Navigation("MinorKeyProductDetail")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
