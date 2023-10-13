@@ -1,0 +1,25 @@
+﻿@page
+@model Website.Pages.Products.CreateMinorKey
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<div>
+    <form method="post">
+        <input type="text" asp-for="CreateMinorKeyRequest.Name" >
+        
+        <select asp-for="CreateMinorKeyRequest.MajorKeyId" asp-items="Model.MajorKeys"></select>
+        
+        <input type="submit">
+    </form>
+</div>
+</body>
+</html>

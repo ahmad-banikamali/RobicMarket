@@ -1,5 +1,5 @@
-using Application.ProductService.Query.ReadSingleProduct;
-using Application.ProductService.Query.ReadSingleProduct.Dto;
+using Application.ProductService.Product.Query.ReadSingle;
+using Application.ProductService.Product.Query.ReadSingle.Dto;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 

@@ -2,11 +2,19 @@ using Application.CommentService.Command.Create;
 using Application.CommentService.Command.Create.AnswerComment;
 using Application.CommentService.Command.Create.ParentComment;
 using Application.CommentService.Query.ReadMultipleComments;
-using Application.ProductService.Command.Create;
-using Application.ProductService.Command.Delete;
-using Application.ProductService.Command.Update;
-using Application.ProductService.Query.ReadMultiProducts;
-using Application.ProductService.Query.ReadSingleProduct;
+using Application.ProductService.Product.Command.Create;
+using Application.ProductService.Product.Command.Delete;
+using Application.ProductService.Product.Command.Update;
+using Application.ProductService.Product.Query.ReadMultiple;
+using Application.ProductService.Product.Query.ReadSingle;
+using Application.ProductService.ProductDetailKey.Major.Command.Create;
+using Application.ProductService.ProductDetailKey.Major.Command.Update;
+using Application.ProductService.ProductDetailKey.Major.Query;
+using Application.ProductService.ProductDetailKey.Major.Query.ReadMultiple;
+using Application.ProductService.ProductDetailKey.Major.Query.ReadSingle;
+using Application.ProductService.ProductDetailKey.Minor.Command.Create;
+using Application.ProductService.ProductDetailKey.Minor.Command.Update;
+using Application.ProductService.ProductDetailKey.Minor.Query.ReadSingle;
 using Application.Utils;
 using Common;
 using Microsoft.EntityFrameworkCore;
@@ -29,19 +37,32 @@ builder.Services.AddDbContext<SqlServerContext>(option =>
 });
 builder.Services.AddAutoMapper(
     typeof(ProductMapper),
-    typeof(CommentMapper)
+    typeof(CommentMapper),
+    typeof(ProductKeyMapper)
 );
 
 builder.Services.AddTransient<IDatabaseContext, SqlServerContext>();
+
 builder.Services.AddTransient<CreateProduct>();
 builder.Services.AddTransient<ReadSingleProduct>();
-builder.Services.AddTransient<ReadPaginatedProducts>();
+builder.Services.AddTransient<ReadMultipleProducts>();
 builder.Services.AddTransient<UpdateProduct>();
 builder.Services.AddTransient<DeleteProduct>(); 
 
 builder.Services.AddTransient<CreateParentComment>();
 builder.Services.AddTransient<CreateAnswerComment>();
 builder.Services.AddTransient<ReadMultipleComments>();
+
+
+builder.Services.AddTransient<CreateMajorKey>();
+builder.Services.AddTransient<UpdateMajorKey>();
+builder.Services.AddTransient<ReadMultiMajorKeys>();
+builder.Services.AddTransient<ReadSingleMajorKey>();
+
+
+builder.Services.AddTransient<CreateMinorKey>();
+builder.Services.AddTransient<UpdateMinorKey>();
+builder.Services.AddTransient<ReadSingleMinorKey>();
 
 
 var app = builder.Build();

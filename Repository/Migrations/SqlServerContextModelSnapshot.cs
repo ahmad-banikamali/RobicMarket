@@ -33,7 +33,7 @@ namespace Repository.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 12, 16, 44, 3, 0, DateTimeKind.Local).AddTicks(2316));
+                        .HasDefaultValue(new DateTime(2023, 10, 13, 15, 44, 44, 889, DateTimeKind.Local).AddTicks(7125));
 
                     b.Property<bool>("IsRemoved")
                         .ValueGeneratedOnAdd()
@@ -71,7 +71,7 @@ namespace Repository.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 12, 16, 44, 3, 0, DateTimeKind.Local).AddTicks(3912));
+                        .HasDefaultValue(new DateTime(2023, 10, 13, 15, 44, 44, 889, DateTimeKind.Local).AddTicks(8795));
 
                     b.Property<bool>("IsRemoved")
                         .ValueGeneratedOnAdd()
@@ -114,7 +114,7 @@ namespace Repository.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 12, 16, 44, 3, 0, DateTimeKind.Local).AddTicks(5717));
+                        .HasDefaultValue(new DateTime(2023, 10, 13, 15, 44, 44, 890, DateTimeKind.Local).AddTicks(616));
 
                     b.Property<bool>("IsRemoved")
                         .ValueGeneratedOnAdd()
@@ -152,7 +152,7 @@ namespace Repository.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 12, 16, 44, 3, 0, DateTimeKind.Local).AddTicks(7976));
+                        .HasDefaultValue(new DateTime(2023, 10, 13, 15, 44, 44, 890, DateTimeKind.Local).AddTicks(2421));
 
                     b.Property<bool>("IsRemoved")
                         .ValueGeneratedOnAdd()
@@ -190,7 +190,7 @@ namespace Repository.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 12, 16, 44, 3, 0, DateTimeKind.Local).AddTicks(9657));
+                        .HasDefaultValue(new DateTime(2023, 10, 13, 15, 44, 44, 890, DateTimeKind.Local).AddTicks(4122));
 
                     b.Property<bool>("IsRemoved")
                         .ValueGeneratedOnAdd()
@@ -209,7 +209,7 @@ namespace Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("MajorKey");
+                    b.ToTable("MajorKeys");
                 });
 
             modelBuilder.Entity("Domain.MinorKey", b =>
@@ -223,7 +223,7 @@ namespace Repository.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 12, 16, 44, 3, 1, DateTimeKind.Local).AddTicks(1158));
+                        .HasDefaultValue(new DateTime(2023, 10, 13, 15, 44, 44, 890, DateTimeKind.Local).AddTicks(5893));
 
                     b.Property<bool>("IsRemoved")
                         .ValueGeneratedOnAdd()
@@ -247,7 +247,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("MajorKeyId");
 
-                    b.ToTable("MinorKey");
+                    b.ToTable("MinorKeys");
                 });
 
             modelBuilder.Entity("Domain.Product", b =>
@@ -265,7 +265,7 @@ namespace Repository.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 12, 16, 44, 3, 1, DateTimeKind.Local).AddTicks(3161));
+                        .HasDefaultValue(new DateTime(2023, 10, 13, 15, 44, 44, 890, DateTimeKind.Local).AddTicks(8436));
 
                     b.Property<int>("Inventory")
                         .HasColumnType("int");
@@ -315,7 +315,7 @@ namespace Repository.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 12, 16, 44, 3, 1, DateTimeKind.Local).AddTicks(5591));
+                        .HasDefaultValue(new DateTime(2023, 10, 13, 15, 44, 44, 891, DateTimeKind.Local).AddTicks(921));
 
                     b.Property<bool>("IsRemoved")
                         .ValueGeneratedOnAdd()
@@ -344,7 +344,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductDetails");
+                    b.ToTable("ProductDetailItems");
                 });
 
             modelBuilder.Entity("Domain.Color", b =>

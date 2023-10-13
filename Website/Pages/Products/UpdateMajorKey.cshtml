@@ -1,0 +1,24 @@
+﻿@page
+@model Website.Pages.Products.UpdateMajorKeyModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<div>
+    <form method="post"> 
+        <input type="input" asp-for="UpdateMajorKeyRequest.Name">
+        <input type="hidden" asp-for="UpdateMajorKeyRequest.Id">
+        
+        <input type="submit">
+    </form>
+</div>
+</body>
+</html>

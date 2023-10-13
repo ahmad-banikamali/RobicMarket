@@ -1,9 +1,9 @@
-﻿using Application.ProductService.Command.Create.Dto;
-using Application.ProductService.Command.Delete.Dto;
-using Application.ProductService.Command.Update.Dto;
-using Application.ProductService.Common;
-using Application.ProductService.Query.ReadMultiProducts.Dto;
-using Application.ProductService.Query.ReadSingleProduct.Dto;
+﻿using Application.ProductService.Product.Command.Create.Dto;
+using Application.ProductService.Product.Command.Delete.Dto;
+using Application.ProductService.Product.Command.Update.Dto;
+using Application.ProductService.Product.Common;
+using Application.ProductService.Product.Query.ReadMultiple.Dto;
+using Application.ProductService.Product.Query.ReadSingle.Dto;
 using AutoMapper;
 using Domain;
 
@@ -22,8 +22,8 @@ namespace Application.Utils
             CreateMap<Product, ReadSingleProductRequest>().ReverseMap();
             CreateMap<Product, ReadSingleProductResponse>().ReverseMap();
             
-            CreateMap<Product, ReadPaginatedProductsRequest>().ReverseMap();
-            CreateMap<Product, ReadPaginatedProductsResponse>().ReverseMap();
+            CreateMap<Product, ReadMultipleProductsRequest>().ReverseMap();
+            CreateMap<Product, ReadMultipleProductsResponse>().ReverseMap();
             
             CreateMap<Product, UpdateProductRequest>().ReverseMap();
             

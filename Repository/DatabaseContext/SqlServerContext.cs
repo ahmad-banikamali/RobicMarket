@@ -60,6 +60,9 @@ namespace Repository.DatabaseContext
                     .IsRequired(false)
                     .OnDelete(DeleteBehavior.Restrict);
             });
+
+            builder.Entity<MajorKey>().ToTable("MajorKeys");
+            builder.Entity<MinorKey>().ToTable("MinorKeys");
             
             base.OnModelCreating(builder);
         }

@@ -26,8 +26,7 @@ public class ReadMultipleComments : PaginatedQuery<ReadMultipleCommentsRequest, 
         {
             Data = Mapper.Map<List<Comment>, List<ReadMultipleCommentsResponse>>(
                 productComments.Where(x => x.ParentCommentId == null).ToList()),
-            PageIndex = request.PageSize,
-            MaxItemsPerPage = request.PageSize
+            PageNumber = request.PageSize, 
         };
     }
 }

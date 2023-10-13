@@ -1,7 +1,7 @@
 ﻿using Application.CommentService.Command.Create.AnswerComment.Dto;
 using Application.CommentService.Command.Create.ParentComment.Dto;
 using Application.CommentService.Query.ReadMultipleComments.Dto;
-using Application.ProductService.Query.ReadSingleProduct.Dto;
+using Application.ProductService.Product.Query.ReadSingle.Dto;
 using AutoMapper;
 using Domain;
 using Microsoft.EntityFrameworkCore;

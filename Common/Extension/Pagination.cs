@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq.Expressions;
 
 namespace Common.Extension
 {
@@ -40,10 +35,9 @@ namespace Common.Extension
         }
 
 
-        public static IQueryable<TSource> PagedResult<TSource>(this IQueryable<TSource> query, int pageNum, int pageSize, out int rowsCount)
+        public static IQueryable<TSource> PagedResult<TSource>(this IQueryable<TSource> query, int pageNum, int pageSize)
         {
-            if (pageSize <= 0) pageSize = 20; 
-            rowsCount = query.Count(); 
+            if (pageSize <= 0) pageSize = 20;  
             if (pageNum <= 0) pageNum = 1; 
             var excludedRows = (pageNum - 1) * pageSize; 
             return query.Skip(excludedRows).Take(pageSize);

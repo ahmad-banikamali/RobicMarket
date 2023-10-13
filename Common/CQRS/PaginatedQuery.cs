@@ -3,7 +3,7 @@ using Common.BaseDto;
 
 namespace Common.CQRS
 {
-    public abstract class PaginatedQuery<TReq,TRes>
+    public abstract class PaginatedQuery<TReq,TRes> where TReq : PaginatedRequest
     {
         protected readonly IDatabaseContext DatabaseContext;
         protected readonly IMapper Mapper;

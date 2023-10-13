@@ -1,5 +1,5 @@
-using Application.ProductService.Command.Create;
-using Application.ProductService.Command.Create.Dto;
+using Application.ProductService.Product.Command.Create;
+using Application.ProductService.Product.Command.Create.Dto;
 using Common.BaseDto;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages; 

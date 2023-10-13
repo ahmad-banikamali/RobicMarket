@@ -1,0 +1,22 @@
+﻿@page
+@model Website.Pages.Products.CreateMajorKeyModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<div>
+    <form asp-page="@nameof(CreateMajorKeyModel)">
+        <input type="text" asp-for="CreateMajorKeyRequest.Name">
+        <input type="submit">
+    </form>
+</div>
+</body>
+</html>

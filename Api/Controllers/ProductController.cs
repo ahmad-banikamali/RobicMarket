@@ -1,13 +1,13 @@
-using Application.ProductService.Command.Create;
-using Application.ProductService.Command.Create.Dto;
-using Application.ProductService.Command.Delete;
-using Application.ProductService.Command.Delete.Dto;
-using Application.ProductService.Command.Update;
-using Application.ProductService.Command.Update.Dto;
-using Application.ProductService.Query.ReadMultiProducts;
-using Application.ProductService.Query.ReadMultiProducts.Dto;
-using Application.ProductService.Query.ReadSingleProduct;
-using Application.ProductService.Query.ReadSingleProduct.Dto;
+using Application.ProductService.Product.Command.Create;
+using Application.ProductService.Product.Command.Create.Dto;
+using Application.ProductService.Product.Command.Delete;
+using Application.ProductService.Product.Command.Delete.Dto;
+using Application.ProductService.Product.Command.Update;
+using Application.ProductService.Product.Command.Update.Dto;
+using Application.ProductService.Product.Query.ReadMultiple;
+using Application.ProductService.Product.Query.ReadMultiple.Dto;
+using Application.ProductService.Product.Query.ReadSingle;
+using Application.ProductService.Product.Query.ReadSingle.Dto;
 using Common.BaseDto;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,29 +19,29 @@ namespace Api.Controllers
     {
         private readonly CreateProduct _createProduct;
         private readonly ReadSingleProduct _readSingleProduct;
-        private readonly ReadPaginatedProducts _readPaginatedProducts;
+        private readonly ReadMultipleProducts _readMultipleProducts;
         private readonly UpdateProduct _updateProduct;
         private readonly DeleteProduct _deleteProduct; 
 
         public ProductController(
             CreateProduct createProduct,
             ReadSingleProduct readSingleProduct,
-            ReadPaginatedProducts readPaginatedProducts,
+            ReadMultipleProducts readMultipleProducts,
             UpdateProduct updateProduct,
             DeleteProduct deleteProduct)
         {
             _createProduct = createProduct;
             _readSingleProduct = readSingleProduct;
-            _readPaginatedProducts = readPaginatedProducts;
+            _readMultipleProducts = readMultipleProducts;
             _updateProduct = updateProduct;
             _deleteProduct = deleteProduct; 
         }
 
         // GET: api/Product
         [HttpGet]
-        public PaginatedResponse<ReadPaginatedProductsResponse> Get([FromQuery] ReadPaginatedProductsRequest request)
+        public PaginatedResponse<ReadMultipleProductsResponse> Get([FromQuery] ReadMultipleProductsRequest request)
         {
-            return _readPaginatedProducts.Execute(request);
+            return _readMultipleProducts.Execute(request);
         }
 
         // GET: api/Product/5
