@@ -3,7 +3,7 @@ using Application.ProductService.ProductDetailKey.Major.Command.Create.Dto;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Website.Pages.Products;
+namespace Website.Pages.Products.ProductDetailKey;
 
 public class CreateMajorKeyModel : PageModel
 {

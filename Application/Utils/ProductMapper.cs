@@ -20,15 +20,20 @@ namespace Application.Utils
             CreateMap<Product, CreateProductRequest>().ReverseMap();
 
             CreateMap<Product, ReadSingleProductRequest>().ReverseMap();
-            CreateMap<Product, ReadSingleProductResponse>().ReverseMap();
-            
+            CreateMap<Product, ReadSingleProductResponse>().ForMember(
+                x => x.ProductDetails,
+                y =>
+                    y.MapFrom(z => z.ProductDetails.GroupBy(x => x.MinorKey.MajorKey.Name)
+                        .Select(x => new KeyValuePair<string, IEnumerable<KeyValuePair<string, string>>>(x.Key,
+                            x.Select(m => new KeyValuePair<string, string>(m.MinorKey.Name, m.Value)))))
+            );
+
             CreateMap<Product, ReadMultipleProductsRequest>().ReverseMap();
             CreateMap<Product, ReadMultipleProductsResponse>().ReverseMap();
-            
-            CreateMap<Product, UpdateProductRequest>().ReverseMap();
-            
-            CreateMap<Product, DeleteProductRequest>().ReverseMap();
 
+            CreateMap<Product, UpdateProductRequest>().ReverseMap();
+
+            CreateMap<Product, DeleteProductRequest>().ReverseMap();
         }
     }
 }

@@ -3,7 +3,7 @@ using Application.ProductService.Product.Query.ReadSingle.Dto;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Website.Pages.Products
+namespace Website.Pages.Products.Product
 {
     public class ReadSingleProductModel : PageModel
     {

@@ -16,12 +16,9 @@ namespace Application.ProductService.Product.Command.Create.Dto
         public ICollection<ColorDto> Colors { get; set; } = new List<ColorDto>();
 
         public ICollection<GuaranteeTypeDto> GuaranteeTypes { get; set; } = new List<GuaranteeTypeDto>();
+        public List<CreateProductDetailItemDto> ProductDetails { get; set; } = new List<CreateProductDetailItemDto>();
 
         public int Inventory { get; set; }
         public string Review { get; set; }
     }
-
-    
-
-
 }

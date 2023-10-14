@@ -2,9 +2,8 @@
 using Application.ProductService.ProductDetailKey.Major.Command.Update.Dto;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Identity.Client;
 
-namespace Website.Pages.Products;
+namespace Website.Pages.Products.ProductDetailKey;
 
 public class UpdateMajorKeyModel : PageModel
 {

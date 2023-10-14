@@ -17,7 +17,10 @@ namespace Application.ProductService.Product.Query.ReadSingle
         {
             var product = DatabaseContext.Products 
                 .Include(x => x.Comments)
-                .ThenInclude(x=>x.AnswerComments)   
+                .ThenInclude(x=>x.AnswerComments)
+                .Include(x=>x.ProductDetails)
+                .ThenInclude(x=>x.MinorKey)
+                .ThenInclude(x=>x.MajorKey)
                 .FirstOrDefault(p => p.Id == request.Id);
             
  

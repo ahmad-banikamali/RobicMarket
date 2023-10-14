@@ -1,12 +1,11 @@
-﻿using Application.ProductService.ProductDetailKey.Major.Command.Create;
-using Application.ProductService.ProductDetailKey.Major.Query.ReadMultiple;
+﻿using Application.ProductService.ProductDetailKey.Major.Query.ReadMultiple;
 using Application.ProductService.ProductDetailKey.Major.Query.ReadMultiple.Dto;
 using Application.ProductService.ProductDetailKey.Minor.Command.Create.Dto;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace Website.Pages.Products;
+namespace Website.Pages.Products.ProductDetailKey;
 
 public class CreateMinorKey : PageModel
 {

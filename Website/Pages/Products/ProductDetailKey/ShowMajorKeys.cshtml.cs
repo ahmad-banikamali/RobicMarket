@@ -1,9 +1,8 @@
 ﻿using Application.ProductService.ProductDetailKey.Major.Query.ReadMultiple;
 using Application.ProductService.ProductDetailKey.Major.Query.ReadMultiple.Dto;
-using Common.BaseDto;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Website.Pages.Products;
+namespace Website.Pages.Products.ProductDetailKey;
 
 public class ShowMajorKeysModel : PageModel
 {

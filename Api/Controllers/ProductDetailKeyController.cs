@@ -10,6 +10,8 @@ using Application.ProductService.ProductDetailKey.Minor.Command.Create;
 using Application.ProductService.ProductDetailKey.Minor.Command.Create.Dto;
 using Application.ProductService.ProductDetailKey.Minor.Command.Update;
 using Application.ProductService.ProductDetailKey.Minor.Command.Update.Dto;
+using Application.ProductService.ProductDetailKey.Minor.Query.ReadMultiple;
+using Application.ProductService.ProductDetailKey.Minor.Query.ReadMultiple.Dto;
 using Application.ProductService.ProductDetailKey.Minor.Query.ReadSingle;
 using Application.ProductService.ProductDetailKey.Minor.Query.ReadSingle.Dto;
 using Common.BaseDto;
@@ -28,6 +30,7 @@ public class ProductDetailKeyController : ControllerBase
     private readonly ReadSingleMinorKey _readSingleMinorKey;
     private readonly UpdateMinorKey _updateMinorKey;
     private readonly CreateMinorKey _createMinorKey;
+    private readonly ReadMultipleMinorKeys _readMultipleMinorKeys;
 
     public ProductDetailKeyController(
         CreateMajorKey createMajorKey,
@@ -36,13 +39,15 @@ public class ProductDetailKeyController : ControllerBase
         ReadSingleMajorKey readSingleMajorKey,
         ReadSingleMinorKey readSingleMinorKey,
         UpdateMinorKey updateMinorKey,
-        CreateMinorKey createMinorKey
+        CreateMinorKey createMinorKey,
+        ReadMultipleMinorKeys readMultipleMinorKeys
         )
     {
         _createMajorKey = createMajorKey;
         _updateMajorKey = updateMajorKey;
         _readMultiMajorKeys = readMultiMajorKeys;
         _createMinorKey = createMinorKey;
+        _readMultipleMinorKeys = readMultipleMinorKeys;
         _readSingleMajorKey = readSingleMajorKey;
         _readSingleMinorKey = readSingleMinorKey;
         _updateMinorKey = updateMinorKey;
@@ -78,6 +83,13 @@ public class ProductDetailKeyController : ControllerBase
     public PaginatedResponse<ReadMultiMajorKeysResponse> ReadMultiMajorKeys([FromQuery]ReadMultMajorKeysRequest request)
     {
         return _readMultiMajorKeys.Execute(request);
+    }
+    
+    
+    [HttpGet(template: "minor")]
+    public PaginatedResponse<ReadMultipleMinorKeysResponse> ReadMultiMinorKeys([FromQuery]ReadMultipleMinorKeysRequest request)
+    {
+        return _readMultipleMinorKeys.Execute(request);
     }
     
     

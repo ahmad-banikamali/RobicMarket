@@ -1,0 +1,77 @@
+﻿@page
+@model CreateProductModel;
+
+@{
+}
+
+
+<form method="post">
+
+    <div class="form-group">
+        <label asp-for="CreateProductRequest.Name"></label>
+        <input asp-for="CreateProductRequest.Name"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="CreateProductRequest.Description"></label>
+        <input asp-for="CreateProductRequest.Description"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="CreateProductRequest.SmallDescription"></label>
+        <input asp-for="CreateProductRequest.SmallDescription"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="CreateProductRequest.StarCount"></label>
+        <input asp-for="CreateProductRequest.StarCount"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="CreateProductRequest.Price"></label>
+        <input asp-for="CreateProductRequest.Price"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="CreateProductRequest.Inventory"></label>
+        <input asp-for="CreateProductRequest.Inventory"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="CreateProductRequest.Review"></label>
+        <input asp-for="CreateProductRequest.Review"/>
+    </div>
+
+
+    @for (var i = 0;i < 10; i++)
+    {
+        <input type="text" asp-for="CreateProductRequest.ProductDetails[i].Value">
+        <select
+            asp-for="CreateProductRequest.ProductDetails[i].MinorKeyId"
+            asp-items="Model.ReadMultipleMinorKeysResponse.Data.Select(x => new SelectListItem(x.Name + x.MajorKeyName, value: x.Id.ToString()))">
+        </select>
+        <br/>
+    }
+
+    <input type="submit"/>
+
+</form>
+
+@section Stylesheets
+{
+    <link rel="stylesheet" href="~/assets/css/bootstrap.rtl.min.css">
+    <link rel="stylesheet" href="~/assets/plugins/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="~/assets/plugins/aos-master/dist/aos.css">
+    <link rel="stylesheet" href="~/assets/plugins/hover-master/css/hover-min.css">
+    <link rel="stylesheet" href="~/assets/css/ionicons.css">
+    <link rel="stylesheet" href="~/assets/css/droopmenu.css">
+    <link rel="stylesheet" href="~/assets/css/highlight.css">
+    <link rel="stylesheet" href="~/assets/css/nouislider.min.css">
+    <link rel="stylesheet" href="~/assets/css/style.css">
+}
+
+@section Scripts
+{
+    <script src="~/assets/js/jquery.min.js"></script>
+    <script src="~/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="~/assets/plugins/fontawesome/js/all.min.js"></script>
+    <script src="~/assets/plugins/aos-master/dist/aos.js"></script>
+    <script src="~/assets/js/droopmenu.js"></script>
+    <script src="~/assets/js/nouislider.min.js"></script>
+    <script src="~/assets/js/pagination.js"></script>
+    <script src="~/assets/js/scripts.js"></script>
+}

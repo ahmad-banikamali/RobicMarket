@@ -1,5 +1,5 @@
 ﻿@page
-@model Website.Pages.Products.ShowMajorKeysModel
+@model ShowMajorKeysModel
 
 @{
     Layout = null;
@@ -17,7 +17,7 @@
         @foreach (var x in Model.MajorKeysResponse)
         {
             <li>
-                <a asp-page="/Products/UpdateMajorKey" asp-="@x.Id" asp-route-name="@x.Name" >@x.Name</a>
+                <a asp-page="/Products/ProductDetailKey/UpdateMajorKey" asp-="@x.Id" asp-route-name="@x.Name" >@x.Name</a>
             </li>
         }
     </ul>

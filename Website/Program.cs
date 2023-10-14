@@ -12,6 +12,7 @@ using Application.ProductService.ProductDetailKey.Major.Query.ReadMultiple;
 using Application.ProductService.ProductDetailKey.Major.Query.ReadSingle;
 using Application.ProductService.ProductDetailKey.Minor.Command.Create;
 using Application.ProductService.ProductDetailKey.Minor.Command.Update;
+using Application.ProductService.ProductDetailKey.Minor.Query.ReadMultiple;
 using Application.ProductService.ProductDetailKey.Minor.Query.ReadSingle;
 using Application.Utils;
 using Common;
@@ -32,7 +33,9 @@ builder.Services.AddDbContext<SqlServerContext>(option =>
 
 builder.Services.AddAutoMapper(
     typeof(ProductMapper),
-    typeof(CommentMapper)
+    typeof(CommentMapper),
+    typeof(ProductKeyMapper),
+    typeof(ProductDetailItemMapper)
 );
 
 builder.Services.AddTransient<IDatabaseContext, SqlServerContext>();
@@ -58,6 +61,7 @@ builder.Services.AddTransient<ReadSingleMajorKey>();
 builder.Services.AddTransient<CreateMinorKey>();
 builder.Services.AddTransient<UpdateMinorKey>();
 builder.Services.AddTransient<ReadSingleMinorKey>();
+builder.Services.AddTransient<ReadMultipleMinorKeys>();
 
 
 var app = builder.Build();
