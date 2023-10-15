@@ -16,6 +16,7 @@ using Application.ProductService.ProductDetailKey.Minor.Query.ReadMultiple;
 using Application.ProductService.ProductDetailKey.Minor.Query.ReadSingle;
 using Application.Utils;
 using Common;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Repository.DatabaseContext;
 
@@ -30,6 +31,19 @@ builder.Services.AddDbContext<SqlServerContext>(option =>
     var sqlServerConnectionString = builder.Configuration.GetConnectionString("SqlServer");
     option.UseSqlServer(sqlServerConnectionString);
 });
+
+
+builder.Services.AddDbContext<IdentityContext>(option =>
+{
+    var sqlServerConnectionString = builder.Configuration.GetConnectionString("SqlServer");
+    option.UseSqlServer(sqlServerConnectionString);
+});
+
+
+builder.Services.AddIdentity<IdentityUser,IdentityRole>()
+    .AddEntityFrameworkStores<IdentityContext>()
+    .AddDefaultTokenProviders();
+
 
 builder.Services.AddAutoMapper(
     typeof(ProductMapper),
@@ -80,6 +94,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseAuthentication();
 
 app.MapRazorPages();
 
