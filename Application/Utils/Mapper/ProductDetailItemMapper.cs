@@ -2,7 +2,7 @@
 using AutoMapper;
 using Domain;
 
-namespace Application.Utils;
+namespace Application.Utils.Mapper;
 
 public class ProductDetailItemMapper:Profile
 {

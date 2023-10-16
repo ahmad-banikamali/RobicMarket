@@ -7,7 +7,7 @@ using Application.ProductService.Product.Query.ReadSingle.Dto;
 using AutoMapper;
 using Domain;
 
-namespace Application.Utils
+namespace Application.Utils.Mapper
 {
     public class ProductMapper : Profile
     {

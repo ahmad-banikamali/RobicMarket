@@ -3,14 +3,13 @@ using Application.ProductService.ProductDetailKey.Major.Command.Update.Dto;
 using Application.ProductService.ProductDetailKey.Major.Query.ReadMultiple.Dto;
 using Application.ProductService.ProductDetailKey.Major.Query.ReadSingle.Dto;
 using Application.ProductService.ProductDetailKey.Minor.Command.Create.Dto;
-using Application.ProductService.ProductDetailKey.Minor.Command.Update;
 using Application.ProductService.ProductDetailKey.Minor.Command.Update.Dto;
 using Application.ProductService.ProductDetailKey.Minor.Query.ReadMultiple.Dto;
 using Application.ProductService.ProductDetailKey.Minor.Query.ReadSingle.Dto;
 using AutoMapper;
 using Domain;
 
-namespace Application.Utils;
+namespace Application.Utils.Mapper;
 
 public class ProductKeyMapper : Profile
 {

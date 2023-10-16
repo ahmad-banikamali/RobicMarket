@@ -17,6 +17,7 @@ using Application.ProductService.ProductDetailKey.Minor.Command.Update;
 using Application.ProductService.ProductDetailKey.Minor.Query.ReadMultiple;
 using Application.ProductService.ProductDetailKey.Minor.Query.ReadSingle;
 using Application.Utils;
+using Application.Utils.Mapper;
 using Common;
 using Microsoft.EntityFrameworkCore;
 using Repository.DatabaseContext;

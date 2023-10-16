@@ -1,0 +1,87 @@
+﻿@page
+@model Website.Pages.SignIn
+
+@section Scripts
+{
+    <!-- Scripts -->
+    <script src="~/assets/js/jquery.min.js"></script>
+    <script src="~/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="~/assets/plugins/fontawesome/js/all.min.js"></script>
+    <script src="~/assets/plugins/aos-master/dist/aos.js"></script>
+    <script src="~/assets/js/droopmenu.js"></script>
+    <script src="~/assets/js/nouislider.min.js"></script>
+    <script src="~/assets/js/pagination.js"></script>
+    <script src="~/assets/js/scripts.js"></script>
+    <!-- /Scripts -->
+}
+
+@section Stylesheets
+{
+    <!-- CSS Styles -->
+    <link rel="stylesheet" href="~/assets/css/bootstrap.rtl.min.css">
+    <link rel="stylesheet" href="~/assets/plugins/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="~/assets/plugins/aos-master/dist/aos.css">
+    <link rel="stylesheet" href="~/assets/plugins/hover-master/css/hover-min.css">
+    <link rel="stylesheet" href="~/assets/css/ionicons.css">
+    <link rel="stylesheet" href="~/assets/css/droopmenu.css">
+    <link rel="stylesheet" href="~/assets/css/highlight.css">
+    <link rel="stylesheet" href="~/assets/css/nouislider.min.css">
+    <link rel="stylesheet" href="~/assets/css/style.css">
+    <!-- /CSS Styles -->
+}
+
+<section class="inner-page" id="contact-page">
+    <div class="container-fluid" id="page-hero">
+        <div class="row">
+            <div class="col-12">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 px-0">
+                            <h1>ورود به ناحیه کاربری</h1>
+                            <p>وارد ناحیه کاربری خود در روبیک مارکت شوید.</p>
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item">
+                                        <a href="./index.html">صفحه نخست</a>
+                                    </li>
+                                    <li class="breadcrumb-item active" aria-current="page">ورود</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container py-2 py-md-5">
+        <div class="row">
+            <div class="col-12 col-sm-10 offset-sm-1">
+                <div class="content">
+                    <div class="row">
+                        <div class="col-12 col-lg-5 text-center">
+                            <img src="~/assets/images/login.png" alt="">
+                        </div>
+                        <div class="col-12 col-lg-7 pt-5 pt-md-0 align-self-center">
+                            <div class="title">وارد شوید</div>
+                            <p>با عضویت در سایت از همه امکانات سایت بهره مند شوید.</p>
+                            <form method="post">
+                                <div class="form-group">
+                                    <label asp-for="SigninDto.EmailOrPhoneNumberOrUserName">پست الکترونیک یا شماره همراه یا نام کاربری :</label>
+                                    <input type="text" class="form-control" asp-for="SigninDto.EmailOrPhoneNumberOrUserName">
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="SigninDto.Password">رمز عبور :</label>
+                                    <input type="password" class="form-control" asp-for="SigninDto.Password">
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" value="ورود به ناحیه کاربری" class="btn btn-success">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

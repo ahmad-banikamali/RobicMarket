@@ -50,8 +50,17 @@
                     <div class="col-12 col-md-4">
                         <div class="row">
                             <div class="col-12 col-md-7 col-lg-6 text-center" id="btn-login-register">
-                                <a href="./login.html">ورود</a> /
-                                <a asp-page="/SignUp">عضویت</a>
+                                @if(User.Identity is {IsAuthenticated: false })
+                                {
+                                    <span>
+                                        <a asp-page="/SignIn">ورود</a> /
+                                        <a asp-page="/SignUp">عضویت</a>
+                                    </span>
+                                }
+                                else
+                                {
+                                    <a href="">مشاهده حساب کاربری</a>
+                                }
                             </div>
                             <div class="col-12 col-md-5 col-lg-6">
                                 <a href="./cart.html">

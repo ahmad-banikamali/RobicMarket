@@ -15,7 +15,9 @@ using Application.ProductService.ProductDetailKey.Minor.Command.Update;
 using Application.ProductService.ProductDetailKey.Minor.Query.ReadMultiple;
 using Application.ProductService.ProductDetailKey.Minor.Query.ReadSingle;
 using Application.Utils;
+using Application.Utils.Mapper;
 using Common;
+using Domain;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Repository.DatabaseContext;
@@ -40,7 +42,7 @@ builder.Services.AddDbContext<IdentityContext>(option =>
 });
 
 
-builder.Services.AddIdentity<IdentityUser,IdentityRole>()
+builder.Services.AddIdentity<ApplicationUser,IdentityRole>()
     .AddEntityFrameworkStores<IdentityContext>()
     .AddDefaultTokenProviders();
 
@@ -93,8 +95,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();   
 app.UseAuthorization();
-app.UseAuthentication();
 
 app.MapRazorPages();
 

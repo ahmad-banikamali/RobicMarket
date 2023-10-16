@@ -38,9 +38,14 @@
                             <p>با ورود به ناحیه کاربری خود از همه امکانات سایت بهره مند شوید.</p>
 
                             <form method="post" asp-antiforgery="true">
+
                                 <div class="form-group">
-                                    <label asp-for="SignUpDto.UserName">پست الکترونیک :</label>
-                                    <input type="email" class="form-control" id="email" asp-for="SignUpDto.UserName">
+                                    <label asp-for="SignUpDto.UserName">نام کاربری: </label>
+                                    <input type="text" class="form-control" id="email" asp-for="SignUpDto.UserName">
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="SignUpDto.EmailOrPhoneNumber">پست الکترونیک یا شماره همراه :</label>
+                                    <input type="text" class="form-control" id="email" asp-for="SignUpDto.EmailOrPhoneNumber">
                                 </div>
                                 <div class="form-group">
                                     <label asp-for="SignUpDto.Password">رمز عبور :</label>

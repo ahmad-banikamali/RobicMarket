@@ -8,6 +8,6 @@ public class IdentityMapper:Profile
 {
     public IdentityMapper()
     {
-        CreateMap<IdentityUser, SignUpDto>();
+        // CreateMap<IdentityUser, SignUpDto>();
     }
 }

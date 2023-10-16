@@ -4,9 +4,8 @@ using Application.CommentService.Query.ReadMultipleComments.Dto;
 using Application.ProductService.Product.Query.ReadSingle.Dto;
 using AutoMapper;
 using Domain;
-using Microsoft.EntityFrameworkCore;
 
-namespace Application.Utils
+namespace Application.Utils.Mapper
 {
     public class CommentMapper : Profile
     {
