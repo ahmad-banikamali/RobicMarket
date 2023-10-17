@@ -10,5 +10,11 @@ namespace Repository.DatabaseContext
         {
             
         }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<ApplicationUser>().ToTable("ApplicationUser");
+            base.OnModelCreating(builder);
+        }
     }
 }

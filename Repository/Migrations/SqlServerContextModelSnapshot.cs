@@ -22,6 +22,74 @@ namespace Repository.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Domain.ApplicationUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("InsertTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2023, 10, 17, 12, 1, 5, 452, DateTimeKind.Local).AddTicks(6772));
+
+                    b.Property<bool>("IsRemoved")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("RemoveTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("UpdateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ApplicationUser");
+                });
+
             modelBuilder.Entity("Domain.Color", b =>
                 {
                     b.Property<int>("Id")
@@ -33,7 +101,7 @@ namespace Repository.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 13, 15, 44, 44, 889, DateTimeKind.Local).AddTicks(7125));
+                        .HasDefaultValue(new DateTime(2023, 10, 17, 12, 1, 5, 452, DateTimeKind.Local).AddTicks(8917));
 
                     b.Property<bool>("IsRemoved")
                         .ValueGeneratedOnAdd()
@@ -71,7 +139,7 @@ namespace Repository.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 13, 15, 44, 44, 889, DateTimeKind.Local).AddTicks(8795));
+                        .HasDefaultValue(new DateTime(2023, 10, 17, 12, 1, 5, 453, DateTimeKind.Local).AddTicks(439));
 
                     b.Property<bool>("IsRemoved")
                         .ValueGeneratedOnAdd()
@@ -94,11 +162,17 @@ namespace Repository.Migrations
                     b.Property<DateTime?>("UpdateTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ParentCommentId");
 
                     b.HasIndex("ProductId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Comments");
                 });
@@ -114,7 +188,7 @@ namespace Repository.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 13, 15, 44, 44, 890, DateTimeKind.Local).AddTicks(616));
+                        .HasDefaultValue(new DateTime(2023, 10, 17, 12, 1, 5, 453, DateTimeKind.Local).AddTicks(2591));
 
                     b.Property<bool>("IsRemoved")
                         .ValueGeneratedOnAdd()
@@ -152,7 +226,7 @@ namespace Repository.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 13, 15, 44, 44, 890, DateTimeKind.Local).AddTicks(2421));
+                        .HasDefaultValue(new DateTime(2023, 10, 17, 12, 1, 5, 453, DateTimeKind.Local).AddTicks(4376));
 
                     b.Property<bool>("IsRemoved")
                         .ValueGeneratedOnAdd()
@@ -190,7 +264,7 @@ namespace Repository.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 13, 15, 44, 44, 890, DateTimeKind.Local).AddTicks(4122));
+                        .HasDefaultValue(new DateTime(2023, 10, 17, 12, 1, 5, 453, DateTimeKind.Local).AddTicks(6241));
 
                     b.Property<bool>("IsRemoved")
                         .ValueGeneratedOnAdd()
@@ -209,7 +283,7 @@ namespace Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("MajorKeys");
+                    b.ToTable("MajorKeys", (string)null);
                 });
 
             modelBuilder.Entity("Domain.MinorKey", b =>
@@ -223,7 +297,7 @@ namespace Repository.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 13, 15, 44, 44, 890, DateTimeKind.Local).AddTicks(5893));
+                        .HasDefaultValue(new DateTime(2023, 10, 17, 12, 1, 5, 453, DateTimeKind.Local).AddTicks(7854));
 
                     b.Property<bool>("IsRemoved")
                         .ValueGeneratedOnAdd()
@@ -247,7 +321,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("MajorKeyId");
 
-                    b.ToTable("MinorKeys");
+                    b.ToTable("MinorKeys", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Product", b =>
@@ -265,7 +339,7 @@ namespace Repository.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 13, 15, 44, 44, 890, DateTimeKind.Local).AddTicks(8436));
+                        .HasDefaultValue(new DateTime(2023, 10, 17, 12, 1, 5, 454, DateTimeKind.Local).AddTicks(29));
 
                     b.Property<int>("Inventory")
                         .HasColumnType("int");
@@ -315,7 +389,7 @@ namespace Repository.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 13, 15, 44, 44, 891, DateTimeKind.Local).AddTicks(921));
+                        .HasDefaultValue(new DateTime(2023, 10, 17, 12, 1, 5, 454, DateTimeKind.Local).AddTicks(2578));
 
                     b.Property<bool>("IsRemoved")
                         .ValueGeneratedOnAdd()
@@ -367,9 +441,17 @@ namespace Repository.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Domain.ApplicationUser", "User")
+                        .WithMany("Comments")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("ParentComment");
 
                     b.Navigation("Product");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Domain.GuaranteeType", b =>
@@ -414,6 +496,11 @@ namespace Repository.Migrations
                     b.Navigation("MinorKey");
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Domain.ApplicationUser", b =>
+                {
+                    b.Navigation("Comments");
                 });
 
             modelBuilder.Entity("Domain.Comment", b =>

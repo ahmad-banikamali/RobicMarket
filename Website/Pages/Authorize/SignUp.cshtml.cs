@@ -35,16 +35,21 @@ public class SignUp : PageModel
         if (!isPhoneNumber && !isEmail)
             return Page();
 
-        var result = _userManager.CreateAsync(new ApplicationUser()
+        var applicationUser = new ApplicationUser()
         {
             UserName = SignUpDto.UserName,
             PhoneNumber = isPhoneNumber ? SignUpDto.EmailOrPhoneNumber : null,
             Email = isEmail ? SignUpDto.EmailOrPhoneNumber : null
-        }, SignUpDto.Password).Result;
+        };
+        var result = _userManager.CreateAsync(applicationUser, SignUpDto.Password).Result;
 
  
         if (result.Succeeded)
-            return Redirect(SignUpDto.ReturnUrl);
+        {
+            var signInResult = _signInManager.PasswordSignInAsync(applicationUser, SignUpDto.Password, true, false).Result;
+            if(signInResult.Succeeded)
+                return Redirect(SignUpDto.ReturnUrl);
+        }
 
         return Page();
     }

@@ -17,7 +17,10 @@ public class ProductDetailItemMapper:Profile
                 x.MajorKeyName,y=>
                 y.MapFrom(z=>z.MinorKey.MajorKey.Name))
             .ReverseMap();
-        
+
+
+        CreateMap<ProductDetailItem, CreateProductDetailItemDto>().ReverseMap();
+
     }
     
 }

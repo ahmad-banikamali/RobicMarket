@@ -47,8 +47,11 @@ public class SignIn : PageModel
         // https://stackoverflow.com/a/66668546
 
         if (user == null) return Page();
-
-        _signInManager.PasswordSignInAsync(user, SigninDto.Password, true, false);
-        return Redirect(SigninDto.ReturnUrl);
+    
+        var passwordSignIn = _signInManager.PasswordSignInAsync(user, SigninDto.Password, true, false).Result;
+        if (passwordSignIn.Succeeded)
+            return Redirect(SigninDto.ReturnUrl);
+        
+        return Page();
     }
 }
