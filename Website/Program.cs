@@ -1,3 +1,7 @@
+using Application.BasketService.Command.Create.Basket;
+using Application.BasketService.Command.Create.Basket.Dto;
+using Application.BasketService.Command.Create.BasketItem;
+using Application.BasketService.Query.Basket.Read;
 using Application.CommentService.Command.Create.AnswerComment;
 using Application.CommentService.Command.Create.ParentComment;
 using Application.CommentService.Query.ReadMultipleComments;
@@ -15,6 +19,7 @@ using Application.ProductService.ProductDetailKey.Minor.Command.Update;
 using Application.ProductService.ProductDetailKey.Minor.Query.ReadMultiple;
 using Application.ProductService.ProductDetailKey.Minor.Query.ReadSingle;
 using Application.Utils;
+using Application.Utils.Identity;
 using Application.Utils.Mapper;
 using Common;
 using Domain;
@@ -35,15 +40,10 @@ builder.Services.AddDbContext<SqlServerContext>(option =>
 });
 
 
-builder.Services.AddDbContext<IdentityContext>(option =>
-{
-    var sqlServerConnectionString = builder.Configuration.GetConnectionString("SqlServer");
-    option.UseSqlServer(sqlServerConnectionString);
-});
-
+ 
 
 builder.Services.AddIdentity<ApplicationUser,IdentityRole>()
-    .AddEntityFrameworkStores<IdentityContext>()
+    .AddEntityFrameworkStores<SqlServerContext>()
     .AddDefaultTokenProviders();
 
 
@@ -51,7 +51,9 @@ builder.Services.AddAutoMapper(
     typeof(ProductMapper),
     typeof(CommentMapper),
     typeof(ProductKeyMapper),
-    typeof(ProductDetailItemMapper)
+    typeof(IdentityMapper),
+    typeof(ProductDetailItemMapper),
+    typeof(BasketDto)
 );
 
 builder.Services.AddTransient<IDatabaseContext, SqlServerContext>();
@@ -70,7 +72,7 @@ builder.Services.AddTransient<ReadMultipleComments>();
 
 builder.Services.AddTransient<CreateMajorKey>();
 builder.Services.AddTransient<UpdateMajorKey>();
-builder.Services.AddTransient<ReadMultiMajorKeys>();
+builder.Services.AddTransient<ReadMultipleMajorKeys>();
 builder.Services.AddTransient<ReadSingleMajorKey>();
 
 
@@ -78,6 +80,10 @@ builder.Services.AddTransient<CreateMinorKey>();
 builder.Services.AddTransient<UpdateMinorKey>();
 builder.Services.AddTransient<ReadSingleMinorKey>();
 builder.Services.AddTransient<ReadMultipleMinorKeys>();
+
+builder.Services.AddTransient<ReadBasket>();
+builder.Services.AddTransient<AddBasketToBuyer>();
+builder.Services.AddTransient<AddBasketItemToBasket>();
 
 
 var app = builder.Build();

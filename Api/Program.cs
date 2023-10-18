@@ -16,9 +16,13 @@ using Application.ProductService.ProductDetailKey.Minor.Command.Create;
 using Application.ProductService.ProductDetailKey.Minor.Command.Update;
 using Application.ProductService.ProductDetailKey.Minor.Query.ReadMultiple;
 using Application.ProductService.ProductDetailKey.Minor.Query.ReadSingle;
+using Application.UserService.Query.ReadMultiple;
 using Application.Utils;
+using Application.Utils.Identity;
 using Application.Utils.Mapper;
 using Common;
+using Domain;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Repository.DatabaseContext;
 
@@ -36,11 +40,20 @@ builder.Services.AddDbContext<SqlServerContext>(option =>
 {
     var sqlServerConnectionString = builder.Configuration.GetConnectionString("SqlServer");
     option.UseSqlServer(sqlServerConnectionString);
-});
+}); 
+
+builder.Services.AddIdentity<ApplicationUser,IdentityRole>()
+    .AddEntityFrameworkStores<SqlServerContext>()
+    .AddDefaultTokenProviders();
+
+
 builder.Services.AddAutoMapper(
     typeof(ProductMapper),
     typeof(CommentMapper),
-    typeof(ProductKeyMapper)
+    typeof(ProductKeyMapper),
+    typeof(IdentityMapper),
+    typeof(ProductDetailItemMapper),
+    typeof(BasketDto)
 );
 
 builder.Services.AddTransient<IDatabaseContext, SqlServerContext>();
@@ -58,7 +71,7 @@ builder.Services.AddTransient<ReadMultipleComments>();
 
 builder.Services.AddTransient<CreateMajorKey>();
 builder.Services.AddTransient<UpdateMajorKey>();
-builder.Services.AddTransient<ReadMultiMajorKeys>();
+builder.Services.AddTransient<ReadMultipleMajorKeys>();
 builder.Services.AddTransient<ReadSingleMajorKey>();
 
 
@@ -66,6 +79,9 @@ builder.Services.AddTransient<CreateMinorKey>();
 builder.Services.AddTransient<UpdateMinorKey>();
 builder.Services.AddTransient<ReadSingleMinorKey>();
 builder.Services.AddTransient<ReadMultipleMinorKeys>();
+
+
+builder.Services.AddTransient<ReadMultipleUsers>();
 
 
 var app = builder.Build();

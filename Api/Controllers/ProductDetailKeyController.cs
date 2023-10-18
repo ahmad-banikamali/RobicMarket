@@ -25,7 +25,7 @@ public class ProductDetailKeyController : ControllerBase
 {
     private readonly CreateMajorKey _createMajorKey;
     private readonly UpdateMajorKey _updateMajorKey;
-    private readonly ReadMultiMajorKeys _readMultiMajorKeys;
+    private readonly ReadMultipleMajorKeys _readMultipleMajorKeys;
     private readonly ReadSingleMajorKey _readSingleMajorKey;
     private readonly ReadSingleMinorKey _readSingleMinorKey;
     private readonly UpdateMinorKey _updateMinorKey;
@@ -35,7 +35,7 @@ public class ProductDetailKeyController : ControllerBase
     public ProductDetailKeyController(
         CreateMajorKey createMajorKey,
         UpdateMajorKey updateMajorKey,
-        ReadMultiMajorKeys readMultiMajorKeys,
+        ReadMultipleMajorKeys readMultipleMajorKeys,
         ReadSingleMajorKey readSingleMajorKey,
         ReadSingleMinorKey readSingleMinorKey,
         UpdateMinorKey updateMinorKey,
@@ -45,7 +45,7 @@ public class ProductDetailKeyController : ControllerBase
     {
         _createMajorKey = createMajorKey;
         _updateMajorKey = updateMajorKey;
-        _readMultiMajorKeys = readMultiMajorKeys;
+        _readMultipleMajorKeys = readMultipleMajorKeys;
         _createMinorKey = createMinorKey;
         _readMultipleMinorKeys = readMultipleMinorKeys;
         _readSingleMajorKey = readSingleMajorKey;
@@ -82,7 +82,7 @@ public class ProductDetailKeyController : ControllerBase
     [HttpGet(template: "major")]
     public PaginatedResponse<ReadMultiMajorKeysResponse> ReadMultiMajorKeys([FromQuery]ReadMultMajorKeysRequest request)
     {
-        return _readMultiMajorKeys.Execute(request);
+        return _readMultipleMajorKeys.Execute(request);
     }
     
     

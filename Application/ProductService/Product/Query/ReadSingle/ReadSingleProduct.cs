@@ -18,9 +18,9 @@ namespace Application.ProductService.Product.Query.ReadSingle
             var product = DatabaseContext.Products 
                 .Include(x => x.Comments)
                 .ThenInclude(x=>x.AnswerComments)
+                .ThenInclude(x=>x.ApplicationUser)
                 .Include(x=>x.Comments)
-                .ThenInclude(x=>x.User)
-               
+                .ThenInclude(x=>x.ApplicationUser) 
                 .Include(x=>x.ProductDetails)
                 .ThenInclude(x=>x.MinorKey)
                 .ThenInclude(x=>x.MajorKey)

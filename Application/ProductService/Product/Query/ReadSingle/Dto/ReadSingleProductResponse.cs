@@ -5,6 +5,7 @@ namespace Application.ProductService.Product.Query.ReadSingle.Dto;
 
 public class ReadSingleProductResponse
 {
+    public int Id { get; set; }
     public string Name { get; set; }
     public string Description { get; set; }
     public string SmallDescription { get; set; }

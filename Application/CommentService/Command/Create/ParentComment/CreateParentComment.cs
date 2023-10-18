@@ -16,6 +16,7 @@ public class CreateParentComment : Command<CreateParentCommentRequest>
 
     public override Response Execute(CreateParentCommentRequest request)
     {
+        
         var product = DatabaseContext.Products.Find(request.ProductId);
         if (product == null)
             return new Response

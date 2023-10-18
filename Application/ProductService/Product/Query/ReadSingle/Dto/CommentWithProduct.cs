@@ -2,6 +2,7 @@
 
 public class CommentWithProduct
 {
+    public string UserName { get; set; }
     public int? ParentCommentId { get; set; }
     public DateTime InsertTime { get; set; }
     public string Text { get; set; }

@@ -8,9 +8,9 @@ using Domain;
 
 namespace Application.ProductService.ProductDetailKey.Major.Query.ReadMultiple;
 
-public class ReadMultiMajorKeys : PaginatedQuery<ReadMultMajorKeysRequest, ReadMultiMajorKeysResponse>
+public class ReadMultipleMajorKeys : PaginatedQuery<ReadMultMajorKeysRequest, ReadMultiMajorKeysResponse>
 {
-    public ReadMultiMajorKeys(IDatabaseContext databaseContext, IMapper mapper) : base(databaseContext, mapper)
+    public ReadMultipleMajorKeys(IDatabaseContext databaseContext, IMapper mapper) : base(databaseContext, mapper)
     {
     }
 

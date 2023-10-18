@@ -1,12 +1,13 @@
 ﻿using Application;
 using Common;
 using Domain;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Repository.DatabaseContext
 {
-    public class SqlServerContext:DbContext, IDatabaseContext
+    public class SqlServerContext: IdentityDbContext<ApplicationUser>, IDatabaseContext
     {
  
         public SqlServerContext(DbContextOptions<SqlServerContext> options):base(options)
@@ -32,12 +33,23 @@ namespace Repository.DatabaseContext
         
         public EntityEntry<Product> ProductEntityEntry(Product product) => Entry(product);
         public EntityEntry<Comment> CommentEntityEntry(Comment comment) => Entry(comment);
+        
+        public DbSet<BasketItem> BasketItems { get; set; }
+        
+        public DbSet<Basket> Baskets { get; set; } 
         public DbSet<Product> Products { get; set; }
         public DbSet<Comment> Comments { get; set; }
          
         public DbSet<ProductDetailItem> ProductDetailItems { get; set; }  
         public DbSet<MinorKey> MinorKeys { get; set; }
         public DbSet<MajorKey> MajorKeys { get; set; }
+        
+        public DbSet<Color> Colors { get; set; }
+        
+        public DbSet<GuaranteeType> GuaranteeTypes { get; set; }
+        
+        public DbSet<ImageUrl> ImageUrls { get; set; }
+        
         protected override void OnModelCreating(ModelBuilder builder)
         { 
 

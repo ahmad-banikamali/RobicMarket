@@ -14,7 +14,10 @@ namespace Application.Utils.Mapper
             CreateMap<Comment, CreateParentCommentRequest>().ReverseMap();
             CreateMap<Comment, CreateAnswerCommentRequest>().ReverseMap();
             CreateMap<Comment, CommentWithProduct>().ReverseMap();
-            CreateMap<Comment, CommentWithProduct>().ReverseMap(); 
+            CreateMap<Comment, CommentWithProduct>().ForPath(
+                x => x.UserName, 
+                y =>
+                        y.MapFrom(z => z.ApplicationUser.UserName)).ReverseMap();
             CreateMap<Comment, ReadMultipleCommentsResponse>().ReverseMap();
         }
     }

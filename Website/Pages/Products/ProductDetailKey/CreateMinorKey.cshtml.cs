@@ -10,19 +10,19 @@ namespace Website.Pages.Products.ProductDetailKey;
 public class CreateMinorKey : PageModel
 {
     private readonly Application.ProductService.ProductDetailKey.Minor.Command.Create.CreateMinorKey _createMinorKey;
-    private readonly ReadMultiMajorKeys _readMultiMajorKeys;
+    private readonly ReadMultipleMajorKeys _readMultipleMajorKeys;
     public List<SelectListItem> MajorKeys { get; set; }
 
     [BindProperty] public CreateMinorKeyRequest CreateMinorKeyRequest { get; set; }
 
     public CreateMinorKey(
         Application.ProductService.ProductDetailKey.Minor.Command.Create.CreateMinorKey createMinorKey,
-        ReadMultiMajorKeys readMultiMajorKeys
+        ReadMultipleMajorKeys readMultipleMajorKeys
     )
     {
         _createMinorKey = createMinorKey;
-        _readMultiMajorKeys = readMultiMajorKeys;
-        MajorKeys = _readMultiMajorKeys.Execute(new ReadMultMajorKeysRequest()).Data
+        _readMultipleMajorKeys = readMultipleMajorKeys;
+        MajorKeys = _readMultipleMajorKeys.Execute(new ReadMultMajorKeysRequest()).Data
             .Select(x => new SelectListItem(x.Name, x.Id)).ToList();
     }
 

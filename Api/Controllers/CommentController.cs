@@ -5,6 +5,8 @@ using Application.CommentService.Command.Create.ParentComment.Dto;
 using Application.CommentService.Query.ReadMultipleComments;
 using Application.CommentService.Query.ReadMultipleComments.Dto;
 using Common.BaseDto;
+using Domain;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
@@ -16,19 +18,24 @@ public class CommentController : ControllerBase
     private readonly CreateParentComment _createParentComment;
     private readonly CreateAnswerComment _createAnswerComment;
     private readonly ReadMultipleComments _readMultipleComments;
+    private readonly UserManager<ApplicationUser> _userManager;
 
-    public CommentController(CreateParentComment createParentComment,
+    public CommentController(
+        CreateParentComment createParentComment,
         CreateAnswerComment createAnswerComment,
-        ReadMultipleComments readMultipleComments)
+        ReadMultipleComments readMultipleComments,
+        UserManager<ApplicationUser> userManager)
     {
         _createParentComment = createParentComment;
         _createAnswerComment = createAnswerComment;
         _readMultipleComments = readMultipleComments;
+        _userManager = userManager;
     }
 
     [HttpPost(template:"commentToProduct")]
     public Response OnPost(CreateParentCommentRequest request)
     {
+       
         return _createParentComment.Execute(request);
     }
 

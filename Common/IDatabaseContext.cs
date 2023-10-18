@@ -11,6 +11,8 @@ namespace Common
         EntityEntry<Comment> CommentEntityEntry(Comment comment);
         DbSet<Product> Products { get; } 
         DbSet<Comment> Comments { get;  }
+        DbSet<Basket> Baskets { get;  }
+        DbSet<BasketItem> BasketItems { get;  }
         
         public DbSet<ProductDetailItem> ProductDetailItems { get; set; }     
         

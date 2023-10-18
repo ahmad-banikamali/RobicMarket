@@ -6,17 +6,17 @@ namespace Website.Pages.Products.ProductDetailKey;
 
 public class ShowMajorKeysModel : PageModel
 {
-    private readonly ReadMultiMajorKeys _readMultiMajorKeys;
+    private readonly ReadMultipleMajorKeys _readMultipleMajorKeys;
     public   List<ReadMultiMajorKeysResponse> MajorKeysResponse { get; set; }
 
-    public ShowMajorKeysModel(ReadMultiMajorKeys readMultiMajorKeys)
+    public ShowMajorKeysModel(ReadMultipleMajorKeys readMultipleMajorKeys)
     {
-        _readMultiMajorKeys = readMultiMajorKeys;
+        _readMultipleMajorKeys = readMultipleMajorKeys;
     }
     
     public void OnGet()
     {
-        MajorKeysResponse = _readMultiMajorKeys.Execute(new ReadMultMajorKeysRequest()).Data.ToList();
+        MajorKeysResponse = _readMultipleMajorKeys.Execute(new ReadMultMajorKeysRequest()).Data.ToList();
     }
 
     
