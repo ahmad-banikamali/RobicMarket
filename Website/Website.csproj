@@ -27,8 +27,7 @@
 
 
 
-  <ItemGroup>
-    <Folder Include="Pages\Basket\" />
-  </ItemGroup>
+
+
 
 </Project>

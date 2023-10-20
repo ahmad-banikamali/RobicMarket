@@ -8,6 +8,8 @@ using Application.ProductService.Product.Query.ReadMultiple;
 using Application.ProductService.Product.Query.ReadMultiple.Dto;
 using Application.ProductService.Product.Query.ReadSingle;
 using Application.ProductService.Product.Query.ReadSingle.Dto;
+using Application.ProductService.ProductColor.Command;
+using Application.ProductService.ProductColor.Command.Dto;
 using Common.BaseDto;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,20 +23,24 @@ namespace Api.Controllers
         private readonly ReadSingleProduct _readSingleProduct;
         private readonly ReadMultipleProducts _readMultipleProducts;
         private readonly UpdateProduct _updateProduct;
-        private readonly DeleteProduct _deleteProduct; 
+        private readonly DeleteProduct _deleteProduct;
+        private readonly CreateColor _createColor;
 
         public ProductController(
             CreateProduct createProduct,
             ReadSingleProduct readSingleProduct,
             ReadMultipleProducts readMultipleProducts,
             UpdateProduct updateProduct,
-            DeleteProduct deleteProduct)
+            DeleteProduct deleteProduct,
+            CreateColor createColor
+            )
         {
             _createProduct = createProduct;
             _readSingleProduct = readSingleProduct;
             _readMultipleProducts = readMultipleProducts;
             _updateProduct = updateProduct;
-            _deleteProduct = deleteProduct; 
+            _deleteProduct = deleteProduct;
+            _createColor = createColor;
         }
 
         // GET: api/Product
@@ -82,6 +88,11 @@ namespace Api.Controllers
             return _deleteProduct.Execute(new DeleteProductRequest{Id = id});
         }
 
+        [HttpPost("color")]
+        public Response Post(CreateColorRequest request)
+        {
+            return _createColor.Execute(request);
+        }
 
     
     }

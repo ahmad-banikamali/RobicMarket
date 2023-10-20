@@ -7,6 +7,7 @@ using AutoMapper;
 using Common;
 using Common.BaseDto;
 using Common.CQRS;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.BasketService.Command.Create.BasketItem;
 
@@ -24,7 +25,7 @@ public class AddBasketItemToBasket:Command<AddBasketItemToBasketRequest>
         var response = _readBasket.Execute(new ReadBasketRequest(){BuyerId = request.BuyerId});
         if (response.Data == null) return new Response(){IsSuccess = false};
         var basketId = response.Data.Id;
-        var basket = DatabaseContext.Baskets.FirstOrDefault(x => x.Id == basketId);
+        var basket = DatabaseContext.Baskets.Include(x=>x.BasketItems).FirstOrDefault(x => x.Id == basketId);
         if(basket==null)  return new Response(){IsSuccess = false};
 
         basket.BasketItems.Add(Mapper.Map<Domain.BasketItem>(request));

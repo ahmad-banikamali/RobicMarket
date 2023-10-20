@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Website.Utils;
 
 namespace Website.Pages.Products.Product
 {
@@ -37,22 +38,16 @@ namespace Website.Pages.Products.Product
             ReadSingleProductResponse = response.Data;
         }
 
-        public void OnPostAddItemToBasket()
+        public void OnPostAddItemToBasket(int id)
         {
-            var buyerId = "";
-            //if (User.Identity != null && User.Identity.IsAuthenticated)
-            if (User.Identity is { IsAuthenticated: true })
-            {
-                buyerId = _userManager.GetUserId(User);
-            }
-            else
-            {
-                
-            }
+            var response = _readSingleProduct.Execute(new ReadSingleProductRequest { Id = id });
+            ReadSingleProductResponse = response.Data;
 
-            AddBasketItemToBasketRequest.BuyerId = buyerId; 
-            //_addBasketItemToBasket.Execute(AddBasketItemToBasketRequest);
-            
-        }
+            AddBasketItemToBasketRequest.BuyerId = this.GetBuyerId(_userManager); 
+            AddBasketItemToBasketRequest.ColorId = 2; 
+            AddBasketItemToBasketRequest.GuaranteeTypeId = 1; 
+            _addBasketItemToBasket.Execute(AddBasketItemToBasketRequest);
+          
+        } 
     }
 }

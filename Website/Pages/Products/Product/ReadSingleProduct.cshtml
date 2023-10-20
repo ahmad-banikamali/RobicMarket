@@ -1,4 +1,4 @@
-﻿@page "{id}"
+﻿@page "{id}/{handler?}"
 
 @model ReadSingleProductModel
  
@@ -131,7 +131,7 @@
                                 صفحات و محتوای آزمایشی همیشه بخشی از محتوای پیش‌نمایش قالب و افزونه های وب هستند که شما بتوانید ارتباط درستی با پیش نمایش قالب گرفته و تصمیم مناسبی بگیرید.
                             </p>
                             <hr>
-                            <form method="post">
+                            <form method="post" >
                                 <input type="hidden" value="@Model.ReadSingleProductResponse.Id" asp-for="AddBasketItemToBasketRequest.ProductId">
                                 <div class="variables">
                                     <div class="title">گزینه های موجود:</div>
@@ -148,7 +148,7 @@
                                         <div class="col-12 col-sm-4 col-lg-3">
                                             <div class="variable">
                                                 <div class="sub-title pt-2 pb-2">گارانتی</div>
-                                                <select asp-for="AddBasketItemToBasketRequest.GuaranteeTypeId"  name="" class="form-select">
+                                                <select asp-for="AddBasketItemToBasketRequest.GuaranteeTypeId"   class="form-select">
                                                     <option value="">بدون گارانتی</option>
                                                     <option value="">گارانتی 6 ماهه</option>
                                                     <option value="">گارانت 12 ماهه</option>
@@ -166,7 +166,7 @@
                                 <div class="cta-container pt-3 pt-md-5">
                                     <div class="row">
                                         <div class="col-12">
-                                            <button asp-page-handler="AddItemToBasket">
+                                            <button asp-page-handler="AddItemToBasket" asp-route-id="@Model.ReadSingleProductResponse.Id">
                                                 <div class="btn btn-success px-4 px-lg-2 px-xl-4 btn-add-to-basket"><i class="fa fa-shopping-cart"></i> افزودن به سبد خرید</div>
                                             </button>
                                             <br class="d-sm-none">

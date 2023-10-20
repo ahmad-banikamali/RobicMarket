@@ -7,6 +7,7 @@ using Application.ProductService.Product.Command.Delete;
 using Application.ProductService.Product.Command.Update;
 using Application.ProductService.Product.Query.ReadMultiple;
 using Application.ProductService.Product.Query.ReadSingle;
+using Application.ProductService.ProductColor.Command;
 using Application.ProductService.ProductDetailKey.Major.Command.Create;
 using Application.ProductService.ProductDetailKey.Major.Command.Update;
 using Application.ProductService.ProductDetailKey.Major.Query;
@@ -79,6 +80,8 @@ builder.Services.AddTransient<CreateMinorKey>();
 builder.Services.AddTransient<UpdateMinorKey>();
 builder.Services.AddTransient<ReadSingleMinorKey>();
 builder.Services.AddTransient<ReadMultipleMinorKeys>();
+
+builder.Services.AddTransient<CreateColor>();
 
 
 builder.Services.AddTransient<ReadMultipleUsers>();

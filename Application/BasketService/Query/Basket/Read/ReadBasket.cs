@@ -5,6 +5,7 @@ using AutoMapper;
 using Common;
 using Common.BaseDto;
 using Common.CQRS;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.BasketService.Query.Basket.Read;
 
@@ -21,7 +22,7 @@ public class ReadBasket : Query<ReadBasketRequest, ReadBasketResponse>
 
     public override Response<ReadBasketResponse> Execute(ReadBasketRequest request)
     {
-        var basket = DatabaseContext.Baskets.FirstOrDefault(x => x.BuyerId == request.BuyerId);
+        var basket = DatabaseContext.Baskets.Include(x=>x.BasketItems).ThenInclude(x=>x.Product).FirstOrDefault(x => x.BuyerId == request.BuyerId);
 
         if (basket != null)
             return new Response<ReadBasketResponse>
@@ -33,8 +34,8 @@ public class ReadBasket : Query<ReadBasketRequest, ReadBasketResponse>
         {
             BuyerId = request.BuyerId
         });
-
-        basket = DatabaseContext.Baskets.FirstOrDefault(x => x.BuyerId == request.BuyerId);
+    
+        basket = DatabaseContext.Baskets.Include(x=>x.BasketItems).ThenInclude(x=>x.Product).FirstOrDefault(x => x.BuyerId == request.BuyerId);
 
         return new Response<ReadBasketResponse>
         {

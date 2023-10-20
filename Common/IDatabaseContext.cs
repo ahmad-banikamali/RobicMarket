@@ -13,7 +13,7 @@ namespace Common
         DbSet<Comment> Comments { get;  }
         DbSet<Basket> Baskets { get;  }
         DbSet<BasketItem> BasketItems { get;  }
-        
+        public DbSet<Color> Colors { get; set; }
         public DbSet<ProductDetailItem> ProductDetailItems { get; set; }     
         
         public DbSet<MinorKey> MinorKeys { get; set; }

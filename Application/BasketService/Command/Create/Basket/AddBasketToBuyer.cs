@@ -14,7 +14,7 @@ public class AddBasketToBuyer : Command<AddBasketToBuyerRequest>
 
     public override Response Execute(AddBasketToBuyerRequest request)
     {
-        var basket = DatabaseContext.Baskets.Find(request.BuyerId);
+        var basket = DatabaseContext.Baskets.FirstOrDefault(x=>x.BuyerId == request.BuyerId);
         if (basket != null) return new Response();
         DatabaseContext.Baskets.Add(Mapper.Map<Domain.Basket>(request));
         DatabaseContext.SaveChanges();
