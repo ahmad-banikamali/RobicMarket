@@ -4,7 +4,7 @@ public class ReadBasketResponse
 {
     public int Id { get; set; }
     public string BuyerId { get; set; }
-    public List<BasketItemResponse> BasketItemRequests { get; set; }
+    public ICollection<BasketItemResponse> BasketItems { get; set; }
 }
 
 public class BasketItemResponse

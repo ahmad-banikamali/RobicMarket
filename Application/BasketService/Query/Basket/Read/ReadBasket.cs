@@ -22,7 +22,10 @@ public class ReadBasket : Query<ReadBasketRequest, ReadBasketResponse>
 
     public override Response<ReadBasketResponse> Execute(ReadBasketRequest request)
     {
-        var basket = DatabaseContext.Baskets.Include(x=>x.BasketItems).ThenInclude(x=>x.Product).FirstOrDefault(x => x.BuyerId == request.BuyerId);
+        var basket = DatabaseContext.Baskets
+            .Include(x=>x.BasketItems)
+            .ThenInclude(x=>x.Product)
+            .FirstOrDefault(x => x.BuyerId == request.BuyerId);
 
         if (basket != null)
             return new Response<ReadBasketResponse>
