@@ -18,6 +18,11 @@ namespace Common
         
         public DbSet<MinorKey> MinorKeys { get; set; }
         public DbSet<MajorKey> MajorKeys { get; set; } 
+        public DbSet<City> City { get; set; } 
+        public DbSet<Order> Order { get; set; } 
+        public DbSet<Province> Province { get; set; } 
+        public DbSet<Address> Address { get; set; } 
+        public DbSet<ApplicationUser> Users { get; set; } 
         
         int SaveChanges();
     }

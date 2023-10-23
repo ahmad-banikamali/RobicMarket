@@ -12,6 +12,8 @@ public class BasketItem
     public int Id { get; set; }
     public Product Product { get; set; }
     public int ProductId { get; set; }
+    public int Price { get; set; }
+    public string Image { get; set; }
     public GuaranteeType GuaranteeType { get; set; }
     public int GuaranteeTypeId { get; set; }
     public Color Color { get; set; }

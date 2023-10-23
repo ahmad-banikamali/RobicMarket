@@ -1,4 +1,11 @@
-using Application.CommentService.Command.Create;
+using Application.AddressService.City.Command;
+using Application.AddressService.City.Query;
+using Application.AddressService.DefaultAddress.Command.Create.Dto;
+using Application.AddressService.DefaultAddress.Query.Read;
+using Application.AddressService.NormalAddress.Command;
+using Application.AddressService.NormalAddress.Query.ReadMultiple;
+using Application.AddressService.Province.Command;
+using Application.AddressService.Province.Query;
 using Application.CommentService.Command.Create.AnswerComment;
 using Application.CommentService.Command.Create.ParentComment;
 using Application.CommentService.Query.ReadMultipleComments;
@@ -10,7 +17,6 @@ using Application.ProductService.Product.Query.ReadSingle;
 using Application.ProductService.ProductColor.Command;
 using Application.ProductService.ProductDetailKey.Major.Command.Create;
 using Application.ProductService.ProductDetailKey.Major.Command.Update;
-using Application.ProductService.ProductDetailKey.Major.Query;
 using Application.ProductService.ProductDetailKey.Major.Query.ReadMultiple;
 using Application.ProductService.ProductDetailKey.Major.Query.ReadSingle;
 using Application.ProductService.ProductDetailKey.Minor.Command.Create;
@@ -18,7 +24,6 @@ using Application.ProductService.ProductDetailKey.Minor.Command.Update;
 using Application.ProductService.ProductDetailKey.Minor.Query.ReadMultiple;
 using Application.ProductService.ProductDetailKey.Minor.Query.ReadSingle;
 using Application.UserService.Query.ReadMultiple;
-using Application.Utils;
 using Application.Utils.Identity;
 using Application.Utils.Mapper;
 using Common;
@@ -54,7 +59,8 @@ builder.Services.AddAutoMapper(
     typeof(ProductKeyMapper),
     typeof(IdentityMapper),
     typeof(ProductDetailItemMapper),
-    typeof(BasketDto)
+    typeof(BasketMapper),
+    typeof(AddressMapper)
 );
 
 builder.Services.AddTransient<IDatabaseContext, SqlServerContext>();
@@ -85,6 +91,16 @@ builder.Services.AddTransient<CreateColor>();
 
 
 builder.Services.AddTransient<ReadMultipleUsers>();
+
+
+builder.Services.AddTransient<AddCity>();
+builder.Services.AddTransient<ReadMultipleCities>();
+builder.Services.AddTransient<AddProvince>();
+builder.Services.AddTransient<ReadMultipleProvinces>();
+builder.Services.AddTransient<AddNormalAddress>();
+builder.Services.AddTransient<ReadMultipleAddresses>();
+builder.Services.AddTransient<CreateDefaultAddressRequest>();
+builder.Services.AddTransient<ReadDefaultAddress>(); 
 
 
 var app = builder.Build();

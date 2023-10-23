@@ -6,9 +6,9 @@ using Domain;
 
 namespace Application.Utils.Mapper;
 
-public class BasketDto : Profile
+public class BasketMapper : Profile
 {
-    public BasketDto()
+    public BasketMapper()
     {
         CreateMap<AddBasketToBuyerRequest, Basket>().ReverseMap();
         CreateMap<ReadBasketResponse, Basket>().ReverseMap();

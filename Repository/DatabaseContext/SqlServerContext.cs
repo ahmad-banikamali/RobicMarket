@@ -49,7 +49,11 @@ namespace Repository.DatabaseContext
         public DbSet<GuaranteeType> GuaranteeTypes { get; set; }
         
         public DbSet<ImageUrl> ImageUrls { get; set; }
-        
+        public DbSet<City> City { get; set; } 
+        public DbSet<Order> Order { get; set; } 
+        public DbSet<Province> Province { get; set; } 
+        public DbSet<Address> Address { get; set; } 
+         
         protected override void OnModelCreating(ModelBuilder builder)
         { 
 
@@ -75,6 +79,16 @@ namespace Repository.DatabaseContext
 
             builder.Entity<MajorKey>().ToTable("MajorKeys");
             builder.Entity<MinorKey>().ToTable("MinorKeys");
+
+            builder.Entity<Address>()
+                .HasOne<ApplicationUser>()
+                .WithOne(x=>x.DefaultAddress)
+                .HasForeignKey<ApplicationUser>(x=>x.DefaultAddressId);
+            
+             
+            builder.Entity<ApplicationUser>().HasOne(b => b.Order)
+                .WithOne()
+                .IsRequired(false);
             
             base.OnModelCreating(builder);
         }

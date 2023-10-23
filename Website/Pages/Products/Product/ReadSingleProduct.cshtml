@@ -122,7 +122,7 @@
                                 <a href="#tabs-panel"><span>(نقد و بررسی)</span></a>
                             </div>
                             <div class="price-container py-2">
-                                <span class="pre-price">4.000.000</span>
+                                <span class="pre-price">@Model.ReadSingleProductResponse.Price.ToString()</span>
                                 <span class="price">3.500.000 <span>تومان</span></span>
                                 <div class="badge badge-danger font-weight-light m-1 py-1 px-2">10%</div>
                             </div>
@@ -133,6 +133,8 @@
                             <hr>
                             <form method="post" >
                                 <input type="hidden" value="@Model.ReadSingleProductResponse.Id" asp-for="AddBasketItemToBasketRequest.ProductId">
+                                <input type="hidden" value="@Model.ReadSingleProductResponse.Price" asp-for="AddBasketItemToBasketRequest.Price">
+                                <input type="hidden" value="@Model.ReadSingleProductResponse.ImageUrls.ToList()[0].Name" asp-for="AddBasketItemToBasketRequest.Image">
                                 <div class="variables">
                                     <div class="title">گزینه های موجود:</div>
                                     <div class="row">
