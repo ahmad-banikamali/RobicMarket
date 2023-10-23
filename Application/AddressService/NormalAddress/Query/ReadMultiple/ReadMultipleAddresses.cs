@@ -21,12 +21,17 @@ public class ReadMultipleAddresses : PaginatedQuery<ReadMultipleAddressRequest, 
 
     public override PaginatedResponse<ReadMultipleAddressResponse> Execute(ReadMultipleAddressRequest request)
     {
+        var queryable = _userManager.Users
+            .Include(x => x.Addresses)
+            .Where(x => x.Id == request.UserId)
+            .Select(x => x.Addresses)
+            .FirstOrDefault() ?? new List<Address>();
+
+
         return new PaginatedResponse<ReadMultipleAddressResponse>()
         {
             Message = { "not paginated" },
-            Data = Mapper.Map<ICollection<ReadMultipleAddressResponse>>(_userManager.Users
-                .Where(x => x.Id == request.UserId)
-                .Include(x => x.Addresses).Select(x => x.Addresses))
+            Data = Mapper.Map<ICollection<Address>, ICollection<ReadMultipleAddressResponse>>(queryable)
         };
     }
 }

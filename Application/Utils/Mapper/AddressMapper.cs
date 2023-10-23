@@ -24,10 +24,14 @@ public class AddressMapper:Profile
         CreateMap<AddNormalAddressRequest, Address>();
         CreateMap<Address, ReadDefaultAddressResponse>()
             .ForMember(x=>x.CityName,y=>
-                y.MapFrom(z=>z.City.Name));
+                y.MapFrom(z=>z.City.Name))
+            .ForMember(x=>x.ProvinceName,y=>
+                y.MapFrom(z=>z.City.Province.Name));
         CreateMap<Address, ReadMultipleAddressResponse>()
             .ForMember(x=>x.CityName,y=>
-                y.MapFrom(z=>z.City.Name));
+                y.MapFrom(z=>z.City.Name))
+            .ForMember(x=>x.ProvinceName,y=>
+                y.MapFrom(z=>z.City.Province.Name));
         
         
     }

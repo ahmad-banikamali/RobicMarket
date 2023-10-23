@@ -34,10 +34,27 @@
     <script src="../assets/js/pagination.js"></script>
     <script src="../assets/js/scripts.js"></script>
     <!-- /Scripts -->
+
+    <script type="text/javascript">
+        function getCities(provinceId) {
+          $.ajax({
+            url: '@Url.Page("Address", "GetCities",new {provinceId = 1})',
+               contentType: "application/json; charset=utf-8",
+               dataType: "json",
+               success: function (data){
+                
+               },
+               error: function (errorData){
+                
+               }
+          })
+        }
+        $.ajax()
+    </script>
 }
 
 <div class="col-12 col-lg-9 pl-lg-0 pr-lg-2 mt-2 mt-lg-0">
-    &lt;!&ndash; New Address Form &ndash;&gt;
+    
     <div class="custom-container mb-2" id="new-address">
         <div class="row pt-2 px-3">
             <div class="col-12">
@@ -52,16 +69,14 @@
                         <div class="col-12 col-md-4 pl-2">
                             <div class="form-group m-1">
                                 <label for="province">استان:</label>
-                                <select name="province" id="province" class="form-control">
-                                    <option value="tehran">تهران</option>
-                                    <option value="fars">فارس</option>
-                                    <option value="esfehan">اصفهان</option>
+                                <select name="province" id="province" class="form-control"  asp-items="Model.ProvincePaginatedResponse.Data.ToList().Select(x=>new SelectListItem(text:x.Name,value:x.Id.ToString()))">
+                                   
                                 </select>
                             </div>
                         </div>
                         <div class="col-12 col-md-4 pl-2">
                             <div class="form-group m-1">
-                                <label for="city">استان:</label>
+                                <label for="city">شهر:</label>
                                 <select name="city" id="city" class="form-control">
                                     <option value="tehran">تهران</option>
                                     <option value="shiraz">شیراز</option>
@@ -102,10 +117,8 @@
                 </div>
             </div>
         </div>
-    </div>
-    &lt;!&ndash; /New Address Form &ndash;&gt;
-
-    &lt;!&ndash; User Addresses &ndash;&gt;
+    </div> 
+ 
     <div class="custom-container" id="addresses">
         <div class="row pt-2 px-3">
             <div class="col-12">
@@ -115,7 +128,7 @@
         <hr>
         <div class="container">
             <div class="row">
-                @foreach(var address in Model.PaginatedResponse.Data)
+                @foreach (var address in Model.PaginatedResponse.Data)
 
                 {
                     <div class="col-12 address py-2">
@@ -141,10 +154,9 @@
                         </div>
                     </div>
                 }
-                
+
 
             </div>
         </div>
-    </div>
-    &lt;!&ndash; /User Addresses &ndash;&gt;
+    </div> 
 </div>
