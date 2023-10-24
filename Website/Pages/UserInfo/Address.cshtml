@@ -1,10 +1,14 @@
 ﻿@page
-@using Application.AddressService.NormalAddress.Query.ReadMultiple
+@using Website.ViewComponents
 @model Website.Pages.UserInfo.Address
+
+@Html.Hidden("provinceId", 0);
+
 
 @{
     Layout = "Shared/_LayoutUserInfo";
     ViewData["ProfilePageTitle"] = "آدرسهای منن";
+    var PID = "";
 }
 
 @section Stylesheets
@@ -36,25 +40,33 @@
     <!-- /Scripts -->
 
     <script type="text/javascript">
-        function getCities(provinceId) {
-          $.ajax({
-            url: '@Url.Page("Address", "GetCities",new {provinceId = 1})',
-               contentType: "application/json; charset=utf-8",
-               dataType: "json",
-               success: function (data){
-                
-               },
-               error: function (errorData){
-                
-               }
-          })
-        }
-        $.ajax()
-    </script>
+           
+           $("#province").change(function (){ 
+                    
+               $.ajax({ 
+                                        url: "@Url.Page("Address","GetCities")",
+                                        type:"post",
+                                        data : {"selectedProvinceId": this.value},
+                                        dataType: "json",
+                                        success: function (data){  
+                                            console.log(data)
+                                        },
+                                        error: function (errorData){
+                                            console.log(errorData)
+                                        },
+                                        headers:
+                                        {
+                                            RequestVerificationToken: $('input:hidden[name="__RequestVerificationToken"]').val()
+                                        },   
+                                   })
+           })  
+           
+       </script>
 }
 
+@Html.AntiForgeryToken()
 <div class="col-12 col-lg-9 pl-lg-0 pr-lg-2 mt-2 mt-lg-0">
-    
+
     <div class="custom-container mb-2" id="new-address">
         <div class="row pt-2 px-3">
             <div class="col-12">
@@ -77,11 +89,7 @@
                         <div class="col-12 col-md-4 pl-2">
                             <div class="form-group m-1">
                                 <label for="city">شهر:</label>
-                                <select name="city" id="city" class="form-control">
-                                    <option value="tehran">تهران</option>
-                                    <option value="shiraz">شیراز</option>
-                                    <option value="esfehan">اصفهان</option>
-                                </select>
+                                @await Component.InvokeAsync(typeof(CityViewComponent))
                             </div>
                         </div>
                         <div class="col-12 col-md-8 pl-2">
@@ -117,8 +125,8 @@
                 </div>
             </div>
         </div>
-    </div> 
- 
+    </div>
+
     <div class="custom-container" id="addresses">
         <div class="row pt-2 px-3">
             <div class="col-12">
@@ -128,7 +136,7 @@
         <hr>
         <div class="container">
             <div class="row">
-                @foreach (var address in Model.PaginatedResponse.Data)
+                @foreach (var address in Model.AddressPaginatedResponse.Data)
 
                 {
                     <div class="col-12 address py-2">
@@ -158,5 +166,5 @@
 
             </div>
         </div>
-    </div> 
+    </div>
 </div>

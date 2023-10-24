@@ -1,6 +1,8 @@
 ﻿using System.Security.Claims;
 using Application.AddressService.City.Query;
+using Application.AddressService.City.Query.ReadMultiple.Dto;
 using Application.AddressService.NormalAddress.Command;
+using Application.AddressService.NormalAddress.Command.Dto;
 using Application.AddressService.NormalAddress.Query.ReadMultiple;
 using Application.AddressService.NormalAddress.Query.ReadMultiple.Dto;
 using Application.AddressService.Province.Query;
@@ -9,6 +11,7 @@ using Application.ProductService.Product.Query.ReadMultiple;
 using Application.ProductService.Product.Query.ReadMultiple.Dto;
 using Common.BaseDto;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Website.Pages.UserInfo;
@@ -21,9 +24,17 @@ public class Address : PageModel
     private readonly ReadMultipleCities _readMultipleCities;
     
     private readonly ReadMultipleProvinces _readMultipleProvinces;
-    public PaginatedResponse<ReadMultipleAddressResponse> PaginatedResponse { get; set; }
-    public ReadMultipleProvincesResponse ReadMultipleProvincesResponse { get; set; }
+    
+    public PaginatedResponse<ReadMultipleAddressResponse> AddressPaginatedResponse { get; set; }  
     public PaginatedResponse<ReadMultipleProvincesResponse> ProvincePaginatedResponse { get; set; }
+
+    public PaginatedResponse<ReadMultipleCitiesResponse> CityPaginatedResponse { get; set; } = new();
+
+    public AddNormalAddressRequest AddNormalAddressRequest { get; set; } = new();
+    
+    [BindProperty] 
+    public ReadMultipleCitiesRequest ReadMultipleCitiesRequest { get; set; }
+    
     public Address(
         ReadMultipleAddresses readMultipleAddresses,
         AddNormalAddress addNormalAddress,
@@ -39,11 +50,19 @@ public class Address : PageModel
 
     public void OnGet()
     {
-        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        PaginatedResponse = _readMultipleAddresses.Execute(new ReadMultipleAddressRequest()
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
+        AddressPaginatedResponse = _readMultipleAddresses.Execute(new ReadMultipleAddressRequest()
         {
             UserId = userId
         });
         ProvincePaginatedResponse = _readMultipleProvinces.Execute(new ReadMultipleProvincesRequest());
+    }
+
+    
+    public IActionResult OnPostGetCities(string selectedProvinceId)
+    { 
+        ReadMultipleCitiesRequest.ProvinceId = int.Parse(selectedProvinceId);
+        CityPaginatedResponse = _readMultipleCities.Execute(ReadMultipleCitiesRequest);
+        return Page();
     }
 }
