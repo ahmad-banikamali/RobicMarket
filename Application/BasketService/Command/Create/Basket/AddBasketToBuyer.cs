@@ -6,7 +6,7 @@ using Common.CQRS;
 
 namespace Application.BasketService.Command.Create.Basket;
 
-public class AddBasketToBuyer : Command<AddBasketToBuyerRequest>
+public class AddBasketToBuyer : Command<Domain.Basket,AddBasketToBuyerRequest>
 {
     public AddBasketToBuyer(IDatabaseContext databaseContext, IMapper mapper) : base(databaseContext, mapper)
     {
@@ -14,10 +14,10 @@ public class AddBasketToBuyer : Command<AddBasketToBuyerRequest>
 
     public override Response Execute(AddBasketToBuyerRequest request)
     {
-        var basket = DatabaseContext.Baskets.FirstOrDefault(x=>x.BuyerId == request.BuyerId);
+        var basket = DbSet.FirstOrDefault(x=>x.BuyerId == request.BuyerId);
         if (basket != null) return new Response();
-        DatabaseContext.Baskets.Add(Mapper.Map<Domain.Basket>(request));
-        DatabaseContext.SaveChanges();
+        DbSet.Add(Mapper.Map<Domain.Basket>(request));
+        SaveChanges();
         return new Response();
     }
 }

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.CommentService.Query.ReadMultipleComments;
 
-public class ReadMultipleComments : PaginatedQuery<ReadMultipleCommentsRequest, ReadMultipleCommentsResponse>
+public class ReadMultipleComments : PaginatedQuery<Comment,ReadMultipleCommentsRequest, ReadMultipleCommentsResponse>
 {
     public ReadMultipleComments(IDatabaseContext databaseContext, IMapper mapper) : base(databaseContext, mapper)
     {
@@ -16,7 +16,7 @@ public class ReadMultipleComments : PaginatedQuery<ReadMultipleCommentsRequest, 
 
     public override PaginatedResponse<ReadMultipleCommentsResponse> Execute(ReadMultipleCommentsRequest request)
     {
-        var productComments = DatabaseContext.Comments
+        var productComments = DbSet
             .Include(x => x.AnswerComments)
             .Where(x => x.ProductId == request.ProductId)
             .ToList();

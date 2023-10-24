@@ -6,7 +6,7 @@ using Common.CQRS;
 
 namespace Application.AddressService.City.Query;
 
-public class ReadMultipleCities : PaginatedQuery<ReadMultipleCitiesRequest, ReadMultipleCitiesResponse>
+public class ReadMultipleCities : PaginatedQuery<Domain.City,ReadMultipleCitiesRequest, ReadMultipleCitiesResponse>
 {
     public ReadMultipleCities(IDatabaseContext databaseContext, IMapper mapper) : base(databaseContext, mapper)
     {
@@ -17,7 +17,7 @@ public class ReadMultipleCities : PaginatedQuery<ReadMultipleCitiesRequest, Read
         return new PaginatedResponse<ReadMultipleCitiesResponse>()
         {
             Data = Mapper.Map<ICollection<ReadMultipleCitiesResponse>>(
-                DatabaseContext.City.Where(x => x.ProvinceId == request.ProvinceId)),
+                DbSet.Where(x => x.ProvinceId == request.ProvinceId)),
             Message = { "no pagination" }
         };
     }

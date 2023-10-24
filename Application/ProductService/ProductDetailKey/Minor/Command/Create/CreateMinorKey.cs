@@ -7,7 +7,7 @@ using Domain;
 
 namespace Application.ProductService.ProductDetailKey.Minor.Command.Create;
 
-public class CreateMinorKey:Command<CreateMinorKeyRequest>
+public class CreateMinorKey:Command<MinorKey,CreateMinorKeyRequest>
 {
     public CreateMinorKey(IDatabaseContext databaseContext, IMapper mapper) : base(databaseContext, mapper)
     {
@@ -15,8 +15,8 @@ public class CreateMinorKey:Command<CreateMinorKeyRequest>
 
     public override Response Execute(CreateMinorKeyRequest request)
     {
-        DatabaseContext.MinorKeys.Add(Mapper.Map<MinorKey>(request));
-        DatabaseContext.SaveChanges();
+        DbSet.Add(Mapper.Map<MinorKey>(request));
+        SaveChanges();
         return new Response();
     }
 }

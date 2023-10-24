@@ -7,7 +7,7 @@ using Domain;
 
 namespace Application.ProductService.ProductDetailKey.Major.Command.Update;
 
-public class UpdateMajorKey : Command<UpdateMajorKeyRequest>
+public class UpdateMajorKey : Command<MajorKey,UpdateMajorKeyRequest>
 {
     public UpdateMajorKey(IDatabaseContext databaseContext, IMapper mapper) : base(databaseContext, mapper)
     {
@@ -15,8 +15,8 @@ public class UpdateMajorKey : Command<UpdateMajorKeyRequest>
 
     public override Response Execute(UpdateMajorKeyRequest request)
     {
-        DatabaseContext.MajorKeys.Update(Mapper.Map<MajorKey>(request));
-        DatabaseContext.SaveChanges();
+        DbSet.Update(Mapper.Map<MajorKey>(request));
+        SaveChanges();
         return new Response();
     }
 }

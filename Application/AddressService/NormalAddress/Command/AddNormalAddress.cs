@@ -9,19 +9,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.AddressService.NormalAddress.Command;
 
-public class AddNormalAddress : Command<AddNormalAddressRequest>
+public class AddNormalAddress : Command<ApplicationUser,AddNormalAddressRequest>
 {
-    private readonly UserManager<ApplicationUser> _userManager;
-
-    public AddNormalAddress(IDatabaseContext databaseContext, UserManager<ApplicationUser> userManager, IMapper mapper)
+    
+    public AddNormalAddress(IDatabaseContext databaseContext, IMapper mapper)
         : base(databaseContext, mapper)
     {
-        _userManager = userManager;
+        
     }
 
     public override Response Execute(AddNormalAddressRequest request)
     {
-        var user = _userManager.Users.Include(x => x.Addresses)
+        var user =DbSet.Include(x => x.Addresses)
             .FirstOrDefault(x => x.Id == request.UserId);
 
         if (user == null)
@@ -32,7 +31,7 @@ public class AddNormalAddress : Command<AddNormalAddressRequest>
             };
         
         user.Addresses.Add(Mapper.Map<Address>(request));
-        DatabaseContext.SaveChanges();
+        SaveChanges();
         return new Response();
     }
 }

@@ -6,7 +6,7 @@ using Common.CQRS;
 
 namespace Application.AddressService.Province.Command;
 
-public class AddProvince:Command<AddProvinceRequest>
+public class AddProvince : Command<Domain.Province, AddProvinceRequest>
 {
     public AddProvince(IDatabaseContext databaseContext, IMapper mapper) : base(databaseContext, mapper)
     {
@@ -14,8 +14,8 @@ public class AddProvince:Command<AddProvinceRequest>
 
     public override Response Execute(AddProvinceRequest request)
     {
-        DatabaseContext.Province.Add(Mapper.Map<Domain.Province>(request));
-        DatabaseContext.SaveChanges();
+        DbSet.Add(Mapper.Map<Domain.Province>(request));
+        SaveChanges();
         return new Response();
     }
 }

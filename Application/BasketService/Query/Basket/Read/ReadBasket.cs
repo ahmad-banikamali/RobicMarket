@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.BasketService.Query.Basket.Read;
 
-public class ReadBasket : Query<ReadBasketRequest, ReadBasketResponse>
+public class ReadBasket : Query<Domain.Basket,ReadBasketRequest, ReadBasketResponse>
 {
     private readonly AddBasketToBuyer _addBasketToBuyer;
 
@@ -22,7 +22,7 @@ public class ReadBasket : Query<ReadBasketRequest, ReadBasketResponse>
 
     public override Response<ReadBasketResponse> Execute(ReadBasketRequest request)
     {
-        var basket = DatabaseContext.Baskets
+        var basket = DbSet
             .Include(x=>x.BasketItems)
             .ThenInclude(x=>x.Product)
             .FirstOrDefault(x => x.BuyerId == request.BuyerId);
@@ -38,7 +38,7 @@ public class ReadBasket : Query<ReadBasketRequest, ReadBasketResponse>
             BuyerId = request.BuyerId
         });
     
-        basket = DatabaseContext.Baskets.Include(x=>x.BasketItems).ThenInclude(x=>x.Product).FirstOrDefault(x => x.BuyerId == request.BuyerId);
+        basket = DbSet.Include(x=>x.BasketItems).ThenInclude(x=>x.Product).FirstOrDefault(x => x.BuyerId == request.BuyerId);
 
         return new Response<ReadBasketResponse>
         {

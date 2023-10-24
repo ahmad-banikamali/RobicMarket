@@ -9,19 +9,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.AddressService.NormalAddress.Query.ReadMultiple;
 
-public class ReadMultipleAddresses : PaginatedQuery<ReadMultipleAddressRequest, ReadMultipleAddressResponse>
+public class ReadMultipleAddresses : PaginatedQuery<ApplicationUser,ReadMultipleAddressRequest, ReadMultipleAddressResponse>
 {
-    private readonly UserManager<ApplicationUser> _userManager;
+ 
 
-    public ReadMultipleAddresses(IDatabaseContext databaseContext, UserManager<ApplicationUser> userManager,
+    public ReadMultipleAddresses(IDatabaseContext databaseContext,
         IMapper mapper) : base(databaseContext, mapper)
     {
-        _userManager = userManager;
     }
 
     public override PaginatedResponse<ReadMultipleAddressResponse> Execute(ReadMultipleAddressRequest request)
     {
-        var queryable = _userManager.Users
+        var queryable = DbSet
             .Include(x => x.Addresses)
             .Where(x => x.Id == request.UserId)
             .Select(x => x.Addresses)

@@ -8,25 +8,23 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Application.AddressService.DefaultAddress.Command.Create;
 
-public class CreateDefaultAddress:Command<CreateDefaultAddressRequest>
+public class CreateDefaultAddress:Command<ApplicationUser,CreateDefaultAddressRequest>
 {
-    private readonly UserManager<ApplicationUser> _userManager;
 
-    public CreateDefaultAddress(IDatabaseContext databaseContext,UserManager<ApplicationUser> userManager, IMapper mapper) : base(databaseContext, mapper)
+    public CreateDefaultAddress(IDatabaseContext databaseContext, IMapper mapper) : base(databaseContext, mapper)
     {
-        _userManager = userManager;
     }
 
     public override Response Execute(CreateDefaultAddressRequest request)
     {
-        var user = _userManager.Users.FirstOrDefault(x => x.Id == request.ApplicationUserId);
+        var user = DbSet.FirstOrDefault(x => x.Id == request.ApplicationUserId);
         if (user == null) return new Response()
         {
             IsSuccess = false,
             Message = {"user is null"}
         };
         user.DefaultAddressId = request.DefaultAddressId;
-        DatabaseContext.SaveChanges();
+        SaveChanges();
         return new Response();
     }
 }

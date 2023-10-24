@@ -10,18 +10,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.AddressService.DefaultAddress.Query.Read;
 
-public class ReadDefaultAddress:Query<ReadDefaultAddressRequest,ReadDefaultAddressResponse>
+public class ReadDefaultAddress:Query<ApplicationUser,ReadDefaultAddressRequest,ReadDefaultAddressResponse>
 {
-    private readonly UserManager<ApplicationUser> _userManager;
+     
 
-    public ReadDefaultAddress(IDatabaseContext databaseContext,UserManager<ApplicationUser> userManager, IMapper mapper) : base(databaseContext, mapper)
+    public ReadDefaultAddress(IDatabaseContext databaseContext, IMapper mapper) : base(databaseContext, mapper)
     {
-        _userManager = userManager;
+   
     }
 
     public override Response<ReadDefaultAddressResponse> Execute(ReadDefaultAddressRequest request)
     {
-        var address = _userManager.Users.Include(x=>x.DefaultAddress).Where(x=>x.Id==request.ApplicationUserId).Select(x=>x.DefaultAddress).FirstOrDefault();
+        var address = DbSet.Include(x=>x.DefaultAddress).Where(x=>x.Id==request.ApplicationUserId).Select(x=>x.DefaultAddress).FirstOrDefault();
         return new Response<ReadDefaultAddressResponse>
         {
             Data = Mapper.Map<ReadDefaultAddressResponse>(address)

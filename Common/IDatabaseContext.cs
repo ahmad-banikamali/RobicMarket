@@ -1,29 +1,10 @@
-﻿using Domain;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace Common
 {
     public interface IDatabaseContext
     {
-
-        EntityEntry<Product> ProductEntityEntry(Product product);
-        EntityEntry<Comment> CommentEntityEntry(Comment comment);
-        DbSet<Product> Products { get; } 
-        DbSet<Comment> Comments { get;  }
-        DbSet<Basket> Baskets { get;  }
-        DbSet<BasketItem> BasketItems { get;  }
-        public DbSet<Color> Colors { get; set; }
-        public DbSet<ProductDetailItem> ProductDetailItems { get; set; }     
-        
-        public DbSet<MinorKey> MinorKeys { get; set; }
-        public DbSet<MajorKey> MajorKeys { get; set; } 
-        public DbSet<City> City { get; set; } 
-        public DbSet<Order> Order { get; set; } 
-        public DbSet<Province> Province { get; set; } 
-        public DbSet<Address> Address { get; set; } 
-        public DbSet<ApplicationUser> Users { get; set; } 
-        
+        DbSet<TEntity> Set<TEntity>() where TEntity : class;  
         int SaveChanges();
     }
 }

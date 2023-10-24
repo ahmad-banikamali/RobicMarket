@@ -6,7 +6,7 @@ using Common.CQRS;
 
 namespace Application.AddressService.City.Command;
 
-public class AddCity:Command<AddCityRequest>
+public class AddCity : Command<Domain.City, AddCityRequest>
 {
     public AddCity(IDatabaseContext databaseContext, IMapper mapper) : base(databaseContext, mapper)
     {
@@ -14,8 +14,8 @@ public class AddCity:Command<AddCityRequest>
 
     public override Response Execute(AddCityRequest request)
     {
-        DatabaseContext.City.Add(Mapper.Map<Domain.City>(request));
-        DatabaseContext.SaveChanges();
+        DbSet.Add(Mapper.Map<Domain.City>(request));
+        SaveChanges();
         return new Response();
     }
 }

@@ -6,7 +6,7 @@ using Common.CQRS;
 
 namespace Application.ProductService.Product.Command.Delete;
 
-public class DeleteProduct : Command<DeleteProductRequest>
+public class DeleteProduct : Command<Domain.Product,DeleteProductRequest>
 { 
     public DeleteProduct(IDatabaseContext context, IMapper mapper) : base(context,mapper)
     { 
@@ -14,7 +14,7 @@ public class DeleteProduct : Command<DeleteProductRequest>
 
     public override Response Execute(DeleteProductRequest request)
     {
-        var product = DatabaseContext.Products.FirstOrDefault(x => x.Id == request.Id);
+        var product =DbSet.FirstOrDefault(x => x.Id == request.Id);
         if (product == null)
         {
             return new Response
@@ -23,8 +23,8 @@ public class DeleteProduct : Command<DeleteProductRequest>
             };
         }
 
-        DatabaseContext.Products.Remove(product);
-        DatabaseContext.SaveChanges();
+        DbSet.Remove(product);
+        SaveChanges();
         return new Response();
     }
 }

@@ -6,7 +6,7 @@ using Common.CQRS;
 
 namespace Application.ProductService.Product.Command.Create
 {
-    public class CreateProduct : Command<CreateProductRequest>
+    public class CreateProduct : Command<Domain.Product,CreateProductRequest>
     { 
       
         public CreateProduct(IDatabaseContext database, IMapper mapper) : base(database,mapper)
@@ -15,8 +15,8 @@ namespace Application.ProductService.Product.Command.Create
 
         public override Response Execute(CreateProductRequest request)
         {
-            DatabaseContext.Products.Add(Mapper.Map<Domain.Product>(request));
-            DatabaseContext.SaveChanges();
+            DbSet.Add(Mapper.Map<Domain.Product>(request));
+            SaveChanges();
             return new Response();
         }
     }

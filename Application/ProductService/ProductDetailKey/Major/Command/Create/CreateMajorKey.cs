@@ -6,7 +6,7 @@ using Common.CQRS;
 
 namespace Application.ProductService.ProductDetailKey.Major.Command.Create;
 
-public class CreateMajorKey : Command<CreateMajorKeyRequest>
+public class CreateMajorKey : Command<Domain.MajorKey,CreateMajorKeyRequest>
 {
     public CreateMajorKey(IDatabaseContext databaseContext, IMapper mapper) : base(databaseContext, mapper)
     {
@@ -14,8 +14,8 @@ public class CreateMajorKey : Command<CreateMajorKeyRequest>
 
     public override Response Execute(CreateMajorKeyRequest request)
     {
-        DatabaseContext.MajorKeys.Add(Mapper.Map<Domain.MajorKey>(request));
-        DatabaseContext.SaveChanges();
+        DbSet.Add(Mapper.Map<Domain.MajorKey>(request));
+        SaveChanges();
         return new Response();
     }
 }

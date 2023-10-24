@@ -3,11 +3,12 @@ using AutoMapper;
 using Common;
 using Common.BaseDto;
 using Common.CQRS;
+using Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.ProductService.ProductDetailKey.Major.Query.ReadSingle;
 
-public class ReadSingleMajorKey : Query<ReadSingleMajorKeyRequest, ReadSingleMajorKeyResponse>
+public class ReadSingleMajorKey : Query<MajorKey,ReadSingleMajorKeyRequest, ReadSingleMajorKeyResponse>
 {
     public ReadSingleMajorKey(IDatabaseContext databaseContext, IMapper mapper) : base(databaseContext, mapper)
     {
@@ -15,7 +16,7 @@ public class ReadSingleMajorKey : Query<ReadSingleMajorKeyRequest, ReadSingleMaj
 
     public override Response<ReadSingleMajorKeyResponse> Execute(ReadSingleMajorKeyRequest request)
     {
-        var majorKey = DatabaseContext.MajorKeys
+        var majorKey = DbSet
             .Include(x=>x.MinorKeys)
             
             .FirstOrDefault(y => y.Id == request.Id);

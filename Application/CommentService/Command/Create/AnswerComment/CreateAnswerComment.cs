@@ -4,10 +4,11 @@ using Common;
 using Common.BaseDto;
 using Common.CQRS;
 using Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.CommentService.Command.Create.AnswerComment;
 
-public class CreateAnswerComment : Command<CreateAnswerCommentRequest>
+public class CreateAnswerComment : Command<Comment,CreateAnswerCommentRequest>
 {
     public CreateAnswerComment(IDatabaseContext databaseContext, IMapper mapper) : base(databaseContext, mapper)
     {
@@ -15,19 +16,21 @@ public class CreateAnswerComment : Command<CreateAnswerCommentRequest>
 
     public override Response Execute(CreateAnswerCommentRequest request)
     {
-        var parentComment = DatabaseContext.Comments.Find(request.ParentCommentId);
+        var parentComment = DbSet
+            .Include(x=>x.ParentComment)
+            .Include(x=>x.Product)
+            .FirstOrDefault(x=>x.Id==request.ParentCommentId);
+        
         if (parentComment == null)
             return new Response { IsSuccess = false, Message = { "parent comment not found" } };
 
-        DatabaseContext.CommentEntityEntry(parentComment).Reference(e => e.ParentComment).Load();
-        DatabaseContext.CommentEntityEntry(parentComment).Reference(e => e.Product).Load();
         if (parentComment.ParentComment != null)
             return new Response { IsSuccess = false, Message = { "has grandfather!" } };
 
         var comment = Mapper.Map<Comment>(request); 
         comment.ProductId = parentComment.ProductId;
-        DatabaseContext.Comments.Add(comment);
-        DatabaseContext.SaveChanges();
+        DbSet.Add(comment);
+        SaveChanges();
         return new Response();
     }
 }

@@ -9,16 +9,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.UserService.Query.ReadMultiple;
 
-public class ReadMultipleUsers : PaginatedQuery<ReadMultipleUsersRequest, ReadMultipleUsersResponse>
+public class ReadMultipleUsers : PaginatedQuery<ApplicationUser, ReadMultipleUsersRequest, ReadMultipleUsersResponse>
 {
-    private readonly UserManager<ApplicationUser> _userManager;
-
-    public ReadMultipleUsers(
-        IDatabaseContext databaseContext,
-        IMapper mapper,
-        UserManager<ApplicationUser> userManager) : base(databaseContext, mapper)
+    public ReadMultipleUsers(IDatabaseContext databaseContext, IMapper mapper) : base(databaseContext, mapper)
     {
-        _userManager = userManager;
     }
 
     public override PaginatedResponse<ReadMultipleUsersResponse> Execute(ReadMultipleUsersRequest request)
@@ -26,8 +20,7 @@ public class ReadMultipleUsers : PaginatedQuery<ReadMultipleUsersRequest, ReadMu
         return new PaginatedResponse<ReadMultipleUsersResponse>()
         {
             PageNumber = request.PageNumber,
-            Data = _userManager.Users
-                .Include(x=>x.Comments)
+            Data = DbSet.Include(x => x.Comments)
                 // .PagedResult(pageNum: request.PageNumber, pageSize: request.PageSize)
                 .Select(x => Mapper.Map<ReadMultipleUsersResponse>(x))
         };

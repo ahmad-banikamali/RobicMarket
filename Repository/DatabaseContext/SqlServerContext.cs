@@ -9,10 +9,12 @@ namespace Repository.DatabaseContext
 {
     public class SqlServerContext: IdentityDbContext<ApplicationUser>, IDatabaseContext
     {
- 
+      
+        
+        
         public SqlServerContext(DbContextOptions<SqlServerContext> options):base(options)
         {
-            
+           
         }
 
         public SqlServerContext()

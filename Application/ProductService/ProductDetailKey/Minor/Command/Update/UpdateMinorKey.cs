@@ -7,7 +7,7 @@ using Domain;
 
 namespace Application.ProductService.ProductDetailKey.Minor.Command.Update;
 
-public class UpdateMinorKey : Command<UpdateMinorKeyRequest>
+public class UpdateMinorKey : Command<MinorKey,UpdateMinorKeyRequest>
 {
     public UpdateMinorKey(IDatabaseContext databaseContext, IMapper mapper) : base(databaseContext, mapper)
     {
@@ -15,7 +15,8 @@ public class UpdateMinorKey : Command<UpdateMinorKeyRequest>
 
     public override Response Execute(UpdateMinorKeyRequest request)
     {
-        DatabaseContext.MinorKeys.Update(Mapper.Map<MinorKey>(request));
+        DbSet.Update(Mapper.Map<MinorKey>(request));
+        SaveChanges();
         return new Response();
     }
 }

@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.ProductService.Product.Query.ReadSingle
 {
-    public class ReadSingleProduct : Query<ReadSingleProductRequest, ReadSingleProductResponse>
+    public class ReadSingleProduct : Query<Domain.Product,ReadSingleProductRequest, ReadSingleProductResponse>
     {
         public ReadSingleProduct(IDatabaseContext database, IMapper mapper) : base(database, mapper)
         {
@@ -15,7 +15,7 @@ namespace Application.ProductService.Product.Query.ReadSingle
 
         public override Response<ReadSingleProductResponse> Execute(ReadSingleProductRequest request)
         {
-            var product = DatabaseContext.Products 
+            var product = DbSet
                 .Include(x => x.Comments)
                 .ThenInclude(x=>x.AnswerComments)
                 .ThenInclude(x=>x.ApplicationUser)

@@ -1,16 +1,19 @@
 ﻿using AutoMapper;
-using Common.BaseDto; 
+using Common.BaseDto;
+using Microsoft.EntityFrameworkCore;
 
 namespace Common.CQRS
 {
-    public abstract class Query<TRequest, TResponse>
+    public abstract class Query<TEntity, TRequest, TResponse> where TEntity : class
     {
-        protected readonly IDatabaseContext DatabaseContext; 
         protected readonly IMapper Mapper;
-        protected Query(IDatabaseContext databaseContext, IMapper mapper)
+        protected readonly IQueryable<TEntity> DbSet;
+
+        protected Query(IDatabaseContext databaseContext, IMapper mapper, bool isTacked = false)
         {
-            DatabaseContext = databaseContext;
             Mapper = mapper;
+            var dbSet = databaseContext.Set<TEntity>();
+            DbSet = isTacked ? dbSet.AsTracking() : dbSet.AsNoTracking();
         }
 
         public abstract Response<TResponse> Execute(TRequest request);

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.ProductService.ProductDetailKey.Minor.Query.ReadMultiple;
 
-public class ReadMultipleMinorKeys : PaginatedQuery<ReadMultipleMinorKeysRequest, ReadMultipleMinorKeysResponse>
+public class ReadMultipleMinorKeys : PaginatedQuery<MinorKey,ReadMultipleMinorKeysRequest, ReadMultipleMinorKeysResponse>
 {
     public ReadMultipleMinorKeys(IDatabaseContext databaseContext, IMapper mapper) : base(databaseContext, mapper)
     {
@@ -17,7 +17,7 @@ public class ReadMultipleMinorKeys : PaginatedQuery<ReadMultipleMinorKeysRequest
 
     public override PaginatedResponse<ReadMultipleMinorKeysResponse> Execute(ReadMultipleMinorKeysRequest request)
     {
-        var minorKeys = DatabaseContext.MinorKeys.Include(x => x.MajorKey)
+        var minorKeys =DbSet.Include(x => x.MajorKey)
             . /*PagedResult(request.PageNumber,request.PageSize).*/ToList();
         return new PaginatedResponse<ReadMultipleMinorKeysResponse>
             { Data = Mapper.Map<List<MinorKey>, List<ReadMultipleMinorKeysResponse>>(minorKeys) };

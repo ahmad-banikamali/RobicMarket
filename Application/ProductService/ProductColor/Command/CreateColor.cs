@@ -7,7 +7,7 @@ using Common.CQRS;
 
 namespace Application.ProductService.ProductColor.Command;
 
-public class CreateColor : Command<CreateColorRequest>
+public class CreateColor : Command<Domain.Color,CreateColorRequest>
 {
     public CreateColor(IDatabaseContext databaseContext, IMapper mapper) : base(databaseContext, mapper)
     {
@@ -15,8 +15,8 @@ public class CreateColor : Command<CreateColorRequest>
 
     public override Response Execute(CreateColorRequest request)
     {
-        DatabaseContext.Colors.Add(Mapper.Map<Domain.Color>(request));
-        DatabaseContext.SaveChanges();
+        DbSet.Add(Mapper.Map<Domain.Color>(request));
+        SaveChanges();
         return new Response();
     }
 }

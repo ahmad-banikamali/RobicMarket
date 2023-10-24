@@ -8,7 +8,7 @@ using Domain;
 
 namespace Application.ProductService.ProductDetailKey.Major.Query.ReadMultiple;
 
-public class ReadMultipleMajorKeys : PaginatedQuery<ReadMultMajorKeysRequest, ReadMultiMajorKeysResponse>
+public class ReadMultipleMajorKeys : PaginatedQuery<MajorKey,ReadMultMajorKeysRequest, ReadMultiMajorKeysResponse>
 {
     public ReadMultipleMajorKeys(IDatabaseContext databaseContext, IMapper mapper) : base(databaseContext, mapper)
     {
@@ -19,7 +19,7 @@ public class ReadMultipleMajorKeys : PaginatedQuery<ReadMultMajorKeysRequest, Re
         return new PaginatedResponse<ReadMultiMajorKeysResponse>()
         {
             Data = Mapper.Map<List<MajorKey>, List<ReadMultiMajorKeysResponse>>(
-                DatabaseContext.MajorKeys.PagedResult(request.PageNumber, request.PageSize).ToList()
+                DbSet.PagedResult(request.PageNumber, request.PageSize).ToList()
             )
         };
     }
