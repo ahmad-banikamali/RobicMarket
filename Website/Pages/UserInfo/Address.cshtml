@@ -1,14 +1,11 @@
 ﻿@page
 @using Website.ViewComponents
 @model Website.Pages.UserInfo.Address
-
-@Html.Hidden("provinceId", 0);
-
+ 
 
 @{
     Layout = "Shared/_LayoutUserInfo";
-    ViewData["ProfilePageTitle"] = "آدرسهای منن";
-    var PID = "";
+    ViewData["ProfilePageTitle"] = "آدرسهای منن"; 
 }
 
 @section Stylesheets
@@ -40,18 +37,19 @@
     <!-- /Scripts -->
 
     <script type="text/javascript">
-           
-           $("#province").change(function (){ 
-                    
+           $('body').on('change','#province', 
+           function (){ 
                $.ajax({ 
                          url: "@Url.Page("Address", "GetCities")",
                          type:"post",
                          data : {"selectedProvinceId": this.value === 0 ? 1 :this.value},
                          dataType: "text",
-                         success: function (data){  
+                         success: function (data){   
                               $("#city-component").html(data)
+                              $('#city').trigger('change');
                          }, 
-                         error: function (errorData){ 
+                         error: function (errorData){
+                             console.log(errorData)
                          },
                          headers:
                          {
@@ -60,18 +58,17 @@
                     })
            })
            
-         function onCityChange() {
-             document.getElementById("city-hidden").textContent = document.getElementById("city").value; 
+         function onCityChange() {  
+             document.getElementById("city-hidden").value = document.getElementById("city").value; 
          }
            
        </script>
 }
-
-@Html.AntiForgeryToken()
-<form method="post">
-    
+ 
+ 
+    @Html.AntiForgeryToken()
     <div class="col-12 col-lg-9 pl-lg-0 pr-lg-2 mt-2 mt-lg-0">
-    <input type="hidden" asp-for="AddNormalAddressRequest.CityId" id="city-hidden" value="@ViewBag.MyInitialValue" />
+  
     <div class="custom-container mb-2" id="new-address">
         <div class="row pt-2 px-3">
             <div class="col-12">
@@ -80,37 +77,41 @@
         </div>
         <hr>
         <div class="container">
-            <div class="row">
+            <form method="post" class="row">
                 <div class="col-12 pt-3">
                     <div class="row">
                         <div class="col-12 col-md-4 pl-2">
                             <div class="form-group m-1">
                                 <label for="province">استان:</label>
-                                <select asp-for="AddNormalAddressRequest.ProvinceId" id="province" class="form-control"  asp-items="Model.ProvincePaginatedResponse.Data.ToList().Select(x=>new SelectListItem(text:x.Name,value:x.Id.ToString()))">
+                                <select  id="province" class="form-control" asp-for="AddNormalAddressRequest.ProvinceId"  asp-items="Model.ProvincePaginatedResponse.Data.ToList().Select(x=>new SelectListItem(text:x.Name,value:x.Id.ToString()))">
                                    
                                 </select>
                             </div>
                         </div>
                         <div class="col-12 col-md-4 pl-2">
                             <div class="form-group m-1">
+                                  <input type="hidden" asp-for="AddNormalAddressRequest.CityId"  id="city-hidden" />
                                 <label for="city">شهر:</label>
                                 <div id="city-component">
-                                    @await Component.InvokeAsync(typeof(CityViewComponent),arguments:new {provinceId = 1})
+                                    @await Component.InvokeAsync(typeof(CityViewComponent), arguments: new { provinceId = 1 })
                                 </div>
                             </div>
                         </div>
+                        
+                         <input type="hidden"  value="@Model.UserId" asp-for="AddNormalAddressRequest.UserId" />
                         <div class="col-12 col-md-8 pl-2">
                             <div class="form-group m-1">
                                 <label for="address">نشانی کامل:</label>
                                 <input type="text" asp-for="AddNormalAddressRequest.FullAddress" id="address" class="form-control">
                             </div>
                         </div>
-                        <div class="col-12 col-md-4 pl-2">
-                            <div class="form-group m-1">
-                                <label for="postal_code">کد پستی:</label>
-                                <input type="text" name="postal_code" id="postal_code" class="form-control">
-                            </div>
-                        </div>
+                          
+                         <div class="col-12 col-md-4 pl-2">
+                             <div class="form-group m-1">
+                                 <label for="postal_code">کد پستی:</label>
+                                 <input type="text" asp-for="AddNormalAddressRequest.PostalCode" id="postal_code" class="form-control">
+                             </div>
+                         </div>
                         <div class="col-12 col-md-4 pl-2">
                             <div class="form-group m-1">
                                 <label for="receiver">تحویل گیرنده:</label>
@@ -125,12 +126,13 @@
                         </div>
                         <div class="col-12">
                             <div class="form-group m-1 pb-3">
-                                <input type="submit" class="btn btn-primary px-5" value="ذخیره آدرس">
+                                <input type="submit" asp-controller="" class="btn btn-primary px-5" value="ذخیره آدرس">
                             </div>
                         </div>
+                        
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 
@@ -175,4 +177,4 @@
         </div>
     </div>
 </div>
-</form>
+ 

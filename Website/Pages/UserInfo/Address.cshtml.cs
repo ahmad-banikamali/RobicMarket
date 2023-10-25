@@ -28,15 +28,13 @@ public class Address : PageModel
     
     public PaginatedResponse<ReadMultipleAddressResponse> AddressPaginatedResponse { get; set; }  
     public PaginatedResponse<ReadMultipleProvincesResponse> ProvincePaginatedResponse { get; set; }
-
-    public PaginatedResponse<ReadMultipleCitiesResponse> CityPaginatedResponse { get; set; } = new();
-    [BindProperty] 
-    public AddNormalAddressRequest AddNormalAddressRequest { get; set; } 
  
+    [BindProperty] public AddNormalAddressRequest AddNormalAddressRequest { get; set; } = new();
+
+    public string UserId { get; set; }
+
     
-    
-    [BindProperty] 
-    public ReadMultipleCitiesRequest ReadMultipleCitiesRequest { get; set; }
+      
     
     public Address(
         ReadMultipleAddresses readMultipleAddresses,
@@ -53,24 +51,33 @@ public class Address : PageModel
 
     public void OnGet()
     {
-        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
+        UserId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
         AddressPaginatedResponse = _readMultipleAddresses.Execute(new ReadMultipleAddressRequest()
         {
-            UserId = userId
+            UserId = UserId
         });
+
+
         ProvincePaginatedResponse = _readMultipleProvinces.Execute(new ReadMultipleProvincesRequest());
     }
 
     public void OnPost()
     {
+        _addNormalAddress.Execute(AddNormalAddressRequest);
         
+        UserId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
+        AddressPaginatedResponse = _readMultipleAddresses.Execute(new ReadMultipleAddressRequest()
+        {
+            UserId = UserId
+        });
+
+
+        ProvincePaginatedResponse = _readMultipleProvinces.Execute(new ReadMultipleProvincesRequest());
     }
 
 
     public IActionResult OnPostGetCities(string selectedProvinceId)
-    { 
-        ReadMultipleCitiesRequest.ProvinceId = int.Parse(selectedProvinceId);
-        CityPaginatedResponse = _readMultipleCities.Execute(ReadMultipleCitiesRequest);
+    {  
         return ViewComponent(typeof(CityViewComponent),new
         {
             provinceId = int.Parse(selectedProvinceId), 
