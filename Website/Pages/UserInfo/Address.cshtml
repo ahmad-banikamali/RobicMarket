@@ -44,29 +44,34 @@
            $("#province").change(function (){ 
                     
                $.ajax({ 
-                                        url: "@Url.Page("Address","GetCities")",
-                                        type:"post",
-                                        data : {"selectedProvinceId": this.value},
-                                        dataType: "json",
-                                        success: function (data){  
-                                            console.log(data)
-                                        },
-                                        error: function (errorData){
-                                            console.log(errorData)
-                                        },
-                                        headers:
-                                        {
-                                            RequestVerificationToken: $('input:hidden[name="__RequestVerificationToken"]').val()
-                                        },   
-                                   })
-           })  
+                         url: "@Url.Page("Address", "GetCities")",
+                         type:"post",
+                         data : {"selectedProvinceId": this.value === 0 ? 1 :this.value},
+                         dataType: "text",
+                         success: function (data){  
+                              $("#city-component").html(data)
+                         }, 
+                         error: function (errorData){ 
+                         },
+                         headers:
+                         {
+                             RequestVerificationToken: $('input:hidden[name="__RequestVerificationToken"]').val()
+                         },   
+                    })
+           })
+           
+         function onCityChange() {
+             document.getElementById("city-hidden").textContent = document.getElementById("city").value; 
+         }
            
        </script>
 }
 
 @Html.AntiForgeryToken()
-<div class="col-12 col-lg-9 pl-lg-0 pr-lg-2 mt-2 mt-lg-0">
-
+<form method="post">
+    
+    <div class="col-12 col-lg-9 pl-lg-0 pr-lg-2 mt-2 mt-lg-0">
+    <input type="hidden" asp-for="AddNormalAddressRequest.CityId" id="city-hidden" value="@ViewBag.MyInitialValue" />
     <div class="custom-container mb-2" id="new-address">
         <div class="row pt-2 px-3">
             <div class="col-12">
@@ -81,7 +86,7 @@
                         <div class="col-12 col-md-4 pl-2">
                             <div class="form-group m-1">
                                 <label for="province">استان:</label>
-                                <select name="province" id="province" class="form-control"  asp-items="Model.ProvincePaginatedResponse.Data.ToList().Select(x=>new SelectListItem(text:x.Name,value:x.Id.ToString()))">
+                                <select asp-for="AddNormalAddressRequest.ProvinceId" id="province" class="form-control"  asp-items="Model.ProvincePaginatedResponse.Data.ToList().Select(x=>new SelectListItem(text:x.Name,value:x.Id.ToString()))">
                                    
                                 </select>
                             </div>
@@ -89,13 +94,15 @@
                         <div class="col-12 col-md-4 pl-2">
                             <div class="form-group m-1">
                                 <label for="city">شهر:</label>
-                                @await Component.InvokeAsync(typeof(CityViewComponent))
+                                <div id="city-component">
+                                    @await Component.InvokeAsync(typeof(CityViewComponent),arguments:new {provinceId = 1})
+                                </div>
                             </div>
                         </div>
                         <div class="col-12 col-md-8 pl-2">
                             <div class="form-group m-1">
                                 <label for="address">نشانی کامل:</label>
-                                <input type="text" name="address" id="address" class="form-control">
+                                <input type="text" asp-for="AddNormalAddressRequest.FullAddress" id="address" class="form-control">
                             </div>
                         </div>
                         <div class="col-12 col-md-4 pl-2">
@@ -107,13 +114,13 @@
                         <div class="col-12 col-md-4 pl-2">
                             <div class="form-group m-1">
                                 <label for="receiver">تحویل گیرنده:</label>
-                                <input type="text" name="receiver" id="receiver" class="form-control">
+                                <input type="text"  asp-for="AddNormalAddressRequest.TransfereeName"  id="receiver" class="form-control">
                             </div>
                         </div>
                         <div class="col-12 col-md-4 pl-2">
                             <div class="form-group m-1">
                                 <label for="tel">تلفن تماس:</label>
-                                <input type="text" name="tel" id="tel" class="form-control">
+                                <input type="text" asp-for="AddNormalAddressRequest.TransfereePhone"  id="tel" class="form-control">
                             </div>
                         </div>
                         <div class="col-12">
@@ -168,3 +175,4 @@
         </div>
     </div>
 </div>
+</form>

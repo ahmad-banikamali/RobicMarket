@@ -1,5 +1,5 @@
-﻿<select name="city" id="city" class="form-control">
-    <option value="tehran">تهران</option>
-    <option value="shiraz">شیراز</option>
-    <option value="esfehan">اصفهان</option>
+﻿@model IEnumerable<SelectListItem>
+
+<select id="city" class="form-control" onchange="onCityChange()" asp-items="Model">
+    
 </select>

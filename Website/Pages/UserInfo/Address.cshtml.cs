@@ -13,6 +13,7 @@ using Common.BaseDto;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Website.ViewComponents;
 
 namespace Website.Pages.UserInfo;
 
@@ -29,8 +30,10 @@ public class Address : PageModel
     public PaginatedResponse<ReadMultipleProvincesResponse> ProvincePaginatedResponse { get; set; }
 
     public PaginatedResponse<ReadMultipleCitiesResponse> CityPaginatedResponse { get; set; } = new();
-
-    public AddNormalAddressRequest AddNormalAddressRequest { get; set; } = new();
+    [BindProperty] 
+    public AddNormalAddressRequest AddNormalAddressRequest { get; set; } 
+ 
+    
     
     [BindProperty] 
     public ReadMultipleCitiesRequest ReadMultipleCitiesRequest { get; set; }
@@ -58,11 +61,19 @@ public class Address : PageModel
         ProvincePaginatedResponse = _readMultipleProvinces.Execute(new ReadMultipleProvincesRequest());
     }
 
-    
+    public void OnPost()
+    {
+        
+    }
+
+
     public IActionResult OnPostGetCities(string selectedProvinceId)
     { 
         ReadMultipleCitiesRequest.ProvinceId = int.Parse(selectedProvinceId);
         CityPaginatedResponse = _readMultipleCities.Execute(ReadMultipleCitiesRequest);
-        return Page();
+        return ViewComponent(typeof(CityViewComponent),new
+        {
+            provinceId = int.Parse(selectedProvinceId), 
+        });
     }
 }
