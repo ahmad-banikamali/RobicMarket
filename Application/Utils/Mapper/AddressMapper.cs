@@ -26,7 +26,10 @@ public class AddressMapper:Profile
             .ForMember(x=>x.CityName,y=>
                 y.MapFrom(z=>z.City.Name))
             .ForMember(x=>x.ProvinceName,y=>
-                y.MapFrom(z=>z.City.Province.Name));
+                y.MapFrom(z=>z.City.Province.Name))
+            .ForMember(x=>x.DefaultAddressId,
+                y=>
+                y.MapFrom(z=>z.Id));
         CreateMap<Address, ReadMultipleAddressResponse>()
             .ForMember(x=>x.CityName,y=>
                 y.MapFrom(z=>z.City.Name))

@@ -1,4 +1,5 @@
-﻿using Domain;
+﻿using System.Security.Claims;
+using Domain;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -23,5 +24,10 @@ public static class UserId
             }
 
         return buyerId;
+    }
+    public static string? GetUserId(this PageModel pageModel)
+    {
+        return pageModel.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
     }
 }

@@ -20,13 +20,14 @@ public class ReadMultipleAddresses : PaginatedQuery<ApplicationUser,ReadMultiple
 
     public override PaginatedResponse<ReadMultipleAddressResponse> Execute(ReadMultipleAddressRequest request)
     {
-        var queryable = DbSet
-            .Include(x => x.Addresses)
-            .ThenInclude(x=>x.City)
-            .ThenInclude(x=>x.Province)
-            .Where(x => x.Id == request.UserId)
-            .Select(x => x.Addresses)
-            .FirstOrDefault() ?? new List<Address>();
+        var queryable = (DbSet
+                .Include(x => x.Addresses)
+                .ThenInclude(x=>x.City)
+                .ThenInclude(x=>x.Province)
+                .Where(x => x.Id == request.UserId)
+                .Select(x => x.Addresses)
+                .FirstOrDefault() ?? new List<Address>())
+            .OrderByDescending(x=>x.Id).ToList();
 
 
         return new PaginatedResponse<ReadMultipleAddressResponse>()

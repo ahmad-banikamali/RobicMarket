@@ -4,7 +4,7 @@ public class AddNormalAddressRequest
 {
     public string UserId { get; set; }
     public int ProvinceId { get; set; }
-    public int CityId { get; set; } = 2;
+    public int CityId { get; set; }
     public string FullAddress { get; set; }
     public string PostalCode { get; set; }
     public string TransfereeName { get; set; }
