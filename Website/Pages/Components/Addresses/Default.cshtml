@@ -21,8 +21,16 @@
                     <i class="fa fa-edit font-weight-normal"></i>
                 </a>
                               
-                <a  class="float-right float-sm-left ml-2" title="آدرس پیش فرض" data-default-address data-id="@address.Id" >
-                    <i style="color: #fcb941"></i> 
+                <a class="float-right float-sm-left ml-2" title="آدرس پیش فرض" data-default-address data-id="@address.Id">
+                    @if(address.Id==ViewBag.defaultAddressId )
+                    {
+                        <i style="color: #fcb941" class="fa fa fa-check-circle"></i>
+                    }
+               
+                    else
+                    {
+                        <i style="color: #fcb941" class="fa fa fa-circle-notch"></i>
+                    }
                 </a>
             </div>
         </div>

@@ -16,13 +16,13 @@ public class AddressesViewComponent:ViewComponent
     }
     
     
-    public IViewComponentResult  Invoke(string userId)
+    public IViewComponentResult  Invoke(string userId,int defaultAddressId)
     { 
         var addressPaginatedResponse = _readMultipleAddresses.Execute(new ReadMultipleAddressRequest()
         {
             UserId = userId
         });
-        
+        ViewBag.defaultAddressId = defaultAddressId;
         return View(addressPaginatedResponse.Data);
     }
 }

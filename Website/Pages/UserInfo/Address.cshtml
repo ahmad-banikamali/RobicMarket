@@ -38,7 +38,7 @@
 
     <script type="text/javascript">
     
-         let defaultAddressId= @Model.DefaultAddressID
+       let defaultAddressId= @Model.DefaultAddressID
          
         function ajaxRequest(link,data,onSuccess,onError){
             $.ajax(
@@ -71,8 +71,7 @@
                           )
                  })
            
-
-           let addressElement = $("a[data-default-address]")
+ 
          
             $('body').on('submit',".container>form",  function (){
                         let addAddressData = {
@@ -86,7 +85,7 @@
                         }
                         ajaxRequest("@Url.Page("Address")",addAddressData,
                                     function (data){
-                                        $("#addressss").html(data)
+                                        $("#addresses-container").html(data)
                                         },
                                     function (errorData){
                                         console.log(errorData)}
@@ -98,17 +97,12 @@
          function onCityChange() {  
              document.getElementById("city-hidden").value = document.getElementById("city").value; 
          }
-           
-         // addressElement.each(function (itm){
-         //     let addressId = $(itm).attr("data-id")
-         //     $(this).children(":first").addClass("fa").addClass(parseInt(addressId)===defaultAddressId?"fa-check-circle":"fa-circle-notch")
-         // })
-      
-      refreshUserAddress(defaultAddressId)
+            
+      refreshUserDefaultAddress(defaultAddressId)
       
       
-        function refreshUserAddress(defaultAddressId){ 
-             $(addressElement).each(function (idx, itm){  
+        function refreshUserDefaultAddress(defaultAddressId){  
+             $("a[data-default-address]").each(function (idx, itm){  
                      let itemAddressId = $(itm).attr("data-id");
                      let isDefaultItem = defaultAddressId.toString()===itemAddressId 
                      $(":first-child", itm).attr('class', isDefaultItem?'fa fa-check-circle':'fa fa-circle-notch'); 
@@ -116,20 +110,22 @@
             )           
         }
         
-        addressElement.click(function (){
-             let clickedAddressId = $(this).attr("data-id")
-             ajaxRequest(
-               "@Url.Page("Address", "changeDefaultAddress")",
-                {defaultAddressId:parseInt(clickedAddressId)},
-                function (){  
-                    refreshUserAddress(clickedAddressId);
-                },
-                function (error){
-                    console.log(error)
-                }
-             )
-             $(this).children(":first").addClass("fa").addClass(clickedAddressId===defaultAddressId?"fa-check-circle":"fa-circle-notch")
-         }) 
+        
+        $(document).on("click","a[data-default-address]",function() { 
+                let clickedAddressId = $(this).attr("data-id")
+                         ajaxRequest(
+                           "@Url.Page("Address", "changeDefaultAddress")",
+                            {defaultAddressId:parseInt(clickedAddressId)},
+                            function (){  
+                                refreshUserDefaultAddress(clickedAddressId);
+                            },
+                            function (error){
+                                console.log(error)
+                            }
+                         ) 
+        })
+        
+     
            
        </script>
 }
@@ -215,8 +211,8 @@
         <div class="container">
             <div class="row">
 
-                <div id="addressss">
-                    @await Component.InvokeAsync(typeof(AddressesViewComponent), arguments: new { userId = Model.UserId })
+                <div id="addresses-container">
+                    @await Component.InvokeAsync(typeof(AddressesViewComponent), arguments: new { userId = Model.UserId,defaultAddressId = Model.DefaultAddressID })
                 </div> 
 
             </div>

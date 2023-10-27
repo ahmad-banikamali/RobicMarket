@@ -76,7 +76,7 @@ public class Address : PageModel
     {
         _addNormalAddress.Execute(AddNormalAddressRequest);
         LoadPageData();
-        return ViewComponent(typeof(AddressesViewComponent),new {userId=UserId});
+        return ViewComponent(typeof(AddressesViewComponent),new {userId=UserId,defaultAddressId= DefaultAddressID});
     }
 
 
