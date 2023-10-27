@@ -1,11 +1,11 @@
 ﻿@page
 @using Website.ViewComponents
 @model Website.Pages.UserInfo.Address
- 
+
 
 @{
     Layout = "Shared/_LayoutUserInfo";
-    ViewData["ProfilePageTitle"] = "آدرسهای منن"; 
+    ViewData["ProfilePageTitle"] = "آدرسهای منن";
 }
 
 @section Stylesheets
@@ -37,21 +37,24 @@
     <!-- /Scripts -->
 
     <script type="text/javascript">
+    
+         let defaultAddressId= @Model.DefaultAddressID
+         
         function ajaxRequest(link,data,onSuccess,onError){
-                 $.ajax(
-                       { 
-                            url: link,
-                            type:"post",
-                            data : data,
-                            dataType: "text",
-                            success: onSuccess, 
-                            error: onError,
-                            headers:
-                            {
-                                RequestVerificationToken:
-                                 $('input:hidden[name="__RequestVerificationToken"]').val()
-                            },   
-                       }  )
+            $.ajax(
+                  { 
+                        url: link,
+                        type:"post",
+                        data : data,
+                        dataType: "text",
+                        success: onSuccess, 
+                        error: onError,
+                        headers:
+                        {
+                            RequestVerificationToken:
+                             $('input:hidden[name="__RequestVerificationToken"]').val()
+                        },   
+                  }  )
         }
     
     
@@ -69,6 +72,8 @@
                  })
            
 
+           let addressElement = $("a[data-default-address]")
+         
             $('body').on('submit',".container>form",  function (){
                         let addAddressData = {
                           Postalcode : $("#postal_code").val(),
@@ -80,8 +85,9 @@
                           UserId :  $("#user").val()
                         }
                         ajaxRequest("@Url.Page("Address")",addAddressData,
-                                    function (){
-                                        $("#addresses").load(location.href + "#addresses");},
+                                    function (data){
+                                        $("#addressss").html(data)
+                                        },
                                     function (errorData){
                                         console.log(errorData)}
                         );  
@@ -93,39 +99,45 @@
              document.getElementById("city-hidden").value = document.getElementById("city").value; 
          }
            
-         let defaultAddressId= @Model.DefaultAddressID.ToString()
-         let addressElement = $("a[data-default-address]")
-         
-         addressElement.each(function (){
-             let addressId = $(this).attr("data-id") 
-             $(this).children(":first").addClass("fa").addClass(parseInt(addressId)===defaultAddressId?"fa-check-circle":"fa-circle-notch")
-         })
+         // addressElement.each(function (itm){
+         //     let addressId = $(itm).attr("data-id")
+         //     $(this).children(":first").addClass("fa").addClass(parseInt(addressId)===defaultAddressId?"fa-check-circle":"fa-circle-notch")
+         // })
+      
+      refreshUserAddress(defaultAddressId)
       
       
-      
-         addressElement.click(function (){
-             let addressId = $(this).attr("data-id")
+        function refreshUserAddress(defaultAddressId){ 
+             $(addressElement).each(function (idx, itm){  
+                     let itemAddressId = $(itm).attr("data-id");
+                     let isDefaultItem = defaultAddressId.toString()===itemAddressId 
+                     $(":first-child", itm).attr('class', isDefaultItem?'fa fa-check-circle':'fa fa-circle-notch'); 
+                 }
+            )           
+        }
+        
+        addressElement.click(function (){
+             let clickedAddressId = $(this).attr("data-id")
              ajaxRequest(
-                @Url.Page("Address", "changeDefaultAddress"),
-                {defaultAddressId:parseInt(addressId)},
-                function (){
-                    alert("changed")
-                     // $("#addresses").load(location.href + "#addresses");
+               "@Url.Page("Address", "changeDefaultAddress")",
+                {defaultAddressId:parseInt(clickedAddressId)},
+                function (){  
+                    refreshUserAddress(clickedAddressId);
                 },
                 function (error){
                     console.log(error)
                 }
              )
-             $(this).children(":first").addClass("fa").addClass(addressId===defaultAddressId?"fa-check-circle":"fa-circle-notch")
-         })
+             $(this).children(":first").addClass("fa").addClass(clickedAddressId===defaultAddressId?"fa-check-circle":"fa-circle-notch")
+         }) 
            
        </script>
 }
- 
- 
-    @Html.AntiForgeryToken()
-    <div class="col-12 col-lg-9 pl-lg-0 pr-lg-2 mt-2 mt-lg-0">
-  
+
+
+@Html.AntiForgeryToken()
+<div class="col-12 col-lg-9 pl-lg-0 pr-lg-2 mt-2 mt-lg-0">
+
     <div class="custom-container mb-2" id="new-address">
         <div class="row pt-2 px-3">
             <div class="col-12">
@@ -140,53 +152,53 @@
                         <div class="col-12 col-md-4 pl-2">
                             <div class="form-group m-1">
                                 <label for="province">استان:</label>
-                                <select  id="province" class="form-control" asp-for="AddNormalAddressRequest.ProvinceId"  asp-items="Model.ProvincePaginatedResponse.Data.ToList().Select(x=>new SelectListItem(text:x.Name,value:x.Id.ToString()))">
-                                   
+                                <select id="province" class="form-control" asp-for="AddNormalAddressRequest.ProvinceId" asp-items="Model.ProvincePaginatedResponse.Data.ToList().Select(x => new SelectListItem(text: x.Name, value: x.Id.ToString()))">
+
                                 </select>
                             </div>
                         </div>
                         <div class="col-12 col-md-4 pl-2">
                             <div class="form-group m-1">
-                                  <input type="hidden" asp-for="AddNormalAddressRequest.CityId" value="1"  id="city-hidden" />
+                                <input type="hidden" asp-for="AddNormalAddressRequest.CityId" value="1" id="city-hidden"/>
                                 <label for="city">شهر:</label>
                                 <div id="city-component">
                                     @await Component.InvokeAsync(typeof(CityViewComponent), arguments: new { provinceId = 1 })
                                 </div>
                             </div>
                         </div>
-                        
-                         <input type="hidden" id="user"  value="@Model.UserId" asp-for="AddNormalAddressRequest.UserId" />
+
+                        <input type="hidden" id="user" value="@Model.UserId" asp-for="AddNormalAddressRequest.UserId"/>
                         <div class="col-12 col-md-8 pl-2">
                             <div class="form-group m-1">
                                 <label for="address">نشانی کامل:</label>
                                 <input type="text" asp-for="AddNormalAddressRequest.FullAddress" id="address" class="form-control">
                             </div>
                         </div>
-                          
-                         <div class="col-12 col-md-4 pl-2">
-                             <div class="form-group m-1">
-                                 <label for="postal_code">کد پستی:</label>
-                                 <input type="text" asp-for="AddNormalAddressRequest.PostalCode" id="postal_code" class="form-control">
-                             </div>
-                         </div>
+
+                        <div class="col-12 col-md-4 pl-2">
+                            <div class="form-group m-1">
+                                <label for="postal_code">کد پستی:</label>
+                                <input type="text" asp-for="AddNormalAddressRequest.PostalCode" id="postal_code" class="form-control">
+                            </div>
+                        </div>
                         <div class="col-12 col-md-4 pl-2">
                             <div class="form-group m-1">
                                 <label for="receiver">تحویل گیرنده:</label>
-                                <input type="text"  asp-for="AddNormalAddressRequest.TransfereeName"  id="receiver" class="form-control">
+                                <input type="text" asp-for="AddNormalAddressRequest.TransfereeName" id="receiver" class="form-control">
                             </div>
                         </div>
                         <div class="col-12 col-md-4 pl-2">
                             <div class="form-group m-1">
                                 <label for="tel">تلفن تماس:</label>
-                                <input type="text" asp-for="AddNormalAddressRequest.TransfereePhone"  id="tel" class="form-control">
+                                <input type="text" asp-for="AddNormalAddressRequest.TransfereePhone" id="tel" class="form-control">
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group m-1 pb-3">
-                                <input type="submit"  class="btn btn-primary px-5" value="ذخیره آدرس">
+                                <input type="submit" class="btn btn-primary px-5" value="ذخیره آدرس">
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
             </form>
@@ -202,34 +214,10 @@
         <hr>
         <div class="container">
             <div class="row">
-                @foreach (var address in Model.AddressPaginatedResponse.Data)
 
-                {
-                    <div class="col-12 address py-2">
-                        <div class="row">
-                            <div class="col-12 col-sm-10">
-                                <div class="title">@address.FullAddress</div>
-                                <div class="sub-title">@address.CityName - @address.ProvinceName</div>
-                                <div class="sub-title">@address.PostalCode</div>
-                                <div class="sub-title">@address.TransfereeName</div>
-                                <div class="sub-title">@address.TransfereePhone</div>
-                            </div>
-                            <div class="col-12 col-sm-2 text-lg-end">
-                                <a href="#" onclick="return confirm('آیا جهت حذف این آدرس اطمینان دارید؟')" class="float-right float-sm-left pr-2 pl-sm-2">
-                                    <i class="fa fa-trash-alt font-weight-normal"></i>
-                                </a>
-                                <a href="#" class="float-right float-sm-left">
-                                    <i class="fa fa-edit font-weight-normal"></i>
-                                </a>
-                              
-                                <a  class="float-right float-sm-left ml-2" title="آدرس پیش فرض" data-default-address data-id="@address.Id" >
-                                     <i style="color: #fcb941"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                }
-
+                <div id="addressss">
+                    @await Component.InvokeAsync(typeof(AddressesViewComponent), arguments: new { userId = Model.UserId })
+                </div> 
 
             </div>
         </div>

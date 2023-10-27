@@ -24,8 +24,7 @@ namespace Website.Pages.UserInfo;
 
 [Authorize]
 public class Address : PageModel
-{
-    private readonly ReadMultipleAddresses _readMultipleAddresses;
+{ 
     private readonly AddNormalAddress _addNormalAddress; 
     
     private readonly ReadMultipleProvinces _readMultipleProvinces;
@@ -36,22 +35,20 @@ public class Address : PageModel
     public PaginatedResponse<ReadMultipleProvincesResponse> ProvincePaginatedResponse { get; set; }
  
     [BindProperty] public AddNormalAddressRequest AddNormalAddressRequest { get; set; } = new();
-
+    
     public string UserId { get; set; }
 
     public int DefaultAddressID { get; set; }
       
     
-    public Address(
-        ReadMultipleAddresses readMultipleAddresses,
+    public Address( 
         AddNormalAddress addNormalAddress,
         ReadMultipleCities readMultipleCities,
         ReadMultipleProvinces readMultipleProvinces,
         ReadDefaultAddress readDefaultAddress,
         CreateDefaultAddress createDefaultAddress
         )
-    {
-        _readMultipleAddresses = readMultipleAddresses;
+    { 
         _addNormalAddress = addNormalAddress; 
         _readMultipleProvinces = readMultipleProvinces;
         _readDefaultAddress = readDefaultAddress;
@@ -60,13 +57,14 @@ public class Address : PageModel
 
     public void OnGet()
     {
+        LoadPageData();
+    }
+
+    private void LoadPageData()
+    {
         UserId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
-        AddressPaginatedResponse = _readMultipleAddresses.Execute(new ReadMultipleAddressRequest()
-        {
-            UserId = UserId
-        });
-        
-        var response = _readDefaultAddress.Execute(new ReadDefaultAddressRequest(){ApplicationUserId = UserId});
+       
+        var response = _readDefaultAddress.Execute(new ReadDefaultAddressRequest() { ApplicationUserId = UserId });
         if (response.Data != null)
             DefaultAddressID = response.Data.DefaultAddressId;
 
@@ -74,18 +72,11 @@ public class Address : PageModel
         ProvincePaginatedResponse = _readMultipleProvinces.Execute(new ReadMultipleProvincesRequest());
     }
 
-    public void OnPost()
+    public IActionResult OnPost()
     {
         _addNormalAddress.Execute(AddNormalAddressRequest);
-        
-        UserId =  this.GetUserId();
-        AddressPaginatedResponse = _readMultipleAddresses.Execute(new ReadMultipleAddressRequest()
-        {
-            UserId = UserId
-        });
-
-
-        ProvincePaginatedResponse = _readMultipleProvinces.Execute(new ReadMultipleProvincesRequest());
+        LoadPageData();
+        return ViewComponent(typeof(AddressesViewComponent),new {userId=UserId});
     }
 
 
@@ -99,11 +90,12 @@ public class Address : PageModel
 
     public void OnPostChangeDefaultAddress(int defaultAddressId)
     {
-        if(this.GetUserId()==null) return;
+        if(this.GetUserId()==null) Page();
         _createDefaultAddress.Execute(new CreateDefaultAddressRequest
         {
             ApplicationUserId = this.GetUserId()!,
             DefaultAddressId = defaultAddressId
         });
+        LoadPageData();
     }
 }
