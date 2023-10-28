@@ -52,6 +52,8 @@ builder.Services.AddIdentity<ApplicationUser,IdentityRole>()
     .AddEntityFrameworkStores<SqlServerContext>()
     .AddDefaultTokenProviders();
 
+builder.Services.AddTransient<IDatabaseContext, SqlServerContext>();
+
 
 builder.Services.AddAutoMapper(
     typeof(ProductMapper),
@@ -63,7 +65,6 @@ builder.Services.AddAutoMapper(
     typeof(AddressMapper)
 );
 
-builder.Services.AddTransient<IDatabaseContext, SqlServerContext>();
 
 
 builder.Services.AddTransient<CreateProduct>();

@@ -14,11 +14,15 @@ namespace Application.Utils.Mapper
     {
         public ProductMapper()
         {
-            CreateMap<Color, ColorDto>().ReverseMap();
-            CreateMap<GuaranteeType, GuaranteeTypeDto>().ReverseMap();
+            CreateMap<Color, ReadColorDto>().ReverseMap();
+            CreateMap<GuaranteeType, ReadGuaranteeTypeDto>().ReverseMap();
+            
+            CreateMap<WriteColorDto,Color >().ReverseMap();
+            CreateMap<GuaranteeType, WriteGuaranteeTypeDto>().ReverseMap();
             CreateMap<ImageUrl, ImageUrlDto>().ReverseMap();
 
-            CreateMap<Product, CreateProductRequest>().ReverseMap();
+            CreateMap<CreateProductRequest, Product>()
+                .ReverseMap();
 
             CreateMap<Product, ReadSingleProductRequest>().ReverseMap();
             CreateMap<Product, ReadSingleProductResponse>().ForMember(

@@ -1,9 +1,12 @@
 ﻿namespace Application.ProductService.Product.Common;
 
-public class ColorDto
+public class ReadColorDto
 {   
-    public int ColorId { get; set; }
     public string Name { get; set; }
+}
+public class WriteColorDto
+{   
+    public int Id { get; set; }
 }
 
 

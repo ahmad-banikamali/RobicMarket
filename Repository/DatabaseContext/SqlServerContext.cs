@@ -22,6 +22,11 @@ namespace Repository.DatabaseContext
             
         }
 
+        public void UnChangedState(object o)
+        {
+            Entry(o).State = EntityState.Unchanged;
+        }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -33,32 +38,13 @@ namespace Repository.DatabaseContext
             base.OnConfiguring(optionsBuilder);
         }
         
-        public EntityEntry<Product> ProductEntityEntry(Product product) => Entry(product);
-        public EntityEntry<Comment> CommentEntityEntry(Comment comment) => Entry(comment);
+      
         
-        public DbSet<BasketItem> BasketItems { get; set; }
-        
-        public DbSet<Basket> Baskets { get; set; } 
-        public DbSet<Product> Products { get; set; }
-        public DbSet<Comment> Comments { get; set; }
-         
-        public DbSet<ProductDetailItem> ProductDetailItems { get; set; }  
-        public DbSet<MinorKey> MinorKeys { get; set; }
-        public DbSet<MajorKey> MajorKeys { get; set; }
-        
-        public DbSet<Color> Colors { get; set; }
-        
-        public DbSet<GuaranteeType> GuaranteeTypes { get; set; }
-        
-        public DbSet<ImageUrl> ImageUrls { get; set; }
-        public DbSet<City> City { get; set; } 
-        public DbSet<Order> Order { get; set; } 
-        public DbSet<Province> Province { get; set; } 
-        public DbSet<Address> Address { get; set; } 
-         
+      
         protected override void OnModelCreating(ModelBuilder builder)
-        { 
-
+        {
+ 
+            
             foreach (var entityType in builder.Model.GetEntityTypes())
             { 
                     builder.Entity(entityType.Name).Property<DateTime>("InsertTime").HasDefaultValue(DateTime.Now);
@@ -78,9 +64,7 @@ namespace Repository.DatabaseContext
                     .IsRequired(false)
                     .OnDelete(DeleteBehavior.Restrict);
             });
-
-            builder.Entity<MajorKey>().ToTable("MajorKeys");
-            builder.Entity<MinorKey>().ToTable("MinorKeys");
+ 
 
             builder.Entity<Address>()
                 .HasOne<ApplicationUser>()
@@ -91,6 +75,8 @@ namespace Repository.DatabaseContext
             builder.Entity<ApplicationUser>().HasOne(b => b.Order)
                 .WithOne()
                 .IsRequired(false);
+
+            builder.Entity<Product>().HasMany(x => x.Colors).WithMany(x => x.Products);
             
             base.OnModelCreating(builder);
         }
@@ -108,11 +94,7 @@ namespace Repository.DatabaseContext
 
                 if (entityType == null)
                     continue;
-
-                var inserted = entityType.FindProperty("InsertTime");
-                var updated = entityType.FindProperty("UpdateTime");
-                var RemoveTime = entityType.FindProperty("RemoveTime");
-                var IsRemoved = entityType.FindProperty("IsRemoved");
+ 
                 if (item.State == EntityState.Added  )
                 {
                     item.Property("InsertTime").CurrentValue = DateTime.Now;

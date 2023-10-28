@@ -3,6 +3,7 @@ using AutoMapper;
 using Common;
 using Common.BaseDto;
 using Common.CQRS;
+using Domain;
 
 namespace Application.ProductService.Product.Command.Create
 {
@@ -15,7 +16,14 @@ namespace Application.ProductService.Product.Command.Create
 
         public override Response Execute(CreateProductRequest request)
         {
-            DbSet.Add(Mapper.Map<Domain.Product>(request));
+            var product = Mapper.Map<Domain.Product>(request);
+            
+            foreach (var productColor in product.Colors)
+            {
+                UnChangedState(productColor);
+            }
+            
+            DbSet.Add(product);
             SaveChanges();
             return new Response();
         }

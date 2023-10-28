@@ -1,11 +1,14 @@
 using Application.AddressService.City.Command;
 using Application.AddressService.City.Query;
-using Application.AddressService.DefaultAddress.Command.Create.Dto;
+using Application.AddressService.DefaultAddress.Command.Create;
 using Application.AddressService.DefaultAddress.Query.Read;
 using Application.AddressService.NormalAddress.Command;
 using Application.AddressService.NormalAddress.Query.ReadMultiple;
 using Application.AddressService.Province.Command;
 using Application.AddressService.Province.Query;
+using Application.BasketService.Command.Create.Basket;
+using Application.BasketService.Command.Create.BasketItem;
+using Application.BasketService.Query.Basket.Read;
 using Application.CommentService.Command.Create.AnswerComment;
 using Application.CommentService.Command.Create.ParentComment;
 using Application.CommentService.Query.ReadMultipleComments;
@@ -52,6 +55,7 @@ builder.Services.AddIdentity<ApplicationUser,IdentityRole>()
     .AddEntityFrameworkStores<SqlServerContext>()
     .AddDefaultTokenProviders();
 
+builder.Services.AddTransient<IDatabaseContext, SqlServerContext>();
 
 builder.Services.AddAutoMapper(
     typeof(ProductMapper),
@@ -63,9 +67,7 @@ builder.Services.AddAutoMapper(
     typeof(AddressMapper)
 );
 
-builder.Services.AddTransient<IDatabaseContext, SqlServerContext>();
 
-builder.Services.AddTransient<CreateProduct>();
 builder.Services.AddTransient<ReadSingleProduct>();
 builder.Services.AddTransient<ReadMultipleProducts>();
 builder.Services.AddTransient<UpdateProduct>();
@@ -88,10 +90,9 @@ builder.Services.AddTransient<ReadSingleMinorKey>();
 builder.Services.AddTransient<ReadMultipleMinorKeys>();
 
 builder.Services.AddTransient<CreateColor>();
-
+builder.Services.AddTransient<CreateProduct>();
 
 builder.Services.AddTransient<ReadMultipleUsers>();
-
 
 builder.Services.AddTransient<AddCity>();
 builder.Services.AddTransient<ReadMultipleCities>();
@@ -99,8 +100,12 @@ builder.Services.AddTransient<AddProvince>();
 builder.Services.AddTransient<ReadMultipleProvinces>();
 builder.Services.AddTransient<AddNormalAddress>();
 builder.Services.AddTransient<ReadMultipleAddresses>();
-builder.Services.AddTransient<CreateDefaultAddressRequest>();
+builder.Services.AddTransient<CreateDefaultAddress>();
 builder.Services.AddTransient<ReadDefaultAddress>(); 
+
+builder.Services.AddTransient<ReadBasket>();
+builder.Services.AddTransient<AddBasketToBuyer>();
+builder.Services.AddTransient<AddBasketItemToBasket>();
 
 
 var app = builder.Build();

@@ -2,7 +2,7 @@
 
 public class AddBasketItemToBasketRequest
 {
-    public string BuyerId { get; set; }
+    public int BasketId { get; set; }
     public int ProductId { get; set; } 
     
     public int Price { get; set; }

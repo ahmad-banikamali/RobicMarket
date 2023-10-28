@@ -112,7 +112,7 @@
         
         
         $(document).on("click","a[data-default-address]",function() { 
-                let clickedAddressId = $(this).attr("data-id")
+                         let clickedAddressId = $(this).attr("data-id")
                          ajaxRequest(
                            "@Url.Page("Address", "changeDefaultAddress")",
                             {defaultAddressId:parseInt(clickedAddressId)},

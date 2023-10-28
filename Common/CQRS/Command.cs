@@ -1,27 +1,28 @@
 ﻿using AutoMapper;
 using Common.BaseDto;
+using Common.CQRS.Request;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Common.CQRS
 {
-    public abstract class Command<TEntity, TReq> where TEntity : class
+    public abstract class Command<TEntity, TRequest> : BaseRequest<TRequest, Response> where TEntity : class
     {
-        private readonly IDatabaseContext _databaseContext;
-        protected readonly IMapper Mapper;
         protected readonly DbSet<TEntity> DbSet;
 
-        protected Command(IDatabaseContext databaseContext, IMapper mapper)
+        protected Command(IDatabaseContext databaseContext, IMapper mapper) : base(databaseContext, mapper)
         {
-            _databaseContext = databaseContext;
-            Mapper = mapper;
             DbSet = databaseContext.Set<TEntity>();
         }
 
-        public abstract Response Execute(TReq request);
-
         protected void SaveChanges()
         {
-            _databaseContext.SaveChanges();
+            DatabaseContext.SaveChanges();
+        }
+
+        protected void UnChangedState(object t)
+        {
+            DatabaseContext.UnChangedState(t);
         }
     }
 }

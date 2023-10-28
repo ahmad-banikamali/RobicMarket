@@ -482,6 +482,35 @@
 
     <script src="~/assets/js/scripts.js"></script>
     <!-- /Scripts -->
+    
+    @*
+    ajax for add item to basket 
+    <script type="text/javascript">
+        $(document).on("click","",function() {
+          
+            $.ajax(
+                 { 
+                       url: link,
+                       type:"post",
+                       data : "@Url.Page("ReadSingleProductModel","AddItemToBasket")",
+                       dataType: "text",
+                       success: function() {
+                         alert("added")
+                       }, 
+                       error: function(data){
+                           alert("error")
+                           console.log(data)
+                       },
+                       headers:
+                       {
+                           RequestVerificationToken:
+                            $('input:hidden[name="__RequestVerificationToken"]').val()
+                       },   
+                 }
+                 )
+             })
+    
+    </script>*@
 }
 
 @section Stylesheets {

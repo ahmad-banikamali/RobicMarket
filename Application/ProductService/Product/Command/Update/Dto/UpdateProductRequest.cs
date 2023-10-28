@@ -14,9 +14,9 @@ public class UpdateProductRequest
     public byte StarCount { get; set; }  
 
     public int Price { get; set; }
-    public ICollection<ColorDto> Colors { get; set; } = new List<ColorDto>();
+    public ICollection<WriteColorDto> Colors { get; set; } = new List<WriteColorDto>();
 
-    public ICollection<GuaranteeTypeDto> GuaranteeTypes { get; set; } = new List<GuaranteeTypeDto>();
+    public ICollection<WriteGuaranteeTypeDto> GuaranteeTypes { get; set; } = new List<WriteGuaranteeTypeDto>();
 
     public int Inventory { get; set; }
     public string Review { get; set; }

@@ -24,7 +24,7 @@ public class ReadBasket : PageModel
     {
         var readBasketResponse = _readBasket.Execute(new ReadBasketRequest
         {
-            BuyerId = this.GetBuyerId(_userManager)
+            BuyerId = this.GetBuyerId()
         }).Data;
         
         if (readBasketResponse != null)

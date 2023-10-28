@@ -7,7 +7,7 @@ namespace Website.Utils;
 
 public static class UserId
 {
-    public static string GetBuyerId(this PageModel pageModel, UserManager<ApplicationUser> userManager)
+    public static string GetBuyerId(this PageModel pageModel)
     {
         string buyerId;
         var user = pageModel.User;
@@ -15,7 +15,7 @@ public static class UserId
         //if (user.Identity != null && user.Identity.IsAuthenticated)
             if (user.Identity is { IsAuthenticated: true })
             {
-                buyerId = userManager.GetUserId(user)??"";
+                buyerId = pageModel.User.FindFirstValue(ClaimTypes.NameIdentifier)??"";
             }
             else
             {
