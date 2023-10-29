@@ -69,13 +69,13 @@
                                                 <div class="col-12 col-md-9 pl-0" id="address-detail">
                                                     <div class="p-3 ml-3 mb-2 mb-md-0 ml-md-0 address-to-send">
                                                         <div class="address-title">
-                                                            <span id="province-title">فارس</span>،
-                                                            <span id="city-title">شیراز</span>،
-                                                            <span id="address">بلوار آزادگان، کارخانه نوآوری شیراز</span>،
+                                                            <span id="province-title">@Model.DefaultAddress.ProvinceName</span>،
+                                                            <span id="city-title">@Model.DefaultAddress.CityName</span>،
+                                                            <span id="address">@Model.DefaultAddress.FullAddress</span>،
                                                         </div>
                                                         <div class="row">
-                                                            <div class="col-12 col-md-4">کدپستی: 1234567890</div>
-                                                            <div class="col-12 col-md-8">تحویل گیرنده: مصطفی | 09351234567</div>
+                                                            <div class="col-12 col-md-4">@Model.DefaultAddress.PostalCode</div>
+                                                            <div class="col-12 col-md-8">تحویل گیرنده: @Model.DefaultAddress.TransfereeName | @Model.DefaultAddress.TransfereePhone</div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -116,19 +116,24 @@
                                                     </a>
                                                 </span>
                                                 <!-- /Order Product Record -->
-                                                <!-- Order Product Record -->
-                                                <span class="col-6 col-sm-4 col-lg-3 px-0">
-                                                    <a href="./product.html" target="_blank">
-                                                        <div class="product-box">
-                                                            <div class="image" style="background-image: url(assets/images/products/p200.png)"></div>
-                                                            <div class="text-center px-1 px-sm-3">
-                                                                <a href="./product.html" target="_blank"><h2>لپ تاپ 15 اینچی ایسوس مدل VivoBook X543MA-DM905</h2></a>
-                                                                <div class="number">تعداد: 2 عدد</div>
+                                                
+                                                @foreach (var basketItem in Model.BasketItems)
+                                                {
+                                                    <!-- Order Product Record -->
+                                                    <span class="col-6 col-sm-4 col-lg-3 px-0">
+                                                        <a href="./product.html" target="_blank">
+                                                            <div class="product-box">
+                                                                <div class="image" style="background-image: url(@basketItem.Image)"></div>
+                                                                <div class="text-center px-1 px-sm-3">
+                                                                    <a href="./product.html" target="_blank"><h2>@basketItem.Name</h2></a>
+                                                                    <div class="number">تعداد: @basketItem.Count عدد</div>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    </a>
-                                                </span>
-                                                <!-- /Order Product Record -->
+                                                        </a>
+                                                    </span>
+                                                    <!-- /Order Product Record -->
+                                                }
+                                                
                                             </div>
                                         </div>
                                     </div>
