@@ -26,6 +26,7 @@ using Application.ProductService.ProductDetailKey.Minor.Command.Create;
 using Application.ProductService.ProductDetailKey.Minor.Command.Update;
 using Application.ProductService.ProductDetailKey.Minor.Query.ReadMultiple;
 using Application.ProductService.ProductDetailKey.Minor.Query.ReadSingle;
+using Application.ProductService.ProductGuarantee.Command;
 using Application.UserService.Query.ReadMultiple;
 using Application.Utils.Identity;
 using Application.Utils.Mapper;
@@ -106,6 +107,8 @@ builder.Services.AddTransient<ReadDefaultAddress>();
 builder.Services.AddTransient<ReadBasket>();
 builder.Services.AddTransient<AddBasketToBuyer>();
 builder.Services.AddTransient<AddBasketItemToBasket>();
+
+builder.Services.AddTransient<CreateProductGuarantee>();
 
 
 var app = builder.Build();

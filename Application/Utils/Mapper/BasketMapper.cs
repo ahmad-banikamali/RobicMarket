@@ -1,5 +1,5 @@
 ﻿using Application.BasketService.Command.Create.Basket.Dto;
-using Application.BasketService.Command.Dto;
+using Application.BasketService.Command.Create.BasketItem.Dto;
 using Application.BasketService.Query.Basket.Read.Dto;
 using AutoMapper;
 using Domain;

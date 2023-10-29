@@ -1,4 +1,4 @@
-﻿namespace Application.BasketService.Command.Dto;
+﻿namespace Application.BasketService.Command.Create.BasketItem.Dto;
 
 public class AddBasketItemToBasketRequest
 {

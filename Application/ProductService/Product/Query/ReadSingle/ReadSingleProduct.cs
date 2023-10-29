@@ -16,6 +16,9 @@ namespace Application.ProductService.Product.Query.ReadSingle
         public override Response<ReadSingleProductResponse> Execute(ReadSingleProductRequest request)
         {
             var product = DbSet
+                .Include(x=>x.ImageUrls)
+                .Include(x=>x.Colors)
+                .Include(x=>x.GuaranteeTypes)
                 .Include(x => x.Comments)
                 .ThenInclude(x=>x.AnswerComments)
                 .ThenInclude(x=>x.ApplicationUser)

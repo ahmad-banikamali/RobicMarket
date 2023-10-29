@@ -23,6 +23,13 @@ namespace Application.ProductService.Product.Command.Create
                 UnChangedState(productColor);
             }
             
+            foreach (var productGuaranteeType in product.GuaranteeTypes)
+            {
+                UnChangedState(productGuaranteeType);
+            }
+            
+   
+            
             DbSet.Add(product);
             SaveChanges();
             return new Response();

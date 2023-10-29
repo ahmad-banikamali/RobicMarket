@@ -5,6 +5,8 @@ using Application.ProductService.Product.Common;
 using Application.ProductService.Product.Query.ReadMultiple.Dto;
 using Application.ProductService.Product.Query.ReadSingle.Dto;
 using Application.ProductService.ProductColor.Command.Dto;
+using Application.ProductService.ProductGuarantee.Command;
+using Application.ProductService.ProductGuarantee.Command.Dto;
 using AutoMapper;
 using Domain;
 
@@ -42,6 +44,7 @@ namespace Application.Utils.Mapper
 
             
             CreateMap<CreateColorRequest, Color>().ReverseMap();
+            CreateMap<CreateProductGuaranteeRequest,GuaranteeType>().ReverseMap();
         }
     }
 }

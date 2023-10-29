@@ -10,35 +10,15 @@ namespace Repository.DatabaseContext
     public class SqlServerContext: IdentityDbContext<ApplicationUser>, IDatabaseContext
     {
       
-        
-        
         public SqlServerContext(DbContextOptions<SqlServerContext> options):base(options)
         {
            
-        }
-
-        public SqlServerContext()
-        {
-            
         }
 
         public void UnChangedState(object o)
         {
             Entry(o).State = EntityState.Unchanged;
         }
-
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if(!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer("Server=.;Database=robicmarket;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True");
-
-            }
-            base.OnConfiguring(optionsBuilder);
-        }
-        
-      
         
       
         protected override void OnModelCreating(ModelBuilder builder)
@@ -52,8 +32,13 @@ namespace Repository.DatabaseContext
                     builder.Entity(entityType.Name).Property<DateTime?>("RemoveTime");
                     builder.Entity(entityType.Name).Property<bool>("IsRemoved").HasDefaultValue(false); 
             }
-            builder.Entity<Product>()
-                .HasQueryFilter(m => EF.Property<bool>(m, "IsRemoved") == false);  
+
+            builder.Entity<Product>(entity =>
+            {
+                entity.HasQueryFilter(m => EF.Property<bool>(m, "IsRemoved") == false);
+                entity.HasMany(x => x.Colors).WithMany(x => x.Products);
+                entity.HasMany(x => x.GuaranteeTypes).WithMany(x => x.Products);
+            });
              
             builder.Entity<Comment>(entity =>
             {
@@ -75,8 +60,7 @@ namespace Repository.DatabaseContext
             builder.Entity<ApplicationUser>().HasOne(b => b.Order)
                 .WithOne()
                 .IsRequired(false);
-
-            builder.Entity<Product>().HasMany(x => x.Colors).WithMany(x => x.Products);
+ 
             
             base.OnModelCreating(builder);
         }

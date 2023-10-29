@@ -10,6 +10,8 @@ using Application.ProductService.Product.Query.ReadSingle;
 using Application.ProductService.Product.Query.ReadSingle.Dto;
 using Application.ProductService.ProductColor.Command;
 using Application.ProductService.ProductColor.Command.Dto;
+using Application.ProductService.ProductGuarantee.Command;
+using Application.ProductService.ProductGuarantee.Command.Dto;
 using Common.BaseDto;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,6 +27,7 @@ namespace Api.Controllers
         private readonly UpdateProduct _updateProduct;
         private readonly DeleteProduct _deleteProduct;
         private readonly CreateColor _createColor;
+        private readonly CreateProductGuarantee _createProductGuarantee;
 
         public ProductController(
             CreateProduct createProduct,
@@ -32,7 +35,8 @@ namespace Api.Controllers
             ReadMultipleProducts readMultipleProducts,
             UpdateProduct updateProduct,
             DeleteProduct deleteProduct,
-            CreateColor createColor
+            CreateColor createColor,
+            CreateProductGuarantee createProductGuarantee 
             )
         {
             _createProduct = createProduct;
@@ -41,6 +45,7 @@ namespace Api.Controllers
             _updateProduct = updateProduct;
             _deleteProduct = deleteProduct;
             _createColor = createColor;
+            _createProductGuarantee = createProductGuarantee;
         }
 
         // GET: api/Product
@@ -92,6 +97,12 @@ namespace Api.Controllers
         public Response Post(CreateColorRequest request)
         {
             return _createColor.Execute(request);
+        }
+
+        [HttpPost("guarantee")]
+        public Response Post(CreateProductGuaranteeRequest request)
+        {
+            return _createProductGuarantee.Execute(request);
         }
 
     
