@@ -1,4 +1,4 @@
-﻿using Common.BaseDto;
+﻿using Application.Common.BaseDto;
 
 namespace Application.AddressService.Province.Query.ReadMultiple.Dto;
 

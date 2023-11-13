@@ -6,7 +6,7 @@ using Application.AddressService.Province.Command;
 using Application.AddressService.Province.Command.Dto;
 using Application.AddressService.Province.Query;
 using Application.AddressService.Province.Query.ReadMultiple.Dto;
-using Common.BaseDto;
+using Application.Common.BaseDto;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers

@@ -1,4 +1,4 @@
-﻿using Common.BaseDto;
+﻿using Application.Common.BaseDto;
 
 namespace Application.UserService.Query.ReadMultiple.Dto;
 

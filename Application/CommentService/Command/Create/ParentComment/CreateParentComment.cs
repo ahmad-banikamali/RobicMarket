@@ -1,8 +1,8 @@
 ﻿using Application.CommentService.Command.Create.ParentComment.Dto;
+using Application.Common;
+using Application.Common.BaseDto;
+using Application.Common.CQRS;
 using AutoMapper;
-using Common;
-using Common.BaseDto;
-using Common.CQRS;
 using Domain;
 
 namespace Application.CommentService.Command.Create.ParentComment;

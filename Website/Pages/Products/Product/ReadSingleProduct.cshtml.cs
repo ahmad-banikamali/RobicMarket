@@ -4,7 +4,6 @@ using Application.BasketService.Query.Basket.Read;
 using Application.BasketService.Query.Basket.Read.Dto;
 using Application.ProductService.Product.Query.ReadSingle;
 using Application.ProductService.Product.Query.ReadSingle.Dto;
-using Common.BaseDto;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Website.Utils;

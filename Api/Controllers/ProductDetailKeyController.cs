@@ -1,4 +1,5 @@
-﻿using Application.ProductService.ProductDetailKey.Major.Command.Create;
+﻿using Application.Common.BaseDto;
+using Application.ProductService.ProductDetailKey.Major.Command.Create;
 using Application.ProductService.ProductDetailKey.Major.Command.Create.Dto;
 using Application.ProductService.ProductDetailKey.Major.Command.Update;
 using Application.ProductService.ProductDetailKey.Major.Command.Update.Dto; 
@@ -14,7 +15,6 @@ using Application.ProductService.ProductDetailKey.Minor.Query.ReadMultiple;
 using Application.ProductService.ProductDetailKey.Minor.Query.ReadMultiple.Dto;
 using Application.ProductService.ProductDetailKey.Minor.Query.ReadSingle;
 using Application.ProductService.ProductDetailKey.Minor.Query.ReadSingle.Dto;
-using Common.BaseDto;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;

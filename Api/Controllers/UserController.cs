@@ -1,6 +1,6 @@
-﻿using Application.UserService.Query.ReadMultiple;
+﻿using Application.Common.BaseDto;
+using Application.UserService.Query.ReadMultiple;
 using Application.UserService.Query.ReadMultiple.Dto;
-using Common.BaseDto;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;

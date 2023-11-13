@@ -1,3 +1,4 @@
+using Application.Common.BaseDto;
 using Application.ProductService.Product.Command.Create;
 using Application.ProductService.Product.Command.Create.Dto;
 using Application.ProductService.Product.Command.Delete;
@@ -12,7 +13,6 @@ using Application.ProductService.ProductColor.Command;
 using Application.ProductService.ProductColor.Command.Dto;
 using Application.ProductService.ProductGuarantee.Command;
 using Application.ProductService.ProductGuarantee.Command.Dto;
-using Common.BaseDto;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers

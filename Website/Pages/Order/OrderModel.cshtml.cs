@@ -19,7 +19,7 @@ public class OrderModel : PageModel
         _readDefaultAddress = readDefaultAddress;
     }
     
-    public void OnGet()
+    public void OnPost()
     {
         BasketItems = _readBasket.Execute(new ReadBasketRequest
         {

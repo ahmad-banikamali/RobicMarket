@@ -1,9 +1,9 @@
 ﻿using Application.AddressService.DefaultAddress.Query.Read.Dto;
+using Application.Common;
+using Application.Common.BaseDto;
+using Application.Common.CQRS;
 using Application.ProductService.ProductDetailKey.Minor.Query.ReadSingle.Dto;
 using AutoMapper;
-using Common;
-using Common.BaseDto;
-using Common.CQRS;
 using Domain;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

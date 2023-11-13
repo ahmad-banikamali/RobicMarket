@@ -1,8 +1,8 @@
-﻿using Application.AddressService.Province.Query.ReadMultiple.Dto; 
+﻿using Application.AddressService.Province.Query.ReadMultiple.Dto;
+using Application.Common;
+using Application.Common.BaseDto;
+using Application.Common.CQRS;
 using AutoMapper;
-using Common;
-using Common.BaseDto;
-using Common.CQRS;
 
 namespace Application.AddressService.Province.Query;
 

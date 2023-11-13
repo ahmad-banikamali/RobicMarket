@@ -4,7 +4,7 @@ using Application.CommentService.Command.Create.ParentComment;
 using Application.CommentService.Command.Create.ParentComment.Dto;
 using Application.CommentService.Query.ReadMultipleComments;
 using Application.CommentService.Query.ReadMultipleComments.Dto;
-using Common.BaseDto;
+using Application.Common.BaseDto;
 using Domain;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

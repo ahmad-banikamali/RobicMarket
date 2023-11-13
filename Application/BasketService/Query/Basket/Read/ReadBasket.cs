@@ -1,10 +1,10 @@
 ﻿using Application.BasketService.Command.Create.Basket;
 using Application.BasketService.Command.Create.Basket.Dto;
 using Application.BasketService.Query.Basket.Read.Dto;
+using Application.Common;
+using Application.Common.BaseDto;
+using Application.Common.CQRS;
 using AutoMapper;
-using Common;
-using Common.BaseDto;
-using Common.CQRS;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.BasketService.Query.Basket.Read;

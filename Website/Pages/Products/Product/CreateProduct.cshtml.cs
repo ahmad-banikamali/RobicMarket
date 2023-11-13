@@ -1,8 +1,8 @@
+using Application.Common.BaseDto;
 using Application.ProductService.Product.Command.Create;
 using Application.ProductService.Product.Command.Create.Dto;
 using Application.ProductService.ProductDetailKey.Minor.Query.ReadMultiple;
 using Application.ProductService.ProductDetailKey.Minor.Query.ReadMultiple.Dto;
-using Common.BaseDto;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 

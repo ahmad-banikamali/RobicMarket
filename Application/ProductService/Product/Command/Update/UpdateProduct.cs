@@ -1,8 +1,8 @@
-﻿using Application.ProductService.Product.Command.Update.Dto;
+﻿using Application.Common;
+using Application.Common.BaseDto;
+using Application.Common.CQRS;
+using Application.ProductService.Product.Command.Update.Dto;
 using AutoMapper;
-using Common;
-using Common.BaseDto;
-using Common.CQRS;
 
 namespace Application.ProductService.Product.Command.Update;
 

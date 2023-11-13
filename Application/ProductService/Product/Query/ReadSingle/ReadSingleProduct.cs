@@ -1,8 +1,8 @@
-﻿using Application.ProductService.Product.Query.ReadSingle.Dto;
+﻿using Application.Common;
+using Application.Common.BaseDto;
+using Application.Common.CQRS;
+using Application.ProductService.Product.Query.ReadSingle.Dto;
 using AutoMapper;
-using Common;
-using Common.BaseDto;
-using Common.CQRS;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.ProductService.Product.Query.ReadSingle

@@ -1,10 +1,10 @@
 ﻿using Application.AddressService.DefaultAddress.Command.Create;
 using Application.AddressService.DefaultAddress.Command.Create.Dto;
 using Application.AddressService.NormalAddress.Command.Dto;
+using Application.Common;
+using Application.Common.BaseDto;
+using Application.Common.CQRS;
 using AutoMapper;
-using Common;
-using Common.BaseDto;
-using Common.CQRS;
 using Domain;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

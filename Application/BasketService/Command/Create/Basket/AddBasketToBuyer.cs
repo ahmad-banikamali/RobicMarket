@@ -1,8 +1,8 @@
 ﻿using Application.BasketService.Command.Create.Basket.Dto;
+using Application.Common;
+using Application.Common.BaseDto;
+using Application.Common.CQRS;
 using AutoMapper;
-using Common;
-using Common.BaseDto;
-using Common.CQRS;
 
 namespace Application.BasketService.Command.Create.Basket;
 

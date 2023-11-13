@@ -1,10 +1,9 @@
-﻿using Application.ProductService.Product.Query.ReadMultiple.Dto;
+﻿using Application.Common;
+using Application.Common.BaseDto;
+using Application.Common.CQRS;
+using Application.ProductService.Product.Query.ReadMultiple.Dto;
 using AutoMapper;
-using Common;
-using Common.BaseDto;
-using Common.CQRS;
-using Common.Extension;
-
+ 
 namespace Application.ProductService.Product.Query.ReadMultiple;
 
 public class

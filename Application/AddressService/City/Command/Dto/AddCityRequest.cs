@@ -2,6 +2,6 @@
 
 public class AddCityRequest
 {
-    public int ProvinceId { get; set; }
-    public string Name { get; set; }
+    public virtual int ProvinceId { get; set; }
+    public virtual string Name { get; set; }
 }

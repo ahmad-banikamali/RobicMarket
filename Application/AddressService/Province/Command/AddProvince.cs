@@ -1,8 +1,8 @@
 ﻿using Application.AddressService.Province.Command.Dto;
+using Application.Common;
+using Application.Common.BaseDto;
+using Application.Common.CQRS;
 using AutoMapper;
-using Common;
-using Common.BaseDto;
-using Common.CQRS;
 
 namespace Application.AddressService.Province.Command;
 
@@ -14,7 +14,8 @@ public class AddProvince : Command<Domain.Province, AddProvinceRequest>
 
     public override Response Execute(AddProvinceRequest request)
     {
-        DbSet.Add(Mapper.Map<Domain.Province>(request));
+        var province = Mapper.Map<Domain.Province>(request);
+        DbSet.Add(province);
         SaveChanges();
         return new Response();
     }

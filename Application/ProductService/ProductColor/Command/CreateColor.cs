@@ -1,9 +1,9 @@
 ﻿using System.Drawing;
+using Application.Common;
+using Application.Common.BaseDto;
+using Application.Common.CQRS;
 using Application.ProductService.ProductColor.Command.Dto;
 using AutoMapper;
-using Common;
-using Common.BaseDto;
-using Common.CQRS;
 
 namespace Application.ProductService.ProductColor.Command;
 

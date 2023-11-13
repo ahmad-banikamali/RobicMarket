@@ -1,0 +1,67 @@
+﻿@page "/City"
+@using Application.AddressService.City.Query
+@using Application.AddressService.City.Query.ReadMultiple.Dto
+@using Application.AddressService.Province.Query
+@using Application.AddressService.Province.Query.ReadMultiple.Dto
+@using Application.AddressService.City.Command
+@using Application.AddressService.City.Command.Dto
+@inject ReadMultipleCities ReadMultipleCities
+@inject ReadMultipleProvinces ReadMultipleProvinces
+@inject AddCity AddCity
+@inject NavigationManager NavigationManager
+
+<h3>City</h3>
+
+
+
+
+
+<select @bind="_addCityRequest.ProvinceId">
+    @foreach (var p in _provincesResponses)
+    {
+        <option value="@p.Id">@p.Name</option>
+    }
+</select>
+
+<input @bind="_addCityRequest.Name"/>
+
+<button @onclick="OnAddCityClick"> add new city</button>
+
+@foreach (var city in _citiesResponses)
+{
+    <h1>@city.Name</h1>
+}
+
+
+
+@code {
+    private IEnumerable<ReadMultipleCitiesResponse> _citiesResponses;
+    private IEnumerable<ReadMultipleProvincesResponse> _provincesResponses;
+    private AddCityRequest _addCityRequest = new AddCityRequest();
+
+    protected override Task OnInitializedAsync()
+    {
+        var paginatedResponse = ReadMultipleCities.Execute(request: new ReadMultipleCitiesRequest { PageNumber = 0, PageSize = 0, ProvinceId = 1 });
+        _citiesResponses = paginatedResponse.Data;
+
+        _provincesResponses = ReadMultipleProvinces.Execute(new ReadMultipleProvincesRequest { PageNumber = 0, PageSize = 0 }).Data;
+        return base.OnInitializedAsync();
+    }
+
+    private void OnAddCityClick()
+    {
+        if(_addCityRequest.ProvinceId==0)
+            return;
+        AddCity.Execute(_addCityRequest); 
+        
+        ReloadDate();
+    }
+
+    private void ReloadDate()
+    {
+        var paginatedResponse = ReadMultipleCities.Execute(request: new ReadMultipleCitiesRequest
+        { PageNumber = 0, PageSize = 0, ProvinceId = 1 });
+        _citiesResponses = paginatedResponse.Data;
+    }
+
+}

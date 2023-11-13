@@ -1,8 +1,8 @@
-﻿using Application.ProductService.ProductGuarantee.Command.Dto;
+﻿using Application.Common;
+using Application.Common.BaseDto;
+using Application.Common.CQRS;
+using Application.ProductService.ProductGuarantee.Command.Dto;
 using AutoMapper;
-using Common;
-using Common.BaseDto;
-using Common.CQRS;
 using Domain;
 
 namespace Application.ProductService.ProductGuarantee.Command;

@@ -1,5 +1,5 @@
-﻿using Application.Utils.Identity.Dto;
-using Common.Extension;
+﻿using Application.Common;
+using Application.Utils.Identity.Dto;
 using Domain;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
